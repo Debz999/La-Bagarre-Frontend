@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Article = require('../models/articles');
+// const Article = require('../models/articles');
 
 function ArticlePage() {
 
@@ -11,7 +11,7 @@ function ArticlePage() {
       <div>
         <h4>The New-Yorker</h4>
         <p>Description</p>
-        <Button placeHolder="add to Cart"></Button>
+        {/* <Button placeHolder="add to Cart"></Button> */}
       </div>
     );
    }
