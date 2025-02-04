@@ -1,0 +1,39 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 4rem 0;
+  }
+  
+  .title {
+    line-height: 1.15;
+    font-size: 4rem;
+  }
+
+  .header {
+    border-bottom: 2px #6F387C solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .headerIcons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 12vw;
+  }
+
+.buttons{
+  position: absolute;
+  width: 344px;
+  height: 56px;
+  left: 80px;
+  top: 768px;
+}
+
+
+
