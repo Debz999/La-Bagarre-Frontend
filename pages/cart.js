@@ -1,4 +1,3 @@
-import CartItem from '../components/CartItem';
 import Cart from '../components/Cart'
 
 function CartPage() {
