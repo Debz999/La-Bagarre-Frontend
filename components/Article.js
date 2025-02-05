@@ -84,12 +84,12 @@ const articles = allArticlesData.map((data, i) => {
   
 
   const auClick0 = () => {
-    
+
   }
 
   return (
 
-    <div key={i} className={styles.article} onClick={() => auClick0()}>
+    <div key={i} className={styles.article}>
 
       {/* <p>{data.categorie}</p> */}
       {/* <p>{data.type}</p> */}
@@ -100,6 +100,7 @@ const articles = allArticlesData.map((data, i) => {
       {/* <p>{jeSaisPas2}</p> */}
       {/* <p>{jeSaisPas3}</p> */}
       <Link href="/article2">
+      {/* <Link href={`/article/${data._id}`}> */}
         <div>
           <div className={styles.cardPhotoContainer}>
             {jeSaisPas4}
