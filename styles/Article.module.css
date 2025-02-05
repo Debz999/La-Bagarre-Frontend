@@ -1,0 +1,11 @@
+.article {
+	width: 20%;
+	height: 20%;
+	margin: 10px;
+    border: solid;
+}
+
+.articlesContainer {
+    border: solid;
+    display: flex;
+}
