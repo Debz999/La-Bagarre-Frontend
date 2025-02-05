@@ -7,6 +7,7 @@ import styles from "../styles/Article.module.css";
 import Image from "next/image";
 
 
+import Link from 'next/link';
 
 
 //Il y'aura une page article mais cett page article vient d'une autre page qui contient les articles
@@ -18,6 +19,9 @@ import Image from "next/image";
 //Il faudrait plutot afficher seulement photoUrl et le nom du produit pour en faire une card
 
 //Je crois qu'il faut aussi une clé étrangere ou qqchose comme ca pour acceder aux avis du produit
+
+//Au click sur la card, afficher la page associée (ptete utiliser this jme souvient plus cmt ca marche)
+
 
 function ArticlePage() {
   const [allArticlesData, setAllArticlesData] = useState([]);
@@ -95,13 +99,18 @@ const articles = allArticlesData.map((data, i) => {
       {/* <p>{jeSaisPas1}</p> */}
       {/* <p>{jeSaisPas2}</p> */}
       {/* <p>{jeSaisPas3}</p> */}
-      <div className={styles.cardPhotoContainer}>
-        {jeSaisPas4}
-      </div>
-      <div className={styles.modelPriceContainer}>
-        <p>{data.model}</p>
-        <p>{data.price}</p>
-      </div>
+      <Link href="/article2">
+        <div>
+          <div className={styles.cardPhotoContainer}>
+            {jeSaisPas4}
+          </div>
+          <div className={styles.modelPriceContainer}>
+            <p>{data.model}</p>
+            <p>{data.price}</p>
+          </div>
+        </div>
+      </Link>
+ 
 
       
     </div>

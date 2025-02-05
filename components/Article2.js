@@ -7,31 +7,13 @@ import styles from "../styles/Article.module.css";
 import Image from "next/image";
 
 
+//Pour l'instant cette page m'affiche tout les articles detaillés, 
+//Il me faut seulement l'article cliqué 
+//Peut etre au click sur l'article, recuperer son id et afficher l'article par son id d'ici
 
-
-//Il y'aura une page article mais cett page article vient d'une autre page qui contient les articles
-//C'est quelle page qui contient les articles
-//On navigue depuis le Home
-//On peut soit cliquer direct sur la card d'un produit, soit naviguer vers une catégorie avant de cliquer sur le produit
-//Pour l'instant ca affiche tout les articles sur la page article
-
-//Il faudrait plutot afficher seulement photoUrl et le nom du produit pour en faire une card
-
-//Je crois qu'il faut aussi une clé étrangere ou qqchose comme ca pour acceder aux avis du produit
 
 function ArticlePage() {
   const [allArticlesData, setAllArticlesData] = useState([]);
-
-// const auClick0 = () => {
-//   fetch(`http://localhost:3000/articles/articles`)
-//   .then((response) => response.json())
-//   .then((data) => {
-//     if (data.result) {
-//       console.log(data)
-//       setAllArticlesData(data)
-//     }
-//   });
-// };
 
 
 useEffect(() => {
