@@ -1,33 +1,41 @@
-import styles from '../styles/Home.module.css';
-import Head from 'next/head';
-import { FontAwesomeicon } from "@fortawesome/react-fontawesome";
+import styles from "../styles/Home.module.css";
+import Head from "next/head";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
 import { faUser, faXmark, faEye } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
+import user from '../reducers/user'
+import Link from "next/link";
+import {useRouter} from 'next/router';
 
 function Home() {
-
- const [isMenuOpen, setIsMenuOpen] = useState(false);
- const menuRef = useRef(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  const user = useSelector((state) => state.user.value);
+  const router= useRouter()
 
   const handleUserClick = () => {
-    if (!isLoggedIn) {
-      <Link href="/user"></Link>
+    if (!user.token) {
+      router.push('/user')
     } else {
-      setIsMenuOpen(!isMenuOpen);
+      
     }
   };
 
-
   return (
     <div>
-      <Head  className={styles.title}>
+      <Head>
         <title>LA BAGARRE</title>
       </Head>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          <FontAwesomeicon icon={faUser} onClick={()=> {handleUserClick}} />
-        </h1>
-      </main>
+
+      <div >
+        <FontAwesomeIcon
+          icon={faUser}
+          onClick={() => {
+            handleUserClick();
+          }}
+        />
+      </div>
     </div>
   );
 }
