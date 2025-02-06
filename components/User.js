@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../reducers/user";
-
+import { useRouter } from "next/router";
 import styles from "../styles/User.module.css";
 
 function User() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
+  const router = useRouter();
 
   const [signUpUsername, setSignUpUsername] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
@@ -28,6 +29,7 @@ function User() {
           dispatch(login({ username: signUpUsername, token: data.token }));
           setSignUpUsername("");
           setSignUpPassword("");
+          router.push('/');
         }
       });
   };
@@ -47,6 +49,7 @@ function User() {
           dispatch(login({ username: signInUsername, token: data.token }));
           setSignInUsername("");
           setSignInPassword("");
+          router.push('/');
         }
       });
   };
