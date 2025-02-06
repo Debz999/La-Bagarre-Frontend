@@ -10,6 +10,7 @@ const store = configureStore({
  });
 
 function App({ Component, pageProps }) {
+  
   return (
     <Provider store={store}>
       <Head>
