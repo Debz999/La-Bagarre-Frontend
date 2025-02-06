@@ -20,33 +20,33 @@ function CartItem(props) {
   };
 
   const articleData = props.items;
-  const articleMap = articleData.map((data, i) => {
-    //console.log(data.article.model); //it works!
-    return (
-      <div key={i} className={styles.cartItem}>
-        <Image src="/img.png" width={200} height={250} />
-        <div className={styles.itemDescription}>
-          <h3>{data.article.type}</h3>
-          <p>{data.article.model}</p>
-          <p>size here</p>
-          <div className={styles.quantityControls}>
-            <button onClick={() => minus()} className={styles.icon}>
-              -
-            </button>
-            <span>{cart.quantity}</span>
-            <button onClick={() => add()} className={styles.icon}>
-              +
-            </button>
-          </div>
-        </div>
-        <button onClick={() => handleDelete()}> X</button>
-      </div>
-    );
-  });
+  // const articleMap = articleData.map((data, i) => {
+  //   //console.log(data.article.model); //it works!
+  //   return (
+  //     <div key={i} className={styles.cartItem}>
+  //       <Image src="/img.png" width={200} height={250} />
+  //       <div className={styles.itemDescription}>
+  //         <h3>{data.article.type}</h3>
+  //         <p>{data.article.model}</p>
+  //         <p>size here</p>
+  //         <div className={styles.quantityControls}>
+  //           <button onClick={() => minus()} className={styles.icon}>
+  //             -
+  //           </button>
+  //           <span>{cart.quantity}</span>
+  //           <button onClick={() => add()} className={styles.icon}>
+  //             +
+  //           </button>
+  //         </div>
+  //       </div>
+  //       <button onClick={() => handleDelete()}> X</button>
+  //     </div>
+  //   );
+  // });
 
   return (
     <div className={styles.card}>
-      {articleMap}
+      {/* {articleMap} */}
     </div>
   );
 }
