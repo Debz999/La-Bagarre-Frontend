@@ -9,6 +9,8 @@ import Image from "next/image";
 
 import Link from 'next/link';
 
+import { useRouter } from 'next/router';
+
 
 //Il y'aura une page article mais cett page article vient d'une autre page qui contient les articles
 //C'est quelle page qui contient les articles
@@ -26,16 +28,7 @@ import Link from 'next/link';
 function ArticlePage() {
   const [allArticlesData, setAllArticlesData] = useState([]);
 
-// const auClick0 = () => {
-//   fetch(`http://localhost:3000/articles/articles`)
-//   .then((response) => response.json())
-//   .then((data) => {
-//     if (data.result) {
-//       console.log(data)
-//       setAllArticlesData(data)
-//     }
-//   });
-// };
+  const router = useRouter();
 
 
 useEffect(() => {
@@ -49,7 +42,9 @@ useEffect(() => {
   });
 }, [])
 
-console.log("le useState =", allArticlesData)
+useEffect(() => {
+  console.log("le useState =", allArticlesData)
+}, [allArticlesData])
 
 
 
@@ -83,10 +78,18 @@ const articles = allArticlesData.map((data, i) => {
   const jeSaisPas4 = <Image src={data.cardPhoto} width={100} height={200} className={styles.cardPhoto}></Image>
   
 
-  const auClick0 = () => {
-
+  // const auClick0 = () => {
+  //   router.push(`/articles/${data._id}`);
+  // }
+  const auClick1 = () => {
+    // fetch(`http://localhost:3000/articles/${data._id}`)
+    // .then((response) => response.json())
+    // .then((data1) => {
+    //   if (data1.result) {
+    //     console.log(data1)
+    //   }
+    // });
   }
-
   return (
 
     <div key={i} className={styles.article}>
@@ -99,9 +102,9 @@ const articles = allArticlesData.map((data, i) => {
       {/* <p>{jeSaisPas1}</p> */}
       {/* <p>{jeSaisPas2}</p> */}
       {/* <p>{jeSaisPas3}</p> */}
-      <Link href="/article2">
+      {/* <Link href="/article2"> */}
       {/* <Link href={`/article/${data._id}`}> */}
-        <div>
+        <div onClick={() => auClick0()}>
           <div className={styles.cardPhotoContainer}>
             {jeSaisPas4}
           </div>
@@ -110,7 +113,7 @@ const articles = allArticlesData.map((data, i) => {
             <p>{data.price}</p>
           </div>
         </div>
-      </Link>
+      {/* </Link> */}
  
 
       
