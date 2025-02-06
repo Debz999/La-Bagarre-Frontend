@@ -52,24 +52,29 @@ const articles = allArticlesData.map((data, i) => {
 
 
   //AFFICHE UNE LISTE DES sizes DISPOS, A METTRE DANS UN MENU DEROULANT
-  const jeSaisPas0 = data.sizes.map((size, index) => (
-    <li key={index}>{size.size0}</li>
+  const jeSaisPas0 = data.sizes9.map((size, index) => (
+    // <li key={index}>{size.size0}</li>
+    <li key={index}>{size}</li>
   ))
+  
 
   //AFFICHE UNE LISTE DES giSizes DISPOS, A METTRE DANS UN MENU DEROULANT
-  const jeSaisPas1 = data.giSizes.map((sizeGi, index) => (
-    <li key={index}>{sizeGi.giSize0}</li>
+  const jeSaisPas1 = data.giSizes9.map((sizeGi, index) => (
+    // <li key={index}>{sizeGi.giSize0}</li>
+    <li key={index}>{sizeGi}</li>
   ))
 
   //AFFICHE UNE LISTE DES colors DISPO, A METTRE DANS UN MENU DEROULANT
-  const jeSaisPas2 = data.colors.map((color, index) => (
-    <li key={index}>{color.colorName0}</li>
+  const jeSaisPas2 = data.colors9.map((color, index) => (
+    // <li key={index}>{color.colorName0}</li>
+    <li key={index}>{color}</li>
   ))
   
 
   //AFFICHE TOUTE LES photos DE L'ARTICLE
-  const jeSaisPas3 = data.photos.map((photo, index) => (
-    <Image key={index} src={photo.photoUrl0} width={100} height={200}></Image>
+  const jeSaisPas3 = data.photos9.map((photo, index) => (
+    // <Image key={index} src={photo.photoUrl0} width={100} height={200}></Image>
+    <Image key={index} src={photo} width={100} height={200}></Image>
   ))
 
 
@@ -90,6 +95,8 @@ const articles = allArticlesData.map((data, i) => {
     //   }
     // });
   }
+
+  
   return (
 
     <div key={i} className={styles.article}>
@@ -103,17 +110,18 @@ const articles = allArticlesData.map((data, i) => {
       {/* <p>{jeSaisPas2}</p> */}
       {/* <p>{jeSaisPas3}</p> */}
       {/* <Link href="/article2"> */}
-      {/* <Link href={`/article/${data._id}`}> */}
-        <div onClick={() => auClick0()}>
-          <div className={styles.cardPhotoContainer}>
-            {jeSaisPas4}
-          </div>
-          <div className={styles.modelPriceContainer}>
-            <p>{data.model}</p>
-            <p>{data.price}</p>
-          </div>
-        </div>
-      {/* </Link> */}
+      <Link href={`/article/${data._id}`}>
+      <div>
+        <div className={styles.cardPhotoContainer}>
+              {jeSaisPas4}
+            </div>
+            <div className={styles.modelPriceContainer}>
+              <p>{data.model}</p>
+              <p>{data.price}</p>
+            </div>
+      </div>
+
+      </Link>
  
 
       

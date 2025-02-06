@@ -1,8 +1,17 @@
+
+
+
+
+
+
 .article {
 	width: 20%;
 	height: 20%;
     border: solid;
+    color: black;
 }
+
+
 
 .article:hover {
     cursor: pointer;  /* Cela change le curseur au survol */
