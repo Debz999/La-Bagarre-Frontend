@@ -1,16 +1,11 @@
 .main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     min-height: 100vh;
     padding: 4rem 0;
+    color : black;
   }
   
-  .barreMenu{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background: #12806A;
-  
-  }
+ 

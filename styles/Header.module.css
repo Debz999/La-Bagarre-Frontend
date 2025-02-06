@@ -1,0 +1,90 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  padding: 4rem 0;
+  color: black;
+}
+
+.barreMenu{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #12806A;
+
+}
+
+.title {
+  line-height: 1.15;
+  font-size: 4rem;
+}
+
+.title a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.title a:hover, .title a:focus, .title a:active {
+  text-decoration: underline;
+}
+
+/* Conteneur du menu */
+.menu {
+  position: absolute;
+  top: 50px; 
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 150px;
+  padding: 10px;
+  z-index: 1000;
+  color : black;
+}
+
+/* Items du menu */
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease-in-out;
+}
+
+.menu li:hover {
+  background: #f0f0f0;
+}
+
+.a{
+  color: #ffff;
+}
+
+.userIcon {
+  font-size: 24px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Animation pour afficher le menu */
+.menu-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.menu-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.linkHome{
+  color: #ffff;
+}
