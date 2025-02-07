@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import styles from "../styles/Article.module.css";
+import styles from "../styles/Article2.module.css";
 
 import Image from "next/image";
 
@@ -36,18 +36,7 @@ function Article2Page() {
     
   }, [])
   }
-// useEffect(() => {
 
-//     fetch(`http://localhost:3000/articles/${id}`)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       if (data.result) {
-//         console.log(data)
-//         setArticleCliqueData(data.articleRécupéré)
-//       }
-//     });
-  
-// }, [])
 
 useEffect(() => {
   console.log("le useState =", articleCliqueData)
@@ -65,6 +54,7 @@ const articles = () => {
   //AFFICHE UNE LISTE DES sizes DISPOS, A METTRE DANS UN MENU DEROULANT
   const jeSaisPas0 = articleCliqueData.sizes9.map((size, index) => (
     <li key={index}>{size}</li>
+    // <option key={index} value={size}>{size}</option>
   ))
   
 
@@ -75,6 +65,7 @@ const articles = () => {
 
   //AFFICHE UNE LISTE DES colors DISPO, A METTRE DANS UN MENU DEROULANT
   const jeSaisPas2 = articleCliqueData.colors9.map((color, index) => (
+    
     <li key={index}>{color}</li>
   ))
   
@@ -96,7 +87,8 @@ const articles = () => {
 
   return (
 
-    <div className={styles.article2} onClick={() => auClick0()}>
+    <div className={styles.articleComplet} onClick={() => auClick0()}>
+      <p>{jeSaisPas3}</p>
       <p>{articleCliqueData.categorie}</p>
       <p>{articleCliqueData.type}</p>
       <p>{articleCliqueData.model}</p>
@@ -104,7 +96,6 @@ const articles = () => {
       <p>{jeSaisPas0}</p>
       <p>{jeSaisPas1}</p>
       <p>{jeSaisPas2}</p>
-      <p>{jeSaisPas3}</p>
       <p>{articleCliqueData.price}</p>
     </div>
 
@@ -115,7 +106,7 @@ const articles = () => {
 
     return (
       <div className={styles.article}>
-        <div className={styles.articlesContainer}>{articles()}</div>
+        <div className={styles.containerDeTout}>{articles()}</div>
       </div>
     );
    }

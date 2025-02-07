@@ -1,5 +1,6 @@
 .containerDeTout {
     border: 20px solid black;
+    color: black;
     display: flex;
     flex-wrap: wrap;
     gap: 3%;

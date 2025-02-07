@@ -62,27 +62,24 @@ const articles = allArticlesData.map((data, i) => {
   const jeSaisPas1 = data.giSizes9.map((sizeGi, index) => (
     // <li key={index}>{sizeGi.giSize0}</li>
     <li key={index}>{sizeGi}</li>
-  ))
+  ));
 
   //AFFICHE UNE LISTE DES colors DISPO, A METTRE DANS UN MENU DEROULANT
   const jeSaisPas2 = data.colors9.map((color, index) => (
     // <li key={index}>{color.colorName0}</li>
     <li key={index}>{color}</li>
-  ))
+  ));
   
 
   //AFFICHE TOUTE LES photos DE L'ARTICLE
   const jeSaisPas3 = data.photos9.map((photo, index) => (
     // <Image key={index} src={photo.photoUrl0} width={100} height={200}></Image>
     <Image key={index} src={photo} width={100} height={200}></Image>
-  ))
+  ));
 
-
-  //AFFICHE SEULEMENT LA PHOTO POUR LA CARD 
-  //LE TRUC SUR QUOI IL FAUDRA CLIQUER POUR ACCEDER A L'ARTICLE
-  const jeSaisPas4 = <Image src={data.cardPhoto} width={100} height={200} className={styles.cardPhoto}></Image>
   
-
+  const jeSaisPas5 = <Image src={data.photos9[0]} width={100} height={200} className={styles.cardPhoto}></Image>;
+  
   // const auClick0 = () => {
   //   router.push(`/articles/${data._id}`);
   // }
@@ -99,43 +96,33 @@ const articles = allArticlesData.map((data, i) => {
   
   return (
 
-    <div key={i} className={styles.article}>
-
-      {/* <p>{data.categorie}</p> */}
-      {/* <p>{data.type}</p> */}
-      {/* <p>{data.model}</p> */}
-      {/* <p>{data.description}</p> */}
-      {/* <p>{jeSaisPas0}</p> */}
-      {/* <p>{jeSaisPas1}</p> */}
-      {/* <p>{jeSaisPas2}</p> */}
-      {/* <p>{jeSaisPas3}</p> */}
-      {/* <Link href="/article2"> */}
+    <div key={i} className={styles.articleLinkContainer}>
       <Link href={`/article/${data._id}`}>
-      <div>
-        <div className={styles.cardPhotoContainer}>
-              {jeSaisPas4}
-            </div>
-            <div className={styles.modelPriceContainer}>
-              <p>{data.model}</p>
-              <p>{data.price}</p>
-            </div>
+
+      <div className={styles.articleComplet}>
+          <div className={styles.cardPhotoContainer}>
+            {jeSaisPas5}
+          </div>
+          <div className={styles.modelPriceContainer}>
+            <p>{data.model}</p>
+            <p>{data.price}</p>
+          </div>
       </div>
 
       </Link>
- 
-
-      
     </div>
 
   )
 });
 
-
+//allArticlesContainer devient articleComplet
+//article devient articleLinkContainer
+//articlesContainer devient containerDeTout
 
     return (
       <div>
         {/* <button onClick={() => auClick0()}> je test </button> */}
-        <div className={styles.articlesContainer}>{articles}</div>
+        <div className={styles.containerDeTout}>{articles}</div>
       </div>
     );
    }
