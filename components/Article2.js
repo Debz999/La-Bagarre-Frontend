@@ -17,29 +17,37 @@ import { useRouter } from 'next/router';
 // function ArticlePage({ id }) {
 function Article2Page() {
   const [articleCliqueData, setArticleCliqueData] = useState(null);
+  const [imageShown, setImageShown] = useState([]);
+  const [imageIndex, setImageIndex] = useState(0); // L'index de l'image affichée actuellement
+  const [selectedSize, setSelectedSize] = ('');
+  const [selectedColor, setSelectedColor] = ('');
+
 
   const router = useRouter();
   const { id } = router.query; // `id` correspond au paramètre dynamique de l'URL
 
 
-  if(id) {
-    useEffect(() => {
 
+    useEffect(() => {
+      if(id) {
       fetch(`http://localhost:3000/articles/${id}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
           console.log(data)
           setArticleCliqueData(data.articleRécupéré)
+          setImageShown(data.articleRécupéré.photos9[0])
         }
       });
-    
-  }, [])
-  }
+      }
+  }, [id])
+  
+
 
 
 useEffect(() => {
   console.log("le useState =", articleCliqueData)
+  // console.log('Image montrée:', imageShown);
 }, [articleCliqueData])
 
 // console.log(articleCliqueData.sizes9)
@@ -48,55 +56,89 @@ const articles = () => {
 
   //WHAH CA A REGLER LE SOUCIS CE TRUC
   if (!articleCliqueData) {
-    return <p>Chargement...</p>; // Tu peux afficher un message de chargement si les données ne sont pas encore disponibles
+    return <p>Chargement...</p>; 
   }
 
-  //AFFICHE UNE LISTE DES sizes DISPOS, A METTRE DANS UN MENU DEROULANT
-  const jeSaisPas0 = articleCliqueData.sizes9.map((size, index) => (
-    <li key={index}>{size}</li>
-    // <option key={index} value={size}>{size}</option>
-  ))
+
+const jeTestCa = () => {
+  if(articleCliqueData.type === "Gi") {
+    
+      const jeSaisPas1 = articleCliqueData.giSizes9.map((sizeGi, index) => (
+        <option key={index} value={sizeGi}>{sizeGi}</option>
+      ))
+      return <select>{jeSaisPas1}</select>;
+  
+  } else {
+
+    const jeSaisPas0 = articleCliqueData.sizes9.map((size, index) => (
+      <option key={index} value={size}>{size}</option>
+    ))
+    return <select>{jeSaisPas0}</select>;
+
+  }
+}
+
+  // //AFFICHE UNE LISTE DES sizes DISPOS, A METTRE DANS UN MENU DEROULANT
+  // const jeSaisPas0 = articleCliqueData.sizes9.map((size, index) => (
+  //   // <li key={index}>{size}</li>
+  //   <option key={index} value={size}>{size}</option>
+  // ))
   
 
-  //AFFICHE UNE LISTE DES giSizes DISPOS, A METTRE DANS UN MENU DEROULANT
-  const jeSaisPas1 = articleCliqueData.giSizes9.map((sizeGi, index) => (
-    <li key={index}>{sizeGi}</li>
-  ))
+  // //AFFICHE UNE LISTE DES giSizes DISPOS, A METTRE DANS UN MENU DEROULANT
+  // const jeSaisPas1 = articleCliqueData.giSizes9.map((sizeGi, index) => (
+  //   // <li key={index}>{sizeGi}</li>
+  //   <option key={index} value={sizeGi}>{sizeGi}</option>
+  // ))
 
   //AFFICHE UNE LISTE DES colors DISPO, A METTRE DANS UN MENU DEROULANT
   const jeSaisPas2 = articleCliqueData.colors9.map((color, index) => (
-    
-    <li key={index}>{color}</li>
+    // <li key={index}>{color}</li>
+    <option key={index} value={color}>{color}</option>
   ))
   
 
   //AFFICHE TOUTE LES photos DE L'ARTICLE
   const jeSaisPas3 = articleCliqueData.photos9.map((photo, index) => (
-    <Image key={index} src={photo} width={100} height={200}></Image>
+    
+    <Image key={index} src={photo} width={400} height={300} className={styles.photosArticle} onClick={()=> handleNextImage()}></Image>
   ))
 
 
-  //AFFICHE SEULEMENT LA PHOTO POUR LA CARD 
-  //LE TRUC SUR QUOI IL FAUDRA CLIQUER POUR ACCEDER A L'ARTICLE
-  const jeSaisPas4 = <Image src={articleCliqueData.cardPhoto} width={100} height={200} className={styles.cardPhoto}></Image>
-  
+//il me faut un if categorie type === "gi", montrer seulement le jeSaisPas1 et cacher jeSaisPas0 et inversement
+
+
 
   const auClick0 = () => {
     
   }
 
+  //Il faudrait que LA photo soit à gauche de l'écran et le reste à droite
+
+
   return (
 
-    <div className={styles.articleComplet} onClick={() => auClick0()}>
-      <p>{jeSaisPas3}</p>
-      <p>{articleCliqueData.categorie}</p>
-      <p>{articleCliqueData.type}</p>
-      <p>{articleCliqueData.model}</p>
-      <p>{articleCliqueData.description}</p>
-      <p>{jeSaisPas0}</p>
-      <p>{jeSaisPas1}</p>
-      <p>{jeSaisPas2}</p>
-      <p>{articleCliqueData.price}</p>
+    <div className={styles.articleComplet}>
+
+      <div className={styles.photosContainer}>
+        {jeSaisPas3}
+      </div>
+
+      <div className={styles.separateur}>
+      <h3>{articleCliqueData.model}</h3>
+      <div>
+        <p>Catégorie: {articleCliqueData.categorie}</p>
+        <p>Type: {articleCliqueData.type}</p>
+      </div>
+      <p>Description: {articleCliqueData.description}</p>
+      <div>
+        <p>Tailles disponibles: {jeTestCa()}</p>
+        <p>Couleurs disponibles: <select>{jeSaisPas2}</select></p>
+      </div>
+      <p>{articleCliqueData.price}€</p>
+      <button className={styles.buttonAchete}>ACHETE C PAS CHER</button>
+      </div>
+
     </div>
 
   )
@@ -105,9 +147,15 @@ const articles = () => {
 
 
     return (
+      <div>
       <div className={styles.article}>
         <div className={styles.containerDeTout}>{articles()}</div>
       </div>
+      <div className={styles.article}>
+        <p>Faut ajouter les autres propositions, articles similaires et articles les plus vendus</p>
+      </div>
+      </div>
+
     );
    }
    

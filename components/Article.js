@@ -50,49 +50,9 @@ useEffect(() => {
 
 const articles = allArticlesData.map((data, i) => {
 
-
-  //AFFICHE UNE LISTE DES sizes DISPOS, A METTRE DANS UN MENU DEROULANT
-  const jeSaisPas0 = data.sizes9.map((size, index) => (
-    // <li key={index}>{size.size0}</li>
-    <li key={index}>{size}</li>
-  ))
-  
-
-  //AFFICHE UNE LISTE DES giSizes DISPOS, A METTRE DANS UN MENU DEROULANT
-  const jeSaisPas1 = data.giSizes9.map((sizeGi, index) => (
-    // <li key={index}>{sizeGi.giSize0}</li>
-    <li key={index}>{sizeGi}</li>
-  ));
-
-  //AFFICHE UNE LISTE DES colors DISPO, A METTRE DANS UN MENU DEROULANT
-  const jeSaisPas2 = data.colors9.map((color, index) => (
-    // <li key={index}>{color.colorName0}</li>
-    <li key={index}>{color}</li>
-  ));
-  
-
-  //AFFICHE TOUTE LES photos DE L'ARTICLE
-  const jeSaisPas3 = data.photos9.map((photo, index) => (
-    // <Image key={index} src={photo.photoUrl0} width={100} height={200}></Image>
-    <Image key={index} src={photo} width={100} height={200}></Image>
-  ));
-
   
   const jeSaisPas5 = <Image src={data.photos9[0]} width={100} height={200} className={styles.cardPhoto}></Image>;
   
-  // const auClick0 = () => {
-  //   router.push(`/articles/${data._id}`);
-  // }
-  const auClick1 = () => {
-    // fetch(`http://localhost:3000/articles/${data._id}`)
-    // .then((response) => response.json())
-    // .then((data1) => {
-    //   if (data1.result) {
-    //     console.log(data1)
-    //   }
-    // });
-  }
-
   
   return (
 
@@ -105,7 +65,7 @@ const articles = allArticlesData.map((data, i) => {
           </div>
           <div className={styles.modelPriceContainer}>
             <p>{data.model}</p>
-            <p>{data.price}</p>
+            <p>{data.price}€</p>
           </div>
       </div>
 
@@ -115,14 +75,14 @@ const articles = allArticlesData.map((data, i) => {
   )
 });
 
-//allArticlesContainer devient articleComplet
-//article devient articleLinkContainer
-//articlesContainer devient containerDeTout
+
 
     return (
       <div>
-        {/* <button onClick={() => auClick0()}> je test </button> */}
-        <div className={styles.containerDeTout}>{articles}</div>
+        <h3 className={styles.pageTitle}>Tous les articles</h3>
+        <div className={styles.containerDeTout}>    
+          {articles}
+        </div>
       </div>
     );
    }
