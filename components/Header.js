@@ -24,20 +24,26 @@ function Header() {
     }
   };
 
+  //Accès au Cart
+
+  const handleClickCart= ()=>{
+    router.push('/cart')
+  };
+
   //On met un useEffect pour permettre au menu de bien s'ouvrir et se fermer à chaque click en dehors
 
   useEffect(() => {
-    const handleClickOut= (event) =>{
-      if (menuRef.current && !menuRef.current.contains(event.target)){
-        setIsMenuOpen(false)
+    const handleClickOut = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
       }
-    };//permet de verifier si le click est en dehors du menu
-    if (isMenuOpen){
+    }; //permet de verifier si le click est en dehors du menu
+    if (isMenuOpen) {
       document.addEventListener("mousedown", handleClickOut);
     }
-    return () =>{
-      document.removeEventListener("mousedown", handleClickOut)
-    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOut);
+    };
   }, [isMenuOpen]);
 
   return (
@@ -46,29 +52,30 @@ function Header() {
         <title>LA BAGARRE</title>
       </Head>
 
-      <div className={styles.barreMenu} >
-        <Link href='/' ><p className={styles.linkHome}> LA BAGARRE</p></Link>
+      <div className={styles.barreMenu}>
+        <Link href="/">
+          <p className={styles.linkHome}> LA BAGARRE</p>
+        </Link>
         <FontAwesomeIcon
-        className={styles.userIcon}
+          className={styles.userIcon}
           icon={faUser}
           onClick={() => {
             handleUserClick();
           }}
         />
-        <FontAwesomeIcon
-        className={styles.userIcon}
-        icon={faCartShopping}/>
-
+        <FontAwesomeIcon className={styles.userIcon} icon={faCartShopping} onClick={()=> handleClickCart()} />
       </div>
       {isMenuOpen && (
-        <ul ref={menuRef} className={styles.menu} >
-          <li >  <Link href="/profil"> Parametres du compte</Link>
+        <ul ref={menuRef} className={styles.menu}>
+          <li>
+            <Link href="/profil"> Parametres du compte</Link>
           </li>
-         
-          <li>Mes favoris</li>
+
+          <li>
+            <Link href="/favoris">Mes favoris</Link>
+          </li>
           <li>Mes commandes</li>
           <li>Me déconnecter</li>
-
         </ul>
       )}
     </div>
