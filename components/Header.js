@@ -1,4 +1,4 @@
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Header.module.css";
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +6,7 @@ import { faUser, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import user from "../reducers/user";
 import Link from "next/link";
+
 import { useRouter } from "next/router";
 
 function Header() {
@@ -46,7 +47,7 @@ function Header() {
       </Head>
 
       <div className={styles.barreMenu} >
-        <text>LA BAGARRE</text>
+        <Link href='/' ><p className={styles.linkHome}> LA BAGARRE</p></Link>
         <FontAwesomeIcon
         className={styles.userIcon}
           icon={faUser}
@@ -61,7 +62,9 @@ function Header() {
       </div>
       {isMenuOpen && (
         <ul ref={menuRef} className={styles.menu} >
-          <li>Parametres du compte</li>
+          <li >  <Link href="/profil"> Parametres du compte</Link>
+          </li>
+         
           <li>Mes favoris</li>
           <li>Mes commandes</li>
           <li>Me déconnecter</li>
