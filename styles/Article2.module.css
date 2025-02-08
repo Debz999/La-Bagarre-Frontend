@@ -11,6 +11,19 @@
     align-items: center;
 }
 
+.containerDeTout2 {
+    border: 20px solid black;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3%;
+    padding: 10px;
+    width: 100%;
+    margin-top: 200px;
+    justify-content: center;
+    align-items: center;
+}
+
 .articleComplet {
     display: flex;
     /* flex-direction: column; */
@@ -51,7 +64,6 @@
     border: 2px solid red;
     width: 100%;
     height: 300px;
-    /* overflow: hidden; */
 }
 
 /* .photosArticle {
@@ -61,7 +73,13 @@
 
 .photosContainer{
     border: 2px solid pink;
-    width: 50%
+    width: 50%;
+    height: 500px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+
 }
 
 .buttonAchete {
@@ -70,9 +88,18 @@
     margin: auto;
 }
 
+.buttonAchete:hover {
+    cursor: pointer;
+}
+
 .separateur{
     border: 2px solid orange;
     width: 50%;
     display: flex;
     flex-direction: column;
+    padding-left: 20px;
+}
+
+.articlesProposes {
+    
 }

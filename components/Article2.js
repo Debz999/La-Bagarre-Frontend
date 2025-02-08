@@ -105,7 +105,6 @@ const jeTestCa = () => {
   ))
 
 
-//il me faut un if categorie type === "gi", montrer seulement le jeSaisPas1 et cacher jeSaisPas0 et inversement
 
 
 
@@ -113,7 +112,6 @@ const jeTestCa = () => {
     
   }
 
-  //Il faudrait que LA photo soit à gauche de l'écran et le reste à droite
 
 
   return (
@@ -147,16 +145,24 @@ const jeTestCa = () => {
 
 
     return (
-      <div>
+      <div className={styles.articleContainer}>
       <div className={styles.article}>
         <div className={styles.containerDeTout}>{articles()}</div>
       </div>
-      <div className={styles.article}>
-        <p>Faut ajouter les autres propositions, articles similaires et articles les plus vendus</p>
+      <div className={styles.containerDeTout2}>
+        <p className={styles.articlesProposes}>Faut ajouter les autres propositions, articles similaires et articles les plus vendus</p>
+      </div>
+      <div className={styles.containerDeTout2}>
+        <p className={styles.articlesProposes}>Faut ajouter les autres propositions, articles similaires et articles les plus vendus</p>
       </div>
       </div>
 
     );
    }
+
+   //Me faut un router.get les articles les plus vendus
+   //Et aussi un get articles similaires, ptete meme type d'article
+   //Ptete afficher 5 articles et "afficher plus" qui redirige vers la page dédiée au type du produit
+
    
    export default Article2Page;
