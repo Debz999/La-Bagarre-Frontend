@@ -2,38 +2,42 @@ import styles from '../styles/Cart.module.css'
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CartItem from './CartItem';
-import {addItem, removeItem} from '../reducers/cart'
+import {toggleCart} from '../reducers/cart'
 
 function Cart() {
 const dispatch = useDispatch();
-const [cartData, setCartData] = useState([]);
+const user = useSelector((state) => state.cart.value); //for token ! missing still
+const cart = useSelector((state) => state.cart.value);
+
+
 
 // GET EXISTING CART ITEMS
-//  !!do another that only finds user's cart
 useEffect(() => {
-    fetch(`http://localhost:3000/carts/:${}`)
+    fetch(`http://localhost:3000/carts/g4gzTD_5yd0mNev6BzG4jd4WXLuSNMCE`)
       .then(response => response.json())
       .then(data => {
-        console.log('just D', data.data[0].items[0]); //it works!
-        //console.log('quantity', data.data[0].items[0].quantity); //it works!
-        setCartData( [...cartData, data.data[0]] ); // !!this zero will go when i change to get user's cart
-        //dispatch(addItem(cartData))
+        dispatch(toggleCart(data.data.items))
         
       });
-  }, []);
-//console.log('cartData', cartData); 
+    }, []);
+//console.log('test cart', cart)
 
-const visibleCart = cartData.map((data, i) => {
-  //console.log('check map', data.items[0].article)
-return <CartItem key={i} {...data} />;
-})
+//visible elements
+let cartVisibility = <p>There are no items in your cart yet</p>;
+if(cart.length !== 0) {
+  cartVisibility = cart.cartItem.map((data, i) => {
+    //console.log('check map', data)
+  return <CartItem key={i} {...data} />;
+  })
+}
+
 
 
 
   return (
     <div>
-      <h1>Mon Panier</h1>
-      {visibleCart}
+      <h1>My Cart</h1>
+      {cartVisibility}
     </div>
   );
 }
