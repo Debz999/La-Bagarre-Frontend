@@ -8,14 +8,16 @@ import user from "../reducers/user";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+
 function Home() {
   
 
   return (
-    <div>
+    <div className={styles.main}>
       <Head>
         <title>LA BAGARRE</title>
       </Head>
+      <h1>Home</h1>
 
    
     </div>

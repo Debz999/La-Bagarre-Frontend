@@ -3,7 +3,11 @@ import styles from "../styles/Profil.module.css";
 function Profil(){
 
     return(
-        <div></div>
+        <div className={styles.main}>
+            <h1>Mon compte</h1>
+
+
+        </div>
     )
 };
 
