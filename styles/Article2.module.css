@@ -1,0 +1,105 @@
+.containerDeTout {
+    border: 20px solid black;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3%;
+    padding: 10px;
+    width: 100%;
+    margin-top: 200px;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerDeTout2 {
+    border: 20px solid black;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3%;
+    padding: 10px;
+    width: 100%;
+    margin-top: 200px;
+    justify-content: center;
+    align-items: center;
+}
+
+.articleComplet {
+    display: flex;
+    /* flex-direction: column; */
+    border: 2px solid greenyellow;
+    color: black;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    justify-content: center;
+}
+
+.articleLinkContainer {
+    width: 200px;
+    height: auto;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    padding: 10px;
+    border: 2px solid purple;
+}
+
+/* .article:hover {
+    cursor: pointer;
+} */
+
+.modelPriceContainer {
+    border: 2px solid blue;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.cardPhotoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
+    width: 100%;
+    height: 300px;
+}
+
+/* .photosArticle {
+    width: 100%;
+    height: 100%;
+} */
+
+.photosContainer{
+    border: 2px solid pink;
+    width: 50%;
+    height: 500px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+
+}
+
+.buttonAchete {
+    height: 60px;
+    width: 80%;
+    margin: auto;
+}
+
+.buttonAchete:hover {
+    cursor: pointer;
+}
+
+.separateur{
+    border: 2px solid orange;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+}
+
+/* .articlesProposes {
+
+} */

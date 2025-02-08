@@ -50,73 +50,26 @@ useEffect(() => {
 
 const articles = allArticlesData.map((data, i) => {
 
-
-  //AFFICHE UNE LISTE DES sizes DISPOS, A METTRE DANS UN MENU DEROULANT
-  const jeSaisPas0 = data.sizes.map((size, index) => (
-    <li key={index}>{size.size0}</li>
-  ))
-
-  //AFFICHE UNE LISTE DES giSizes DISPOS, A METTRE DANS UN MENU DEROULANT
-  const jeSaisPas1 = data.giSizes.map((sizeGi, index) => (
-    <li key={index}>{sizeGi.giSize0}</li>
-  ))
-
-  //AFFICHE UNE LISTE DES colors DISPO, A METTRE DANS UN MENU DEROULANT
-  const jeSaisPas2 = data.colors.map((color, index) => (
-    <li key={index}>{color.colorName0}</li>
-  ))
   
-
-  //AFFICHE TOUTE LES photos DE L'ARTICLE
-  const jeSaisPas3 = data.photos.map((photo, index) => (
-    <Image key={index} src={photo.photoUrl0} width={100} height={200}></Image>
-  ))
-
-
-  //AFFICHE SEULEMENT LA PHOTO POUR LA CARD 
-  //LE TRUC SUR QUOI IL FAUDRA CLIQUER POUR ACCEDER A L'ARTICLE
-  const jeSaisPas4 = <Image src={data.cardPhoto} width={100} height={200} className={styles.cardPhoto}></Image>
+  const jeSaisPas5 = <Image src={data.photos9[0]} width={100} height={200} className={styles.cardPhoto}></Image>;
   
-
-  // const auClick0 = () => {
-  //   router.push(`/articles/${data._id}`);
-  // }
-  const auClick1 = () => {
-    // fetch(`http://localhost:3000/articles/${data._id}`)
-    // .then((response) => response.json())
-    // .then((data1) => {
-    //   if (data1.result) {
-    //     console.log(data1)
-    //   }
-    // });
-  }
+  
   return (
 
-    <div key={i} className={styles.article}>
+    <div key={i} className={styles.articleLinkContainer}>
+      <Link href={`/article/${data._id}`}>
 
-      {/* <p>{data.categorie}</p> */}
-      {/* <p>{data.type}</p> */}
-      {/* <p>{data.model}</p> */}
-      {/* <p>{data.description}</p> */}
-      {/* <p>{jeSaisPas0}</p> */}
-      {/* <p>{jeSaisPas1}</p> */}
-      {/* <p>{jeSaisPas2}</p> */}
-      {/* <p>{jeSaisPas3}</p> */}
-      {/* <Link href="/article2"> */}
-      {/* <Link href={`/article/${data._id}`}> */}
-        <div onClick={() => auClick0()}>
+      <div className={styles.articleComplet}>
           <div className={styles.cardPhotoContainer}>
-            {jeSaisPas4}
+            {jeSaisPas5}
           </div>
           <div className={styles.modelPriceContainer}>
             <p>{data.model}</p>
-            <p>{data.price}</p>
+            <p>{data.price}€</p>
           </div>
-        </div>
-      {/* </Link> */}
- 
+      </div>
 
-      
+      </Link>
     </div>
 
   )
@@ -126,8 +79,10 @@ const articles = allArticlesData.map((data, i) => {
 
     return (
       <div>
-        {/* <button onClick={() => auClick0()}> je test </button> */}
-        <div className={styles.articlesContainer}>{articles}</div>
+        <h3 className={styles.pageTitle}>Tous les articles</h3>
+        <div className={styles.containerDeTout}>    
+          {articles}
+        </div>
       </div>
     );
    }
