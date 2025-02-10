@@ -71,6 +71,7 @@
   font-size: 24px;
   cursor: pointer;
   position: relative;
+  color: #ffff;
 }
 
 /* Animation pour afficher le menu */
@@ -88,4 +89,10 @@
 .linkHome{
   color: #ffff;
   cursor: pointer;
+}
+/* Container pour les categories */
+.containerCat{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

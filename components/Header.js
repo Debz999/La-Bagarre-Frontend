@@ -78,6 +78,13 @@ function Header() {
           <li>Me déconnecter</li>
         </ul>
       )}
+      <div className={styles.containerCat}>
+        <p>HOMMES</p>
+<p>FEMMES</p>
+<p>ENFANTS</p>
+<p>ACCESSOIRES</p></div>
+
+
     </div>
   );
 }
