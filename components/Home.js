@@ -7,6 +7,8 @@ import { useState, useRef, useEffect } from "react";
 import user from "../reducers/user";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Article from "./Article";
+
 
 
 function Home() {
@@ -18,6 +20,7 @@ function Home() {
         <title>LA BAGARRE</title>
       </Head>
       <h1>Home</h1>
+      <Article/>
 
    
     </div>
