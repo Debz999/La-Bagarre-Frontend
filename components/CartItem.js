@@ -7,11 +7,12 @@ import Image from "next/image";
 function CartItem(props) {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.value);
-  //const [article, setArticle] = useState('');
+  const user = useSelector((state) => state.user.value);
   const [quantity, setQuantity] = useState(1);
+//console.log(user.token); //this should work, just need to connect Cart and CartItem to the rest of the website.
 
   const updateDatabaseQuantity = () => {
-    fetch(`http://localhost:3000/carts/post/g4gzTD_5yd0mNev6BzG4jd4WXLuSNMCE`, {
+    fetch(`http://localhost:3000/carts/post/${user.token}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ _id: props.article._id, quantity: quantity }),
@@ -19,7 +20,7 @@ function CartItem(props) {
       .then((response) => response.json())
       .then(() => {
         //insert get here
-        fetch(`http://localhost:3000/carts/g4gzTD_5yd0mNev6BzG4jd4WXLuSNMCE`)
+        fetch(`http://localhost:3000/carts/${user.token}`)
           .then((response) => response.json())
           .then((data) => {
             dispatch(toggleCart(data.data.items));
@@ -28,14 +29,14 @@ function CartItem(props) {
   };
 
   const deleteFromDatabase = () => {
-    fetch(`http://localhost:3000/carts/g4gzTD_5yd0mNev6BzG4jd4WXLuSNMCE`, {
+    fetch(`http://localhost:3000/carts/${user.token}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ _id: props.article._id }),
     })
       .then((response) => response.json())
       .then(() => {
-        fetch(`http://localhost:3000/carts/g4gzTD_5yd0mNev6BzG4jd4WXLuSNMCE`)
+        fetch(`http://localhost:3000/carts/${user.token}`)
           .then((response) => response.json())
           .then((data) => {
             dispatch(toggleCart(data.data.items)); 
