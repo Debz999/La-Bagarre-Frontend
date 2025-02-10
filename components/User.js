@@ -96,7 +96,7 @@ function User() {
           id="username"
           name="username"
           onChange={(e) => setSignUpUsername(e.target.value)}
-          value={signInUsername}
+          value={signUpUsername}
         />
         <label>Mot de passe: </label>
         <input
@@ -104,7 +104,7 @@ function User() {
           id="password"
           name="password"
           onChange={(e) => setSignUpPassword(e.target.value)}
-          value={signInPassword}
+          value={signUpPassword}
         />
         <button className={styles.button} onClick={() => handleRegister()}>
           Me créer un compte
