@@ -27,7 +27,7 @@ function Header() {
   //Accès au Cart
 
   const handleClickCart= ()=>{
-    router.push('/cart')
+    router.push('/cart');
   };
 
   //On met un useEffect pour permettre au menu de bien s'ouvrir et se fermer à chaque click en dehors

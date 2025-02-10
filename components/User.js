@@ -29,7 +29,7 @@ function User() {
           dispatch(login({ username: signUpUsername, token: data.token }));
           setSignUpUsername("");
           setSignUpPassword("");
-          router.push('/');
+          router.push("/");
         }
       });
   };
@@ -49,7 +49,7 @@ function User() {
           dispatch(login({ username: signInUsername, token: data.token }));
           setSignInUsername("");
           setSignInPassword("");
-          router.push('/');
+          router.push("/");
         }
       });
   };
@@ -64,7 +64,7 @@ function User() {
         <div>LA BAGARRE</div>
       </header>
       <div>
-        <title>Me connecter à mon compte</title>
+        <p>Me connecter à mon compte</p>
         <label>Nom d'utilisateur: </label>
         <input
           type="text"
@@ -87,10 +87,28 @@ function User() {
             handleConnection();
           }}
         >
-          {" "}
-          Connexion{" "}
+          Connexion
         </button>
-        <button className={styles.button} onClick={() => handleRegister()} >Me créer un compte</button>
+        <p>Pas encore de compte ?</p>
+        <label>Nom d'utilisateur: </label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          onChange={(e) => setSignUpUsername(e.target.value)}
+          value={signInUsername}
+        />
+        <label>Mot de passe: </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          onChange={(e) => setSignUpPassword(e.target.value)}
+          value={signInPassword}
+        />
+        <button className={styles.button} onClick={() => handleRegister()}>
+          Me créer un compte
+        </button>
       </div>
     </div>
   );
