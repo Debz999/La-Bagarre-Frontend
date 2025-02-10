@@ -8,6 +8,9 @@ import Image from "next/image";
 
 import { useRouter } from 'next/router';
 
+//GALERES: AFFICHER PHOTOS A LA SUITE QUAND ON CLIQUE DESSUS
+//Peut etre faut mettre l'index dans un useState et afficher index 0 par defaut 
+//Au clique passer le useState à index1 pour voir la deuxieme photo
 
 //Pour l'instant cette page m'affiche tout les articles detaillés, 
 //Il me faut seulement l'article cliqué 
@@ -36,7 +39,8 @@ function Article2Page() {
         if (data.result) {
           console.log(data)
           setArticleCliqueData(data.articleRécupéré)
-          setImageShown(data.articleRécupéré.photos9[0])
+          // setImageShown(data.articleRécupéré.photos9[0])
+          // setImageIndex(data.articleRécupéré.photos9[0])
         }
       });
       }
@@ -102,6 +106,11 @@ const jeTestCa = () => {
   const jeSaisPas3 = articleCliqueData.photos9.map((photo, index) => (
     
     <Image key={index} src={photo} width={400} height={300} className={styles.photosArticle} onClick={()=> handleNextImage()}></Image>
+  ))
+
+  const jeSaisPas4 = articleCliqueData.photos9.map((photo, index) => (
+    
+    <Image key={imageIndex} src={photo} width={400} height={300} className={styles.photosArticle} onClick={()=> handleNextImage()}></Image>
   ))
 
 
