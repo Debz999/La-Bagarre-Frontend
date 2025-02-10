@@ -99,27 +99,38 @@ const jeTestCa = () => {
   
 
   //AFFICHE TOUTE LES photos DE L'ARTICLE
-  const jeSaisPas3 = articleCliqueData.photos9.map((photo, index) => (
+  // const jeSaisPas3 = articleCliqueData.photos9.map((photo, index) => (
     
-    <Image key={index} src={photo} width={400} height={300} className={styles.photosArticle} onClick={()=> handleNextImage()}></Image>
-  ))
+  //   <Image key={index} src={photo} width={400} height={300} className={styles.photosArticle} onClick={()=> handleNextImage()}></Image>
+  // ))
 
 
+  //CA MARCHE PAS FAUT ECRIRE CA AUTREMENT
+  // const auClick1 = () => {
+  //   setImageIndex((prevIndex) =>
+  //     if( prevIndex < articleCliqueData.photos9.length - 1) {
+  //       prevIndex + 1
+  //     } else {
+  //       prevIndex + 0
+  //     });
+  // };
 
 
-
-  const auClick0 = () => {
+  const auClick = () => {
+    setImageIndex((prevIndex) =>
+      prevIndex < articleCliqueData.photos9.length - 1 ? prevIndex + 1 : 0
+    );
+  };
+  const jeSaisPas4 = 
+    <Image src={articleCliqueData.photos9[imageIndex]} width={400} height={300} className={styles.photosArticle} onClick={()=> auClick()}></Image>
     
-  }
-
-
-
   return (
 
     <div className={styles.articleComplet}>
 
       <div className={styles.photosContainer}>
-        {jeSaisPas3}
+        {jeSaisPas4}
+        <p>{imageIndex}</p>
       </div>
 
       <div className={styles.separateur}>
