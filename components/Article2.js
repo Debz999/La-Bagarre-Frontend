@@ -135,13 +135,19 @@ const articles = () => {
   const jeSaisPas4 = 
     <Image src={articleCliqueData.photos9[imageIndex]} width={400} height={300} className={styles.photosArticle} onClick={()=> auClick()}></Image>
     
+
+  const jeSaisPas5 = <ul className={styles.description}>{articleCliqueData.description}</ul>
+ 
+ 
+
+
   return (
 
     <div className={styles.articleComplet}>
 
       <div className={styles.photosContainer}>
         {jeSaisPas4}
-        <p>{imageIndex}</p>
+        <p>{imageIndex + 1}/{articleCliqueData.photos9.length}</p>
       </div>
 
       <div className={styles.separateur}>
@@ -150,7 +156,8 @@ const articles = () => {
           <p>Catégorie: {articleCliqueData.categorie}</p>
           <p>Type: {articleCliqueData.type}</p>
         </div>
-        <p>Description: {articleCliqueData.description}</p>
+        {/* <p>Description: {articleCliqueData.description}</p> */}
+        <p>Description: {jeSaisPas5}</p>
         <div>
           <p>Tailles disponibles: {jeTestCa()}</p>
           <p>Couleurs disponibles: <select>{jeSaisPas2}</select></p>

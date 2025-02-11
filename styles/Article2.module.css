@@ -116,3 +116,25 @@
 /* .articlesProposes {
 
 } */
+
+.description {
+    margin-bottom: 10px; /* Ajoute de l'espace entre les paragraphes */
+    line-height: 1.6; /* Améliore la lisibilité */
+}
+
+
+
+
+
+
+/* STYLES POUR PAGE AJOUTARTICLEBDD */
+
+.divPromotion {
+    display: flex;
+    align-items: center; 
+    
+}
+
+.selectPromotion {
+    height: 80%;
+}
