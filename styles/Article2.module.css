@@ -24,6 +24,19 @@
     align-items: center;
 }
 
+.containerDeTout3 {
+    border: 20px solid black;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3%;
+    padding: 10px;
+    width: 100%;
+    /* margin-top: 200px; */
+    justify-content: center;
+    align-items: center;
+}
+
 .articleComplet {
     display: flex;
     /* flex-direction: column; */
