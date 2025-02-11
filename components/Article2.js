@@ -1,7 +1,7 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
+import React from "react";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {toggleCart} from '../reducers/cart'
 import styles from "../styles/Article2.module.css";
 
 import Image from "next/image";
@@ -13,13 +13,14 @@ import Link from 'next/link';
 
 
 
-//Pour l'instant cette page m'affiche tout les articles detaillés, 
-//Il me faut seulement l'article cliqué 
+//Pour l'instant cette page m'affiche tout les articles detaillés,
+//Il me faut seulement l'article cliqué
 //Peut etre au click sur l'article, recuperer son id et afficher l'article par son id d'ici
 
-
 // function ArticlePage({ id }) {
-function Article2Page() {
+  function Article2Page() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value); //for token ! missing still
   const [articleCliqueData, setArticleCliqueData] = useState(null);
 
   const [imageIndex, setImageIndex] = useState(0); // L'index de l'image affichée actuellement
@@ -34,8 +35,6 @@ function Article2Page() {
 
   const router = useRouter();
   const { id } = router.query; // `id` correspond au paramètre dynamique de l'URL
-
-
 
     useEffect(() => {
       if(id) {
@@ -91,13 +90,37 @@ useEffect(() => {
   console.log("le useState articleCliqueData=", articleCliqueData)
 }, [articleCliqueData])
 
+  // console.log(articleCliqueData.sizes9)
 
-const articles = () => {
+  //Post item to cart
+  console.log('check user inA2', user.token);
+  const addItemToCart = (articleId) => {
+    if(user.token) {
+      fetch(`http://localhost:3000/carts/post/${user.token}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ _id: articleId, quantity: 1 }),
+      })
+        .then((response) => response.json())
+        .then(() => {
+          //add get fetch here
+        fetch(`http://localhost:3000/carts/${user.token}`)
+        .then((response) => response.json())
+        .then((data) => {
+          dispatch(toggleCart(data.data.items));
+        });
+        });
+    } else {
+      console.log('need to log in')
+      //dispatch(toggleCart([{_id: articleId, quantity: 1}]))
+    }
+  };
 
-  //WHAH CA A REGLER LE SOUCIS CE TRUC
-  if (!articleCliqueData) {
-    return <p>Chargement...</p>; 
-  }
+  const articles = () => {
+    //WHAH CA A REGLER LE SOUCIS CE TRUC
+    if (!articleCliqueData) {
+      return <p>Chargement...</p>;
+    }
 
 
   const jeTestCa = () => {
@@ -144,19 +167,22 @@ const articles = () => {
         <p>{imageIndex}</p>
       </div>
 
-      <div className={styles.separateur}>
-        <h3>{articleCliqueData.model}</h3>
-        <div>
-          <p>Catégorie: {articleCliqueData.categorie}</p>
-          <p>Type: {articleCliqueData.type}</p>
+        <div className={styles.separateur}>
+          <h3>{articleCliqueData.model}</h3>
+          <div>
+            <p>Catégorie: {articleCliqueData.categorie}</p>
+            <p>Type: {articleCliqueData.type}</p>
+          </div>
+          <p>Description: {articleCliqueData.description}</p>
+          <div>
+            <p>Tailles disponibles: {jeTestCa()}</p>
+            <p>
+              Couleurs disponibles: <select>{jeSaisPas2}</select>
+            </p>
+          </div>
+          <p>{articleCliqueData.price}€</p>
+          <button onClick={() => addItemToCart(articleCliqueData._id)} className={styles.buttonAchete}>ACHETE C PAS CHER</button>
         </div>
-        <p>Description: {articleCliqueData.description}</p>
-        <div>
-          <p>Tailles disponibles: {jeTestCa()}</p>
-          <p>Couleurs disponibles: <select>{jeSaisPas2}</select></p>
-        </div>
-        <p>{articleCliqueData.price}€</p>
-        <button className={styles.buttonAchete}>ACHETE C PAS CHER</button>
       </div>
 
     </div>
@@ -190,9 +216,8 @@ const jeSaisPas5 = () => {
     );
    }
 
-   //Me faut un router.get les articles les plus vendus
-   //Et aussi un get articles similaires, ptete meme type d'article
-   //Ptete afficher 5 articles et "afficher plus" qui redirige vers la page dédiée au type du produit
+//Me faut un router.get les articles les plus vendus
+//Et aussi un get articles similaires, ptete meme type d'article
+//Ptete afficher 5 articles et "afficher plus" qui redirige vers la page dédiée au type du produit
 
-   
-   export default Article2Page;
+export default Article2Page;
