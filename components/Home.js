@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 
+
 function Home() {
   
 
@@ -18,6 +19,8 @@ function Home() {
         <title>LA BAGARRE</title>
       </Head>
       <h1>Home</h1>
+      
+      
 
    
     </div>
