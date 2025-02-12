@@ -12,10 +12,7 @@ function Cart() {
   const cart = useSelector((state) => state.cart.value);
   // console.log(user.token); //it works, just need to link the cart to the rest
   // console.log("cartPage value", cart.cartItem);
-  const [cartVisibility, setCartVisibility] = useState(false);
   const router = useRouter();
-
-
 
   // GET EXISTING CART ITEMS add ${user.token}
   const getExistingCart = () => {
@@ -24,7 +21,6 @@ function Cart() {
         .then((response) => response.json())
         .then((data) => {
           dispatch(toggleCart(data.data.items));
-          setCartVisibility(true);
         });
     } else {
       console.log("need to log in");
@@ -35,7 +31,8 @@ function Cart() {
   useEffect(() => {
     getExistingCart();
   }, []);
-  console.log("test cart", cart);
+
+
 
   const continueShopping = () => {
     router.push("/");
@@ -52,7 +49,7 @@ function Cart() {
           <div style={styles.buttonContainer}>
             <button
               onClick={() => {
-                goPay();
+                createNewOrder();
               }}
               style={styles.buttonContainer}
             >
