@@ -1,42 +1,41 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styles from "../styles/Article.module.css";
 
 import Image from "next/image";
 
+
 import Link from 'next/link';
 
 import { useRouter } from 'next/router';
 
-import ArticleFlexible from "./ArticleFlexible"
 
 
-//J'AI PLUS BESOIN DE CETTE PAGE JE CROIS
-
-
-
-function ArticlePage(props) {
-
+function ArticleFlexiblePage(props) {
   const [allArticlesData, setAllArticlesData] = useState([]);
 
+  const router = useRouter();
 
-useEffect(() => {
-  fetch(`http://localhost:3000/articles/articles`)
-  .then((response) => response.json())
-  .then((data) => {
-    if (data.result) {
-      console.log(data)
-      setAllArticlesData(data.allArticles)
-    }
-  });
-}, [])
+  const categorie = props.categorie
+  const type = props.type
 
-useEffect(() => {
-  console.log("le useState =", allArticlesData)
-}, [allArticlesData])
 
- 
+  useEffect(() => {
+    
+      
+      fetch(`http://localhost:3000/articles/articlesSimililaires?categorie=${categorie}&type=${type}`)
+        .then((response) => response.json())
+        .then((articlesTrouves) => {
+          if (articlesTrouves.result) {
+            console.log("Données d'articles récupérées :", articlesTrouves);
+            setAllArticlesData(articlesTrouves.filteredArticles)
+          }
+        })
+    
+  }, [categorie, type]); 
+
 
 
 
@@ -67,35 +66,18 @@ const articles = allArticlesData.map((data, i) => {
   )
 });
 
-const categorie1 = "Homme"
-const type1 = "Gi"
 
-const categorie2 = "Femme"
-const type2 = "Gi"
-
-const categorie3 = ""
-const type3 = "Gi"
 
     return (
       <div>
-        <h3 className={styles.pageTitle}>Tous les articles</h3>
+        <h3 className={styles.pageTitle}>Catégorie: {props.categorie ?? "null"}</h3>
+        <h3>type: {props.type ?? "null"}</h3>
+
         <div className={styles.containerDeTout}>    
           {articles}
-        </div>
-
-        <div>
-          <ArticleFlexible categorie={categorie1} type={type1}/>
-        </div>
-
-        <div>
-          <ArticleFlexible categorie={categorie2} type={type2}/>
-        </div>
-
-        <div>
-          <ArticleFlexible categorie={categorie3} type={type3}/>
         </div>
       </div>
     );
    }
    
-   export default ArticlePage;
+   export default ArticleFlexiblePage;
