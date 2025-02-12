@@ -51,8 +51,8 @@ useEffect(() => {
 const articles = allArticlesData.map((data, i) => {
 
   
-  const jeSaisPas5 = <Image src={data.photos9[0]} width={100} height={200} className={styles.cardPhoto}></Image>;
-  
+  //const jeSaisPas5 = <Image src={data.photos9[0]} width={100} height={200} className={styles.cardPhoto}></Image>;
+  let jeSaisPas5
   
   return (
 

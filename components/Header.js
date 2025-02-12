@@ -12,6 +12,8 @@ import { useRouter } from "next/router";
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const user = useSelector((state) => state.user.value);
+  const cart = useSelector((state) => state.cart.value);
+
   const router = useRouter();
   const menuRef = useRef(null);
 
@@ -46,6 +48,13 @@ function Header() {
     };
   }, [isMenuOpen]);
 
+    /*Get cart total items */
+  const totalItems = cart.cartItem.reduce(
+    (sum, value) => sum + value.quantity,
+    0
+  );
+  //console.log(totalItems); //works
+
   return (
     <div>
       <Head>
@@ -63,7 +72,10 @@ function Header() {
             handleUserClick();
           }}
         />
+        <div className={styles.cartContainer}>
+        {totalItems > 0 && <div>({totalItems})</div>}
         <FontAwesomeIcon className={styles.userIcon} icon={faCartShopping} onClick={()=> handleClickCart()} />
+        </div>
       </div>
       {isMenuOpen && (
         <ul ref={menuRef} className={styles.menu}>

@@ -3,14 +3,19 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import { toggleCart } from "../reducers/cart";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 function Cart() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value); //for token ! missing still
   const cart = useSelector((state) => state.cart.value);
-  console.log(user.token); //it works, just need to link the cart to the rest
-  console.log("cartPage value", cart);
+  // console.log(user.token); //it works, just need to link the cart to the rest
+  // console.log("cartPage value", cart.cartItem);
   const [cartVisibility, setCartVisibility] = useState(false);
+  const router = useRouter();
+
+
 
   // GET EXISTING CART ITEMS add ${user.token}
   const getExistingCart = () => {
@@ -30,15 +35,42 @@ function Cart() {
   useEffect(() => {
     getExistingCart();
   }, []);
-  console.log('test cart', cart)
+  console.log("test cart", cart);
 
+  const continueShopping = () => {
+    router.push("/");
+  };
   //visible elements
   let cartContents = <p>There are no items in your cart yet</p>;
-  console.log("length", cart.cartItem);
+  //console.log("length", cart.cartItem);
   if (cart.cartItem.length > 0) {
     cartContents = cart.cartItem.map((data, i) => {
       //console.log('check map', data)
-      return <CartItem key={i} {...data} />;
+      return (
+        <div>
+          <CartItem key={i} {...data} />
+          <div style={styles.buttonContainer}>
+            <button
+              onClick={() => {
+                goPay();
+              }}
+              style={styles.buttonContainer}
+            >
+              {" "}
+              Procéder au paiement
+            </button>
+            <button
+              onClick={() => {
+                continueShopping();
+              }}
+              style={styles.buttonContainer}
+            >
+              {" "}
+              Continuer mes achats
+            </button>
+          </div>
+        </div>
+      );
     });
   }
 
