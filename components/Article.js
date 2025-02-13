@@ -29,18 +29,13 @@ function ArticlePage() {
   const [allArticlesData, setAllArticlesData] = useState([]);
 
   const router = useRouter();
+  const {categorie, type}= router.query;//pour récuperer les parametres envoyer au click
 
 
 useEffect(() => {
-  fetch(`http://localhost:3000/articles/articlesC?categorie=${categorie}type=${type}`)
-  fetch(`http://localhost:3000/articles/articles`)
-  .then((response) => response.json())
-  .then((data) => {
-    if (data.result) {
-      console.log(data)
-      setAllArticlesData(data.allArticles)
-    }
-  });
+ if(!categorie) return;
+
+
 }, [])
 
 useEffect(() => {
