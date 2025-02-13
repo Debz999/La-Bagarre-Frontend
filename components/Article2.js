@@ -62,7 +62,7 @@ function Article2Page() {
         .then((articlesSimililaires) => {
           if (articlesSimililaires.result) {
             console.log("Données d'articles similaires récupérées :", articlesSimililaires);
-            setEssai(articlesSimililaires.relatedArticles);  // Mets les articles similaires dans l'état
+            setEssai(articlesSimililaires.filteredArticles);  // Mets les articles similaires dans l'état
           }
         })
     }
@@ -74,7 +74,7 @@ useEffect(() => {
 console.log("setEssai :", essai)
 }, [essai])
 
-
+//
 const essaiEssai = essai.map((data) => (
   <Link href={`/article/${data._id}`}>
     <Image src={data.photos9[0]} width={200} height={150}></Image>
@@ -138,7 +138,6 @@ const articles = () => {
   // const jeSaisPas5 = <ul className={styles.description}>{articleCliqueData.description}</ul>
   const jeSaisPas5 = <p className={styles.description} style={{ whiteSpace: "pre-line" }} >{articleCliqueData.description}</p>
 
- 
 
 
   return (

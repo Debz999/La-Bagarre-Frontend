@@ -51,7 +51,7 @@ const articles = allArticlesData.map((data, i) => {
     <div key={i} className={styles.articleLinkContainer}>
       <Link href={`/article/${data._id}`}>
 
-      <div className={styles.articleComplet}>
+      <div className={styles.photoModelPriceContainer}>
           <div className={styles.cardPhotoContainer}>
             {jeSaisPas5}
           </div>
