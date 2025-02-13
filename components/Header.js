@@ -89,20 +89,16 @@ function Header() {
           <li>Me déconnecter</li>
         </ul>
       )}
-      <div
-        className={styles.containerCat}
-        onMouseEnter={() => setSousMenuOpen("Homme")}
-        onMouseLeave={() => setSousMenuOpen(null)}
-      >
-        <p>HOMMES</p>
-        {sousMenuOpen === "Homme" && (
-          <>
-          <Sousmenu categorie="Homme" types={["Gi", "Rashguard", "Short"]} />
-          </>
-        )}
-        <p>FEMMES</p>
-        <p>ENFANTS</p>
-        <p>ACCESSOIRES</p>
+      <div className={styles.containerCat}>
+        
+        
+      <Sousmenu categorie="HOMME" types={["Gi", "Rashguard", "Short"]} />
+      <Sousmenu categorie="FEMME" types={["Gi", "Rashguard", "Short"]} />
+      <Sousmenu categorie="ENFANT" types={["Gi", "Rashguard", "Short"]} />
+      <Sousmenu categorie="ACCESSOIRES" types={["Ceintures", "Sac", "Casquettes"]} />
+          
+        
+       
       </div>
     </div>
   );

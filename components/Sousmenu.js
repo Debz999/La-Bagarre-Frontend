@@ -3,23 +3,28 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
 const SousMenu = ({ categorie, types }) => {
-useEffect(()=>{
-  console.log(categorie)
-},[]);
 
+  const [sousMenuOpen, setSousMenuOpen] = useState(null); //état pour sous menu des categories
   return (
-    <div>
-      <ul className={styles.subMenu}>
-        {types.map((type) => (
-          <li key={type}>
-            <Link
-              href={`articles/articleC?categorie=${categorie}&type=${type}`}
-            >
-              {type+"test"} 
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div
+      className={styles.containerCat}
+      onMouseEnter={() => setSousMenuOpen("Homme")}
+      onMouseLeave={() => setSousMenuOpen(null)}
+    >
+      <p>{categorie}</p>
+      {sousMenuOpen === "Homme" && (
+        <ul>
+          {types.map((type) => (
+            <li key={type}>
+              <Link
+                href={`/articles?categorie=${categorie}&type=${type}`}
+              >
+                {type}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
