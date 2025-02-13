@@ -17,44 +17,49 @@ function AjoutArticleBdd() {
  const [sizes9, setSizes9] = useState([]);
  const [giSizes9, setGiSizes9] = useState([]);
 
+
+  
+
   const ajoutArticle = () => {
     fetch("http://localhost:3000/articles/postArticle1", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        categorie: categorie,
-        type: type,
-        model: model,
-        description: description,
-        price: price,
-        onSale: onSale,
-        soldCount: soldCount,
-        colors9: colors9,
-        photos9: photos9,
-        sizes9: sizes9,
-        giSizes9: giSizes9,
+        categorie,
+        type,
+        model,
+        description,
+        price,
+        onSale,
+        soldCount,
+        colors9,
+        photos9,
+        sizes9,
+        giSizes9,
 
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        console.log("Article ajouté :", data);
       });
   };
 
 
  return (
-   <div>
-    <form>
-    <input onChange={(e) => setCategorie(e.target.value)} value={categorie} placeholder="Catégorie"/>
-     <input onChange={(e) => setType(e.target.value)} value={type} placeholder="Type"/>
-     <input onChange={(e) => setModel(e.target.value)} value={model} placeholder="Model"/>
-     <input onChange={(e) => setDescription(e.target.value)} value={description} placeholder="Description"/>
-     <input onChange={(e) => setPrice(e.target.value)} value={price} placeholder="Prix"/>
-     <input onChange={(e) => setColors9(e.target.value)} value={colors9} placeholder="Couleurs"/>
-     <input onChange={(e) => setPhotos9(e.target.value)} value={photos9} placeholder="Photos"/>
-     <input onChange={(e) => setSizes9(e.target.value)} value={sizes9} placeholder="Tailles"/>
-     <input onChange={(e) => setGiSizes9(e.target.value)} value={giSizes9} placeholder="Tailles Gi"/>
+   <div className={styles.divTout}>
+
+    <input onChange={(e) => setCategorie(e.target.value)} value={categorie} placeholder="Catégorie" className={styles.inputStyle}/>
+     <input onChange={(e) => setType(e.target.value)} value={type} placeholder="Type" className={styles.inputStyle}/>
+     <input onChange={(e) => setModel(e.target.value)} value={model} placeholder="Model" className={styles.inputStyle}/>
+     <textarea onChange={(e) => setDescription(e.target.value)} value={description} placeholder="Description" className={styles.descriptionInputStyle}/>
+     {/* <input onChange={(e) => setDescription(e.target.value)} value={description} placeholder="Description" className={styles.descriptionInputStyle}/> */}
+     <input onChange={(e) => setPrice(e.target.value)} value={price} placeholder="Prix" className={styles.inputStyle}/>
+     <input onChange={(e) => setColors9(e.target.value)} value={colors9} placeholder="Couleurs" className={styles.inputStyle}/>
+     
+     <input onChange={(e) => setPhotos9(e.target.value)} value={photos9} placeholder="Photos" className={styles.inputStyle}/>
+     <input onChange={(e) => setSizes9(e.target.value)} value={sizes9} placeholder="Tailles" className={styles.inputStyle}/>
+     <input onChange={(e) => setGiSizes9(e.target.value)} value={giSizes9} placeholder="Tailles Gi" className={styles.inputStyle}/>
 
      <div className={styles.divPromotion}>
       <p>Promotion: </p>
@@ -66,7 +71,7 @@ function AjoutArticleBdd() {
      </div>
      
      <button onClick={() => ajoutArticle()}>AJOUTER EN BDD</button>
-    </form>
+
 
    </div>
  );

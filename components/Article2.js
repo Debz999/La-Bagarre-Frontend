@@ -20,19 +20,17 @@ import Link from 'next/link';
 
 // function ArticlePage({ id }) {
 function Article2Page() {
+  
   const [articleCliqueData, setArticleCliqueData] = useState(null);
 
-  const [imageIndex, setImageIndex] = useState(0); // L'index de l'image affichée actuellement
+  const [imageIndex, setImageIndex] = useState(0);
   const [categorieRecuperee, setCategorieRecuperee] = useState('')
-  // const [jeSaisPaaas, setJeSaisPaaas] = useState('')
-  const [essai, setEssai] = useState([])
-
   const [typeRecupere, setTypeRecupere] = useState('')
-
+  const [essai, setEssai] = useState([])
   
 
 
-  const router = useRouter();
+  const router = useRouter(); //ACCEDE AUX INFOS DE L'URL
   const { id } = router.query; // `id` correspond au paramètre dynamique de l'URL
 
 
@@ -133,11 +131,13 @@ const articles = () => {
   };
 
   const jeSaisPas4 = 
-    <Image src={articleCliqueData.photos9[imageIndex]} width={400} height={300} className={styles.photosArticle} onClick={()=> auClick()}></Image>
+    <Image src={articleCliqueData.photos9[imageIndex]} width="1000%" height="100%" className={styles.photosArticle} onClick={()=> auClick()}></Image>
     
 
-  const jeSaisPas5 = <ul className={styles.description}>{articleCliqueData.description}</ul>
- 
+  // const jeSaisPas5 = <ul className={styles.description} style={{ whiteSpace: "pre-line" }} >{articleCliqueData.description.replace(/ ([A-Z])/g, "\n$1")}</ul>
+  // const jeSaisPas5 = <ul className={styles.description}>{articleCliqueData.description}</ul>
+  const jeSaisPas5 = <p className={styles.description} style={{ whiteSpace: "pre-line" }} >{articleCliqueData.description}</p>
+
  
 
 
@@ -156,8 +156,9 @@ const articles = () => {
           <p>Catégorie: {articleCliqueData.categorie}</p>
           <p>Type: {articleCliqueData.type}</p>
         </div>
-        {/* <p>Description: {articleCliqueData.description}</p> */}
+       
         <p>Description: {jeSaisPas5}</p>
+        
         <div>
           <p>Tailles disponibles: {jeTestCa()}</p>
           <p>Couleurs disponibles: <select>{jeSaisPas2}</select></p>
@@ -196,10 +197,6 @@ const jeSaisPas5 = () => {
 
     );
    }
-
-   //Me faut un router.get les articles les plus vendus
-   //Et aussi un get articles similaires, ptete meme type d'article
-   //Ptete afficher 5 articles et "afficher plus" qui redirige vers la page dédiée au type du produit
 
    
    export default Article2Page;
