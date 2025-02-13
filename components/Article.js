@@ -32,6 +32,7 @@ function ArticlePage() {
 
 
 useEffect(() => {
+  fetch(`http://localhost:3000/articles/articlesC?categorie=${categorie}type=${type}`)
   fetch(`http://localhost:3000/articles/articles`)
   .then((response) => response.json())
   .then((data) => {
