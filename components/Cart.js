@@ -33,10 +33,10 @@ function Cart() {
   }, []);
 
 
-
   const continueShopping = () => {
     router.push("/");
   };
+
   //visible elements
   let cartContents = <p>There are no items in your cart yet</p>;
   //console.log("length", cart.cartItem);
