@@ -42,7 +42,7 @@ function ArticleFlexiblePage(props) {
 const articles = allArticlesData.map((data, i) => {
 
   
-  const jeSaisPas5 = <Image src={data.photos9[0]} width={100} height={200} className={styles.cardPhoto}></Image>;
+  const jeSaisPas5 = <Image src={data.photos9[0]} width={300} height={400} className={styles.cardPhoto}></Image>;
   
   
   return (
@@ -72,6 +72,7 @@ const articles = allArticlesData.map((data, i) => {
       <div>
         <h3 className={styles.pageTitle}>Catégorie: {props.categorie ?? "null"}</h3>
         <h3>type: {props.type ?? "null"}</h3>
+        <h3>title: {props.title}</h3>
 
         <div className={styles.containerDeTout}>    
           {articles}

@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 
 import styles from "../styles/Article2.module.css";
+import Article2Page from './Article2';
 
 
 function AjoutArticleBdd() {
@@ -22,6 +23,8 @@ const [sizes9, setSizes9] = useState('');
 const [giSizes9, setGiSizes9] = useState('');
 
  const [inputId, setInputId] = useState('');
+
+ const [dataAffichage, setDataAffichage] = useState('')
 
 
   
@@ -54,11 +57,10 @@ const [giSizes9, setGiSizes9] = useState('');
 
  
 
-  // const id = inputId
   const auClickSurUpdate = () => {
 
     if(!inputId) {
-      return res.status(404)
+      return res.status(404).json({ message: "Article non trouvé" });
     } 
         fetch(`http://localhost:3000/articles/articleUpdate1/${inputId}`, {
           method: 'PUT',
@@ -84,42 +86,13 @@ const [giSizes9, setGiSizes9] = useState('');
           console.log(data) // Affiche l'article mis à jour
         })
 
-
-    
-    // fetch(`http://localhost:3000/articles/articleUpdate1/${inputId}`, {
-    //     method: 'PUT',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //       categorie,
-    //       type,
-    //       model,
-    //       description,
-    //       price,
-    //       onSale,
-    //       soldCount,
-    //       colors9,  
-    //       photos9,
-    //       sizes9,
-    //       giSizes9,
-    //     })
-    //   })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     console.log(data) // Affiche l'article mis à jour
-    //   })
   }
 
 
-  
-
-  
-
 
  return (
-   <div className={styles.divTout}>
- 
+   <div className={styles.divEnsemble}>
+    <div className={styles.p1}>
       <input onChange={(e) => setCategorie(e.target.value)} value={categorie} placeholder="Catégorie" className={styles.inputStyle}/>
       <input onChange={(e) => setType(e.target.value)} value={type} placeholder="Type" className={styles.inputStyle}/>
       <input onChange={(e) => setModel(e.target.value)} value={model} placeholder="Model" className={styles.inputStyle}/>
@@ -144,7 +117,11 @@ const [giSizes9, setGiSizes9] = useState('');
       <button onClick={auClickSurUpdate}>UPDATE</button>
       
       <button onClick={() => ajoutArticle()}>AJOUTER EN BDD</button>
-
+    </div>
+    <div className={styles.p2}>
+      {/* <Article2Page articleId={inputId}/> */}
+      {inputId && <Article2Page inputId={inputId} />}
+    </div>
 
 
    </div>

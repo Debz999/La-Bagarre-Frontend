@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 
 
 import Link from 'next/link';
+import ArticleFlexiblePage from './ArticleFlexible';
 
 
 
@@ -19,7 +20,7 @@ import Link from 'next/link';
 
 
 // function ArticlePage({ id }) {
-function Article2Page() {
+function Article2Page({inputId}) {
   
   const [articleCliqueData, setArticleCliqueData] = useState(null);
 
@@ -31,8 +32,9 @@ function Article2Page() {
 
 
   const router = useRouter(); //ACCEDE AUX INFOS DE L'URL
-  const { id } = router.query; // `id` correspond au paramètre dynamique de l'URL
-
+  // const { id } = router.query; // `id` correspond au paramètre dynamique de l'URL
+  const urlId = router.query.id; 
+  const id = inputId || urlId; // On prend articleId si dispo, sinon l'ID de l'URL
 
 
     useEffect(() => {
@@ -52,6 +54,9 @@ function Article2Page() {
       }
   }, [id])
 
+
+//categorieRecuperee c'est data.articleRécupéré.catégorie
+//IL FAUT QUE JE PASSE L'ID D'ICI EN PROPS A ARTICLEFLEXIBLE
 
 // Deuxième requête pour récupérer les articles similaires
   useEffect(() => {
@@ -175,6 +180,7 @@ const jeSaisPas5 = () => {
 
 }
 
+const title = "Articles Similaires"
 
     return (
       <div className={styles.articleContainer}>
@@ -183,13 +189,17 @@ const jeSaisPas5 = () => {
           {articles()}
         </div>
 
-        <p> Articles Similaires: </p>
+        {/* <p> Articles Similaires: </p>
         <div className={styles.containerDeTout3}>
           <p className={styles.articlesProposes}> {essaiEssai} </p>
-        </div>
+        </div> */}
 
-        <div className={styles.containerDeTout3}>
-          <p className={styles.articlesProposes}>Faut ajouter les autres propositions, articles similaires et articles les plus vendus</p>
+        <div className={styles.articleFlexibleContainer}>
+          {categorieRecuperee && typeRecupere ? (
+            <ArticleFlexiblePage title={title} categorie={categorieRecuperee} type={typeRecupere}/>
+            ) : (
+            <p>Y'a walou</p>
+            )}
         </div>
         
       </div>
