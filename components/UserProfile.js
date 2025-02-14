@@ -2,15 +2,15 @@ import styles from "../styles/Profil.module.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userStore } from "../reducers/user";
-import { useRouter } from "next/router";
 
-function Profil() {
+//PARAMETRES DE COMPTE
+//BEFORE I BEGIN WITH THIS DELETE ALL EXTRA INFORMATION!!! ---------------------
+function AccountSettings() {
+  /*
+  HERE LOGIC TO EDIT INFORMATION AND ADD NEW ADDRESS, PARAMETRES DE COMPTE
+  */
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  const router = useRouter();
-
-  const [missingInfo, setMissingInfo] = useState(false);
-  const [missingAddressInfo, setMissingAddressInfo] = useState(false);
   const [userData, setUserData] = useState({
     firstname: "",
     lastname: "",
@@ -21,8 +21,15 @@ function Profil() {
     zipcode: "",
     country: "",
   });
-
-    //console.log(user); //stil nog console logging the profile, why ? --------------
+  //set all user elements to edit
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [country, setCountry] = useState("");
 
   //ADD USER NAME AND EMAIL
   const addUserInfo = () => {
@@ -37,15 +44,17 @@ function Profil() {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data)
-        if (data.result === false) {
-          setMissingInfo(true);
-        } else {
-          setMissingInfo(false);
-        }
+        //console.log(data) works
+        //insert get here, not sure if i should just do one fetch get at the end
+        // fetch(`http://localhost:3000/users/${user.token}`)
+        //   .then((response) => response.json())
+        //   .then((data) => {
+        //     dispatch(userStore(data));
+        //     console.log(data);
+        //   });
       });
   };
-  //ADD NEW ADDRESS
+
   const addNewAddress = () => {
     fetch(`http://localhost:3000/users/newaddress/${user.token}`, {
       method: "PUT",
@@ -60,34 +69,67 @@ function Profil() {
     })
       .then((response) => response.json())
       .then((data) => {
-        //then fetch for full user here
-        fetch(`http://localhost:3000/users/${user.token}`)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.result === false) {
-              setMissingAddressInfo(true);
-            } else {
-              setMissingAddressInfo(false);
-              console.log("true data", data); //stores correct data
-              dispatch(userStore(data));
-            }
-          });
+        console.log(data);
+        //insert get here
+        // fetch(`http://localhost:3000/users/${user.token}`)
+        //   .then((response) => response.json())
+        //   .then((data) => {
+        //     dispatch(userStore(data));
+        //     console.log(data);
+        //   });
       });
   };
 
   const handleSaveInfo = () => {
+    //ADD SOMETHING FOR MISSING INFORMATION!!
     addUserInfo();
     addNewAddress();
-    router.push("/");
   };
+
+  //create adress component (in case of multiple addresses),
+  //maybe component for everything if its supposed to look the same
+  //then start logic to edit user adress
+
+  //to modify address, first get then post
+  // Get existing user profile on click modify
+  const getExistingUser = () => {
+    if (user.token) {
+      fetch(`http://localhost:3000/users/${user.token}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        });
+    } else {
+      console.log("need to log in");
+    }
+  };
+
+  //Get existing user profile
+  //   useEffect(() => {
+  //     fetch(`http://localhost:3000/users/${user.token}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         //dispatch to reducer to store complete data
+  //       });
+  //   }, []);
+
+  //TO DO LIST - teacher's help
+  //GET USER pour remplir les champs editables - useEffect, get
+  //in front on change... setName(text),
+  //users do usestate for each one
+  //useEffect get l'addresse setName, on change setName (if changes)
+  //so first i have divs, then if get i change them all for inoputs
 
   const handleChanges = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
+  //console.log(userData); //works, now handle submit
+
   return (
     <div className={styles.main}>
-      <h1>Profil</h1>
+      <h1>Mon compte</h1>
       <div className={styles.container}>
         <h3 className={styles.subtitle}>Vos informations</h3>
         <div className={styles.formGroup}>
@@ -165,14 +207,15 @@ function Profil() {
           />
         </div>
         <div className={styles.buttonContainer}>
-          <button className={styles.button} onClick={() => handleSaveInfo()}>
-            Commencer le shopping !
-          </button>
+        <button className={styles.button} onClick={() => handleSaveInfo()}>
+          Sauvegarder
+        </button>
         </div>
       </div>
-      {missingAddressInfo && missingInfo && <p>Missing information !</p>}
     </div>
   );
 }
+export default Account
+//BEFORE I BEGIN WITH THIS DELETE ALL EXTRA INFORMATION!!! ---------------------Settings;
 
-export default Profil;
+//PARAMETRES DE COMPTE
