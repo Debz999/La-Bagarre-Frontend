@@ -2,6 +2,7 @@ import styles from "../styles/Profil.module.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userStore } from "../reducers/user";
+import ProfileForm from "./ProfileForm";
 
 //PARAMETRES DE COMPTE
 //BEFORE I BEGIN WITH THIS DELETE ALL EXTRA INFORMATION!!! ---------------------
@@ -11,52 +12,58 @@ function AccountSettings() {
   */
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
+  let profile = user.profile;
+  //console.log(profile); //address is an array, do a map
   const [userData, setUserData] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    number: "",
-    street: "",
-    city: "",
-    zipcode: "",
-    country: "",
+    firstname: profile.firstname,
+    lastname: profile.lastname,
+    email: profile.email,
   });
-  //set all user elements to edit
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [number, setNumber] = useState("");
-  const [street, setStreet] = useState("");
-  const [city, setCity] = useState("");
-  const [zipcode, setZipcode] = useState("");
-  const [country, setCountry] = useState("");
 
-  //ADD USER NAME AND EMAIL
-  const addUserInfo = () => {
-    fetch(`http://localhost:3000/users/addinfo/${user.token}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: userData.email,
-        firstname: userData.firstname,
-        lastname: userData.lastname,
-      }),
-    })
+  //in my child component, firsname: props.firstname || ''
+
+  const [userAddress, setUserAddress] = useState(user.profile.address);
+  const [missingAddressInfo, setMissingAddressInfo] = useState(false);
+  const [isEditable, setIsEditable] = useState(false);
+
+  // //set all user elements to edit
+  // const [firstname, setFirstname] = useState("");
+  // const [lastname, setLastname] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [number, setNumber] = useState("");
+  // const [street, setStreet] = useState("");
+  // const [city, setCity] = useState("");
+  // const [zipcode, setZipcode] = useState("");
+  // const [country, setCountry] = useState("");
+
+  // Get existing user profile on click modify
+  // const getExistingUser = () => {
+  //   if (user.token) {
+  //     fetch(`http://localhost:3000/users/${user.token}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //       });
+  //   } else {
+  //     console.log("need to log in");
+  //   }
+  // };
+
+  //Get existing user profile
+  useEffect(() => {
+    fetch(`http://localhost:3000/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data) works
-        //insert get here, not sure if i should just do one fetch get at the end
-        // fetch(`http://localhost:3000/users/${user.token}`)
-        //   .then((response) => response.json())
-        //   .then((data) => {
-        //     dispatch(userStore(data));
-        //     console.log(data);
-        //   });
+        console.log("firstData", data);
+        dispatch(userStore(data.data));
+        setUserData(data.data);
+        //SET PROVISIONAL DATA IN USE STATE OR IN REDUCE ?
       });
-  };
+  }, []);
 
-  const addNewAddress = () => {
-    fetch(`http://localhost:3000/users/newaddress/${user.token}`, {
+  //EDIT EXISTING ADDRESS
+  const editAddress = () => {
+    fetch(`http://localhost:3000/users/editaddress/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -69,153 +76,112 @@ function AccountSettings() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        //insert get here
-        // fetch(`http://localhost:3000/users/${user.token}`)
-        //   .then((response) => response.json())
-        //   .then((data) => {
-        //     dispatch(userStore(data));
-        //     console.log(data);
-        //   });
+        //then fetch for full user here
+        fetch(`http://localhost:3000/users/${user.token}`)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.result === false) {
+              setMissingAddressInfo(true);
+            } else {
+              setMissingAddressInfo(false);
+              console.log("secondData", data.data);
+              dispatch(userStore(data.data));
+              setIsEditable(true);
+            }
+          });
       });
   };
-
-  const handleSaveInfo = () => {
-    //ADD SOMETHING FOR MISSING INFORMATION!!
-    addUserInfo();
-    addNewAddress();
-  };
-
-  //create adress component (in case of multiple addresses),
-  //maybe component for everything if its supposed to look the same
-  //then start logic to edit user adress
-
-  //to modify address, first get then post
-  // Get existing user profile on click modify
-  const getExistingUser = () => {
-    if (user.token) {
-      fetch(`http://localhost:3000/users/${user.token}`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-        });
-    } else {
-      console.log("need to log in");
-    }
-  };
-
-  //Get existing user profile
-  //   useEffect(() => {
-  //     fetch(`http://localhost:3000/users/${user.token}`)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         //dispatch to reducer to store complete data
-  //       });
-  //   }, []);
-
-  //TO DO LIST - teacher's help
-  //GET USER pour remplir les champs editables - useEffect, get
-  //in front on change... setName(text),
-  //users do usestate for each one
-  //useEffect get l'addresse setName, on change setName (if changes)
-  //so first i have divs, then if get i change them all for inoputs
 
   const handleChanges = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  //console.log(userData); //works, now handle submit
+  let addressContent = <p>You haven't saved an address yet</p>;
+  //console.log("length", cart.cartItem);
+  if (userAddress?.length > 0) {
+    addressContent = userAddress.map((data, i) => {
+      console.log("check map", data);
+      return (
+        <div>
+          {" "}
+          <div className={styles.formGroup}>
+            <label>Numéro</label>
+            <input
+              readonly={isEditable ? false : "readonly"}
+              type="text"
+              placeholder={data.number}
+              name="number"
+              onChange={(e) => handleChanges(e)}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Rue</label>
+            <input
+              readonly={isEditable ? true : "readonly"}
+              type="text"
+              placeholder={data.street}
+              name="street"
+              onChange={(e) => handleChanges(e)}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Ville</label>
+            <input
+              readonly={isEditable ? true : "readonly"}
+              type="text"
+              placeholder={data.city}
+              name="city"
+              onChange={(e) => handleChanges(e)}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Code postal</label>
+            <input
+              readonly={isEditable ? true : "readonly"}
+              type="text"
+              placeholder={data.zipcode}
+              name="zipcode"
+              onChange={(e) => handleChanges(e)}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Pays</label>
+            <input
+              readonly={isEditable ? true : "readonly"}
+              type="text"
+              placeholder={data.country}
+              name="country"
+              onChange={(e) => handleChanges(e)}
+            />
+          </div>
+          <button>delete (not done yet) </button>
+        </div>
+      );
+    });
+  }
 
   return (
     <div className={styles.main}>
       <h1>Mon compte</h1>
-      <div className={styles.container}>
-        <h3 className={styles.subtitle}>Vos informations</h3>
-        <div className={styles.formGroup}>
-          <label>Prénom*</label>
-          <input
-            type="text"
-            placeholder="prénom"
-            name="firstname"
-            onChange={(e) => handleChanges(e)}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Nom*</label>
-          <input
-            type="text"
-            placeholder="nom"
-            name="lastname"
-            onChange={(e) => handleChanges(e)}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>E-mail*</label>
-          <input
-            type="text"
-            placeholder="e-mail"
-            name="email"
-            onChange={(e) => handleChanges(e)}
-          />
-        </div>
-
-        <h3 className={styles.subtitle}>Votre adresse livraison</h3>
-        <div className={styles.formGroup}>
-          <label>Numéro*</label>
-          <input
-            type="text"
-            placeholder="numéro"
-            name="number"
-            onChange={(e) => handleChanges(e)}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Rue*</label>
-          <input
-            type="text"
-            placeholder="rue"
-            name="street"
-            onChange={(e) => handleChanges(e)}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Ville*</label>
-          <input
-            type="text"
-            placeholder="ville"
-            name="city"
-            onChange={(e) => handleChanges(e)}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Code postal*</label>
-          <input
-            type="text"
-            placeholder="code postal"
-            name="zipcode"
-            onChange={(e) => handleChanges(e)}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Pays*</label>
-          <input
-            type="text"
-            placeholder="pays"
-            name="country"
-            onChange={(e) => handleChanges(e)}
-          />
-        </div>
-        <div className={styles.buttonContainer}>
-        <button className={styles.button} onClick={() => handleSaveInfo()}>
-          Sauvegarder
-        </button>
-        </div>
+      <div>
+        <p>Prénom: {user.profile.firstname}</p>
+        <p>Nom: {user.profile.lastname}</p>
+        <p>E-mail: {user.profile.email}</p>
       </div>
+      <div>
+        <h3>Mon addresse de livraison</h3>
+        {addressContent}
+      </div>
+      {/* <button onClick={getAddressInput()}>Ajouter un nouvel addresse</button> */}
+      <button onClick={() => editAddress()}>
+        Modifier mes informations
+      </button>
+      <button onClick={() => addNewAddress()}>Enregistrer les modificqtions (not done yet)</button>
+      <button>
+        click here to add an address (not done yet, but should be similar to
+        profile page)
+      </button>
     </div>
   );
 }
-export default Account
-//BEFORE I BEGIN WITH THIS DELETE ALL EXTRA INFORMATION!!! ---------------------Settings;
-
-//PARAMETRES DE COMPTE
+export default AccountSettings;

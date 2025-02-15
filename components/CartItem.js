@@ -73,7 +73,7 @@ function CartItem(props) {
             <button onClick={() => minus()} className={styles.icon}>
               -
             </button>
-            <span>and totalItem wrong{totalItems}</span>
+            <span>{totalItems}</span>
             <button onClick={() => add()} className={styles.icon}>
               +
             </button>

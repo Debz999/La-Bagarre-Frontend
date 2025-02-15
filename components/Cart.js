@@ -20,7 +20,9 @@ function Cart() {
       fetch(`http://localhost:3000/carts/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
-          dispatch(toggleCart(data.data.items));
+          if(data === true) {
+            dispatch(toggleCart(data.data.items));
+          }
         });
     } else {
       console.log("need to log in");

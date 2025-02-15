@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userStore } from "../reducers/user";
 import { useRouter } from "next/router";
+import ProfileForm from "./ProfileForm";
+
 
 function Profil() {
   const dispatch = useDispatch();
@@ -11,16 +13,25 @@ function Profil() {
 
   const [missingInfo, setMissingInfo] = useState(false);
   const [missingAddressInfo, setMissingAddressInfo] = useState(false);
+  let profile = user.profile;
   const [userData, setUserData] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    number: "",
-    street: "",
-    city: "",
-    zipcode: "",
-    country: "",
+    firstname: profile.firstname || "",
+    lastname: profile.lastname || "",
+    email: profile.email || "",
   });
+  // const [userData, setUserData] = useState({
+  //   firstname: "",
+  //   lastname: "",
+  //   email: "",
+  //   number: "",
+  //   street: "",
+  //   city: "",
+  //   zipcode: "",
+  //   country: "",
+  // });
+  const [userAddress, setUserAddress] = useState(user.profile.address || []);
+  const [isEditable, setIsEditable] = useState(false);
+
 
     //console.log(user); //stil nog console logging the profile, why ? --------------
 
@@ -68,8 +79,8 @@ function Profil() {
               setMissingAddressInfo(true);
             } else {
               setMissingAddressInfo(false);
-              console.log("true data", data); //stores correct data
-              dispatch(userStore(data));
+              console.log("true data", data.data); //stores correct data i think // NOT SURE IF IT SHOULD BE JUST DATA OR DATA.DATA --------
+              dispatch(userStore(data.data));
             }
           });
       });
@@ -119,7 +130,8 @@ function Profil() {
         </div>
 
         <h3 className={styles.subtitle}>Votre adresse livraison</h3>
-        <div className={styles.formGroup}>
+        <ProfileForm isEditable={isEditable}/>
+        {/* <div className={styles.formGroup}>
           <label>Numéro*</label>
           <input
             type="text"
@@ -166,9 +178,9 @@ function Profil() {
         </div>
         <div className={styles.buttonContainer}>
           <button className={styles.button} onClick={() => handleSaveInfo()}>
-            Commencer le shopping !
+            Enregistrer et commencer le shopping !
           </button>
-        </div>
+        </div> */}
       </div>
       {missingAddressInfo && missingInfo && <p>Missing information !</p>}
     </div>

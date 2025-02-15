@@ -80,7 +80,7 @@ function Header() {
       {isMenuOpen && (
         <ul ref={menuRef} className={styles.menu}>
           <li>
-            <Link href="/profil"> Parametres du compte</Link>
+            <Link href="/userprofile"> Parametres du compte</Link>
           </li>
 
           <li>
