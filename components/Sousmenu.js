@@ -17,7 +17,7 @@ const SousMenu = ({ categorie, types }) => {
           {types.map((type) => (
             <li key={type}>
               <Link
-                href={`/articles?categorie=${categorie}&type=${type}`}
+                href={`/article?categorie=${categorie}&type=${type}`}
               >
                 {type}
               </Link>

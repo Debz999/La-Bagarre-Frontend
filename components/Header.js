@@ -91,10 +91,10 @@ function Header() {
       )}
       <div className={styles.containerCat}>
         
-      <Sousmenu categorie="HOMME" types={["Gi", "Rashguard", "Short"]} />
-      <Sousmenu categorie="FEMME" types={["Gi", "Rashguard", "Short"]} />
-      <Sousmenu categorie="ENFANT" types={["Gi", "Rashguard", "Short"]} />
-      <Sousmenu categorie="ACCESSOIRES" types={["Ceintures", "Sac", "Casquettes"]} />  
+      <Sousmenu categorie="Homme" types={["Gi", "Rashguard", "Short"]} />
+      <Sousmenu categorie="Femme" types={["Gi", "Rashguard", "Short"]} />
+      <Sousmenu categorie="Enfant" types={["Gi", "Rashguard", "Short"]} />
+      <Sousmenu categorie="Accessoires" types={["Ceintures", "Sac", "Casquettes"]} />  
       </div>
     </div>
   );
