@@ -6,11 +6,12 @@ import { faUser, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import user from "../reducers/user";
 import Link from "next/link";
-
+import Sousmenu from "./Sousmenu";
 import { useRouter } from "next/router";
 
 function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); //état pour le menu User visible uniquement si logIn
+  const [sousMenuOpen, setSousMenuOpen] = useState(null); //état pour sous menu des categories
   const user = useSelector((state) => state.user.value);
   const router = useRouter();
   const menuRef = useRef(null);
@@ -26,8 +27,14 @@ function Header() {
 
   //Accès au Cart
 
-  const handleClickCart= ()=>{
-    router.push('/cart');
+  const handleClickCart = () => {
+    router.push("/cart");
+  };
+
+  //Accès aux sous catégories
+
+  const handleClicksous = (categorie, type) => {
+    router.push(`/articles/articlesC?categorie=${categorie}&type=${type}`);
   };
 
   //On met un useEffect pour permettre au menu de bien s'ouvrir et se fermer à chaque click en dehors
@@ -63,7 +70,11 @@ function Header() {
             handleUserClick();
           }}
         />
-        <FontAwesomeIcon className={styles.userIcon} icon={faCartShopping} onClick={()=> handleClickCart()} />
+        <FontAwesomeIcon
+          className={styles.userIcon}
+          icon={faCartShopping}
+          onClick={() => handleClickCart()}
+        />
       </div>
       {isMenuOpen && (
         <ul ref={menuRef} className={styles.menu}>
@@ -79,12 +90,12 @@ function Header() {
         </ul>
       )}
       <div className={styles.containerCat}>
-        <p>HOMMES</p>
-<p>FEMMES</p>
-<p>ENFANTS</p>
-<p>ACCESSOIRES</p></div>
-
-
+        
+      <Sousmenu categorie="Homme" types={["Gi", "Rashguard", "Short"]} />
+      <Sousmenu categorie="Femme" types={["Gi", "Rashguard", "Short"]} />
+      <Sousmenu categorie="Enfant" types={["Gi", "Rashguard", "Short"]} />
+      <Sousmenu categorie="Accessoires" types={["Ceintures", "Sac", "Casquettes"]} />  
+      </div>
     </div>
   );
 }

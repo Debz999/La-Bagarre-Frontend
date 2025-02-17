@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 
 
 import Link from 'next/link';
+import ArticleFlexiblePage from './ArticleFlexible';
 
 
 
@@ -23,13 +24,10 @@ import Link from 'next/link';
   const user = useSelector((state) => state.user.value); //for token ! missing still
   const [articleCliqueData, setArticleCliqueData] = useState(null);
 
-  const [imageIndex, setImageIndex] = useState(0); // L'index de l'image affichée actuellement
+  const [imageIndex, setImageIndex] = useState(0);
   const [categorieRecuperee, setCategorieRecuperee] = useState('')
-  // const [jeSaisPaaas, setJeSaisPaaas] = useState('')
-  const [essai, setEssai] = useState([])
-
   const [typeRecupere, setTypeRecupere] = useState('')
-
+  const [essai, setEssai] = useState([])
   
 
 
@@ -54,6 +52,9 @@ import Link from 'next/link';
   }, [id])
 
 
+//categorieRecuperee c'est data.articleRécupéré.catégorie
+//IL FAUT QUE JE PASSE L'ID D'ICI EN PROPS A ARTICLEFLEXIBLE
+
 // Deuxième requête pour récupérer les articles similaires
   useEffect(() => {
     if (categorieRecuperee) {
@@ -63,7 +64,7 @@ import Link from 'next/link';
         .then((articlesSimililaires) => {
           if (articlesSimililaires.result) {
             console.log("Données d'articles similaires récupérées :", articlesSimililaires);
-            setEssai(articlesSimililaires.relatedArticles);  // Mets les articles similaires dans l'état
+            setEssai(articlesSimililaires.filteredArticles);  // Mets les articles similaires dans l'état
           }
         })
     }
@@ -75,7 +76,7 @@ useEffect(() => {
 console.log("setEssai :", essai)
 }, [essai])
 
-
+//
 const essaiEssai = essai.map((data) => (
   <Link href={`/article/${data._id}`}>
     <Image src={data.photos9[0]} width={200} height={150}></Image>
@@ -156,15 +157,22 @@ useEffect(() => {
   };
 
   const jeSaisPas4 = 
-    <Image src={articleCliqueData.photos9[imageIndex]} width={400} height={300} className={styles.photosArticle} onClick={()=> auClick()}></Image>
+    <Image src={articleCliqueData.photos9[imageIndex]} width="1000%" height="100%" className={styles.photosArticle} onClick={()=> auClick()}></Image>
     
+
+  // const jeSaisPas5 = <ul className={styles.description} style={{ whiteSpace: "pre-line" }} >{articleCliqueData.description.replace(/ ([A-Z])/g, "\n$1")}</ul>
+  // const jeSaisPas5 = <ul className={styles.description}>{articleCliqueData.description}</ul>
+  const jeSaisPas5 = <p className={styles.description} style={{ whiteSpace: "pre-line" }} >{articleCliqueData.description}</p>
+
+
+
   return (
 
     <div className={styles.articleComplet}>
 
       <div className={styles.photosContainer}>
         {jeSaisPas4}
-        <p>{imageIndex}</p>
+        <p>{imageIndex + 1}/{articleCliqueData.photos9.length}</p>
       </div>
 
         <div className={styles.separateur}>
@@ -185,7 +193,7 @@ useEffect(() => {
         </div>
       </div>
 
-    </div>
+
 
   )
 };
@@ -194,6 +202,7 @@ const jeSaisPas5 = () => {
 
 }
 
+const title = "Articles Similaires"
 
     return (
       <div className={styles.articleContainer}>
@@ -202,13 +211,17 @@ const jeSaisPas5 = () => {
           {articles()}
         </div>
 
-        <p> Articles Similaires: </p>
+        {/* <p> Articles Similaires: </p>
         <div className={styles.containerDeTout3}>
           <p className={styles.articlesProposes}> {essaiEssai} </p>
-        </div>
+        </div> */}
 
-        <div className={styles.containerDeTout3}>
-          <p className={styles.articlesProposes}>Faut ajouter les autres propositions, articles similaires et articles les plus vendus</p>
+        <div className={styles.articleFlexibleContainer}>
+          {categorieRecuperee && typeRecupere ? (
+            <ArticleFlexiblePage title={title} categorie={categorieRecuperee} type={typeRecupere}/>
+            ) : (
+            <p>Y'a walou</p>
+            )}
         </div>
         
       </div>
