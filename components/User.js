@@ -29,7 +29,7 @@ function User() {
           dispatch(login({ username: signUpUsername, token: data.token }));
           setSignUpUsername("");
           setSignUpPassword("");
-          router.push("/profil");
+          router.push("/");
         }
       });
   };

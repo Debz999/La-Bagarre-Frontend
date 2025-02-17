@@ -36,14 +36,14 @@ useEffect(() => {
   .then((response) => response.json())
   .then((data) => {
     if (data.result) {
-      console.log(data)
+      //console.log(data)
       setAllArticlesData(data.allArticles)
     }
   });
 }, [])
 
 useEffect(() => {
-  console.log("le useState =", allArticlesData)
+  //console.log("le useState =", allArticlesData)
 }, [allArticlesData])
 
 

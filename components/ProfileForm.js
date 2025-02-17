@@ -1,66 +1,61 @@
 import styles from "../styles/Profil.module.css";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { userStore } from "../reducers/user";
-import { useRouter } from "next/router";
 
 function ProfileForm(props) {
-  //make dynamic form with number of inputs equal the number of elements in my DB
 
+//console.log('props:', props)
   return (
-    <div className={styles.main}>
-      {" "}
+      <div className={styles.container}>
       <div className={styles.formGroup}>
         <label>Numéro</label>
         <input
-          readonly={props.isEditable ? false : "readonly"}
+          readOnly={props.isEditable ? false : "readOnly"}
           type="text"
-          placeholder={props.number}
+          placeholder={props.number || "numéro"}
           name="number"
-          onChange={(e) => handleChanges(e)}
+          onChange={(e) => props.handleAddressChanges(e, props.index)}
         />
       </div>
       <div className={styles.formGroup}>
         <label>Rue</label>
         <input
-          readonly={props.isEditable ? true : "readonly"}
+          readOnly={props.isEditable ? false : "readOnly"}
           type="text"
-          placeholder={props.street}
+          placeholder={props.street || "rue"}
           name="street"
-          onChange={(e) => handleChanges(e)}
+          onChange={(e) => props.handleAddressChanges(e, props.index)}
         />
       </div>
       <div className={styles.formGroup}>
         <label>Ville</label>
         <input
-          readonly={props.isEditable ? true : "readonly"}
+          readOnly={props.isEditable ? false : "readOnly"}
           type="text"
-          placeholder={props.city}
+          placeholder={props.city || "ville"}
           name="city"
-          onChange={(e) => handleChanges(e)}
+          onChange={(e) => props.handleAddressChanges(e, props.index)}
         />
       </div>
       <div className={styles.formGroup}>
         <label>Code postal</label>
         <input
-          readonly={props.isEditable ? true : "readonly"}
+          readOnly={props.isEditable ? false : "readOnly"}
           type="text"
-          placeholder={props.zipcode}
+          placeholder={props.zipcode || "code postal"}
           name="zipcode"
-          onChange={(e) => handleChanges(e)}
+          onChange={(e) => props.handleAddressChanges(e, props.index)}
         />
       </div>
       <div className={styles.formGroup}>
         <label>Pays</label>
         <input
-          readonly={props.isEditable ? true : "readonly"}
+          readOnly={props.isEditable ? false : "readOnly"}
           type="text"
-          placeholder={props.country}
+          placeholder={props.country || "pays"}
           name="country"
-          onChange={(e) => handleChanges(e)}
+          onChange={(e) => props.handleAddressChanges(e, props.index)}
         />
       </div>
-    </div>
+      </div>
   );
 }
 

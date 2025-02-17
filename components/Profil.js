@@ -5,7 +5,6 @@ import { userStore } from "../reducers/user";
 import { useRouter } from "next/router";
 import ProfileForm from "./ProfileForm";
 
-
 function Profil() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
@@ -19,21 +18,50 @@ function Profil() {
     lastname: profile.lastname || "",
     email: profile.email || "",
   });
-  // const [userData, setUserData] = useState({
-  //   firstname: "",
-  //   lastname: "",
-  //   email: "",
-  //   number: "",
-  //   street: "",
-  //   city: "",
-  //   zipcode: "",
-  //   country: "",
-  // });
-  const [userAddress, setUserAddress] = useState(user.profile.address || []);
+
+  const [userAddress, setUserAddress] = useState({
+    number: profile.address?.number || "",
+    street: profile.address?.street || "",
+    city: profile.address?.city || "",
+    zipcode: profile.address?.zipcode || "",
+    country: profile.address?.country || "",
+  });
+  const [isBaseEditable, setBaseIsEditable] = useState(false);
   const [isEditable, setIsEditable] = useState(false);
+  const [isNewAddressForm, setIsNewAddressForm] = useState(false)
 
+  //console.log(user);
 
-    //console.log(user); //stil nog console logging the profile, why ? --------------
+  // // Get existing user profile on click modify
+  // const getExistingUser = () => {
+  //   if (user.token) {
+  //     fetch(`http://localhost:3000/users/${user.token}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //       });
+  //   } else {
+  //     console.log("need to log in");
+  //   }
+  // };
+
+  //Get existing user profile
+  useEffect(() => {
+    fetch(`http://localhost:3000/users/${user.token}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        //data.data.email is undefined
+        if (!data.data.email) {
+          setIsEditable(true);
+          setBaseIsEditable(true);
+        }
+        //console.log("firstData", data);
+        dispatch(userStore(data.data));
+        setUserData(data.data);
+        //SET PROVISIONAL DATA IN USE STATE OR IN REDUCE ?
+      });
+  }, []);
 
   //ADD USER NAME AND EMAIL
   const addUserInfo = () => {
@@ -62,15 +90,15 @@ function Profil() {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        number: userData.number,
-        street: userData.street,
-        city: userData.city,
-        zipcode: userData.zipcode,
-        country: userData.country,
+        number: userAddress.number,
+        street: userAddress.street,
+        city: userAddress.city,
+        zipcode: userAddress.zipcode,
+        country: userAddress.country,
       }),
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then(() => {
         //then fetch for full user here
         fetch(`http://localhost:3000/users/${user.token}`)
           .then((response) => response.json())
@@ -79,7 +107,7 @@ function Profil() {
               setMissingAddressInfo(true);
             } else {
               setMissingAddressInfo(false);
-              console.log("true data", data.data); //stores correct data i think // NOT SURE IF IT SHOULD BE JUST DATA OR DATA.DATA --------
+              //console.log("true data", data.data);
               dispatch(userStore(data.data));
             }
           });
@@ -89,12 +117,80 @@ function Profil() {
   const handleSaveInfo = () => {
     addUserInfo();
     addNewAddress();
-    router.push("/");
+    //router.push("/");
+    setIsEditable(false);
+    setBaseIsEditable(false);
   };
 
+  //EDIT EXISTING ADDRESS
+  const saveEditAddress = () => {
+    fetch(`http://localhost:3000/users/editaddress/${user.token}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        number: userAddress.number,
+        street: userAddress.street,
+        city: userAddress.city,
+        zipcode: userAddress.zipcode,
+        country: userAddress.country,
+      }),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        //then fetch for full user here
+        fetch(`http://localhost:3000/users/${user.token}`)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.result === false) {
+              setMissingAddressInfo(true);
+            } else {
+              setMissingAddressInfo(false);
+              console.log("secondData", data.data);
+              dispatch(userStore(data.data));
+              setBaseIsEditable(false);
+            }
+          });
+      });
+  };
+
+  //changes for name and email
   const handleChanges = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
+
+  //changes for address (sent to child via props)
+  const handleAddressChanges = (e) => {
+    const newAddresses = { ...userAddress };
+    newAddresses[e.target.name] = e.target.value;
+    setUserAddress(newAddresses);
+  };
+
+  const addProfileForm = () => {
+    setIsNewAddressForm(!isNewAddressForm)
+    setIsEditable(true)
+  }
+
+  let newAddressForm = (
+    <ProfileForm
+      isEditable={isEditable}
+      handleAddressChanges={handleAddressChanges}
+    />
+  );
+  
+  //maps all user's addresses
+  let allAddresses =
+    user.profile.address?.map((data, index) => {
+      //console.log(data);
+      return (
+        <ProfileForm
+          key={index}
+          index={index}
+          {...data}
+          isEditable={isEditable}
+          handleAddressChanges={handleAddressChanges}
+        />
+      );
+    }) || [];
 
   return (
     <div className={styles.main}>
@@ -104,8 +200,9 @@ function Profil() {
         <div className={styles.formGroup}>
           <label>Prénom*</label>
           <input
+            readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
-            placeholder="prénom"
+            placeholder={user.profile.firstname || "prénom"}
             name="firstname"
             onChange={(e) => handleChanges(e)}
           />
@@ -113,8 +210,9 @@ function Profil() {
         <div className={styles.formGroup}>
           <label>Nom*</label>
           <input
+            readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
-            placeholder="nom"
+            placeholder={user.profile.lastname || "nom"}
             name="lastname"
             onChange={(e) => handleChanges(e)}
           />
@@ -122,65 +220,35 @@ function Profil() {
         <div className={styles.formGroup}>
           <label>E-mail*</label>
           <input
+            readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
-            placeholder="e-mail"
+            placeholder={user.profile.email || "e-mail"}
             name="email"
             onChange={(e) => handleChanges(e)}
           />
         </div>
 
         <h3 className={styles.subtitle}>Votre adresse livraison</h3>
-        <ProfileForm isEditable={isEditable}/>
-        {/* <div className={styles.formGroup}>
-          <label>Numéro*</label>
-          <input
-            type="text"
-            placeholder="numéro"
-            name="number"
-            onChange={(e) => handleChanges(e)}
+        {allAddresses.length > 0 && allAddresses}
+        {allAddresses.length == 0 && (
+          <ProfileForm
+            isEditable={isEditable}
+            handleAddressChanges={handleAddressChanges}
           />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Rue*</label>
-          <input
-            type="text"
-            placeholder="rue"
-            name="street"
-            onChange={(e) => handleChanges(e)}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Ville*</label>
-          <input
-            type="text"
-            placeholder="ville"
-            name="city"
-            onChange={(e) => handleChanges(e)}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Code postal*</label>
-          <input
-            type="text"
-            placeholder="code postal"
-            name="zipcode"
-            onChange={(e) => handleChanges(e)}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Pays*</label>
-          <input
-            type="text"
-            placeholder="pays"
-            name="country"
-            onChange={(e) => handleChanges(e)}
-          />
-        </div>
+        )}
+        {isNewAddressForm && newAddressForm}
         <div className={styles.buttonContainer}>
           <button className={styles.button} onClick={() => handleSaveInfo()}>
-            Enregistrer et commencer le shopping !
+            Enregistrer et commencer le shopping ! ok
           </button>
-        </div> */}
+          <button onClick={() => setIsEditable(prev => !prev)}>
+            Set Address as editable
+          </button>
+          <button onClick={() => addProfileForm()}>+</button>
+          <button onClick={() => addNewAddress()}>
+            Enregistrer nouvel addresse
+          </button>
+        </div>
       </div>
       {missingAddressInfo && missingInfo && <p>Missing information !</p>}
     </div>
