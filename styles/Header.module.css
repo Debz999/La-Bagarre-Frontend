@@ -95,6 +95,17 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+<<<<<<< HEAD
   color: #000;
 }
 
+=======
+}
+
+.cartContainer{
+  display: flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+>>>>>>> cart5

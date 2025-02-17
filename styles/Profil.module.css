@@ -4,8 +4,42 @@
     justify-content: flex-start;
     align-items: center;
     min-height: 100vh;
-    padding: 4rem 0;
+    padding: 3rem 0;
     color : black;
   }
   
- 
+ .container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px; 
+  margin: 10px;
+ }
+
+ .subtitle {
+  margin-top: 20px;
+  text-align: center;
+ }
+
+ .formGroup {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Labels (1 part), Inputs (2 parts) */
+  align-items: center;
+  gap: 0px;
+  margin-bottom: 10px;
+ }
+
+ .buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+ }
+
+ @media (max-width: 600px) {
+  .formGroup {
+    grid-template-columns: 1fr; 
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+}

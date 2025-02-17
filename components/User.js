@@ -101,7 +101,7 @@ function User() {
         <label>Mot de passe: </label>
         <input
           type="password"
-          id="password"
+          id="password2"
           name="password"
           onChange={(e) => setSignUpPassword(e.target.value)}
           value={signUpPassword}

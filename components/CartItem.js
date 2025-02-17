@@ -8,14 +8,13 @@ function CartItem(props) {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.value);
   const user = useSelector((state) => state.user.value);
-  const [quantity, setQuantity] = useState(1);
-//console.log(user.token); //this should work, just need to connect Cart and CartItem to the rest of the website.
+  //console.log(user.token); //this should work, just need to connect Cart and CartItem to the rest of the website.
 
-  const updateDatabaseQuantity = () => {
+  const updateDatabaseQuantity = (newQuantity) => {
     fetch(`http://localhost:3000/carts/post/${user.token}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ _id: props.article._id, quantity: quantity }),
+      body: JSON.stringify({ _id: props.article._id, quantity: newQuantity }),
     })
       .then((response) => response.json())
       .then(() => {
@@ -39,21 +38,23 @@ function CartItem(props) {
         fetch(`http://localhost:3000/carts/${user.token}`)
           .then((response) => response.json())
           .then((data) => {
-            dispatch(toggleCart(data.data.items)); 
+            dispatch(toggleCart(data.data.items));
           });
       });
   };
- 
+
+  const totalItems = cart.cartItem.reduce(
+    (sum, value) => sum + value.quantity,
+    0
+  );
+
   const add = () => {
-    setQuantity(quantity + 1);
-    updateDatabaseQuantity();
+    //console.log(props.quantity);
+    updateDatabaseQuantity(props.quantity + 1);
   };
 
   const minus = () => {
-    if (quantity > 0) {
-      setQuantity(quantity - 1);
-    }
-    updateDatabaseQuantity();
+    updateDatabaseQuantity(props.quantity - 1);
   };
 
   const handleDelete = () => {
@@ -72,7 +73,7 @@ function CartItem(props) {
             <button onClick={() => minus()} className={styles.icon}>
               -
             </button>
-            <span>{quantity}</span>
+            <span>{totalItems}</span>
             <button onClick={() => add()} className={styles.icon}>
               +
             </button>

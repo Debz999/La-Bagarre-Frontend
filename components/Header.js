@@ -13,6 +13,8 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); //état pour le menu User visible uniquement si logIn
   const [sousMenuOpen, setSousMenuOpen] = useState(null); //état pour sous menu des categories
   const user = useSelector((state) => state.user.value);
+  const cart = useSelector((state) => state.cart.value);
+
   const router = useRouter();
   const menuRef = useRef(null);
 
@@ -52,6 +54,13 @@ function Header() {
       document.removeEventListener("mousedown", handleClickOut);
     };
   }, [isMenuOpen]);
+
+    /*Get cart total items */
+  const totalItems = cart.cartItem.reduce(
+    (sum, value) => sum + value.quantity,
+    0
+  );
+  //console.log(totalItems); //works
 
   return (
     <div>
