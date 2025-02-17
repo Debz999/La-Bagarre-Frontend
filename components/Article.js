@@ -1,101 +1,98 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React from "react";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Articleliste from './Articleliste'
 
 import styles from "../styles/Article.module.css";
 
 import Image from "next/image";
 
-import Link from 'next/link';
+import Link from "next/link";
 
-import { useRouter } from 'next/router';
-
-import ArticleFlexible from "./ArticleFlexible"
+import { useRouter } from "next/router";
 
 
 //J'AI PLUS BESOIN DE CETTE PAGE JE CROIS
 
 
-
-function ArticlePage(props) {
-
+function Article() {
   const [allArticlesData, setAllArticlesData] = useState([]);
 
+  const router = useRouter();
+  const { categorie, type } = router.query; //pour récuperer les parametres envoyer au click
 
-useEffect(() => {
-  fetch(`http://localhost:3000/articles/articles`)
-  .then((response) => response.json())
-  .then((data) => {
-    if (data.result) {
-      console.log(data)
-      setAllArticlesData(data.allArticles)
+  useEffect(() => {
+    if (!categorie) return; //pas de categorie il ne se passe rien
+
+    let url = `http://localhost:3000/articles/articlesCS?categorie=${categorie}`; //on met l'url sous forme de variable pour pouvoir jouer avec et qu'il s'adapte si ya "type"
+    if (type) {
+      url +=`&type=${type}`;
     }
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        if (data.result) {
+          setAllArticlesData(data.articles);
+        }
+      });
+  }, [categorie, type]); // pour que la page se mette à jour à chaque changement de caté et/ou type
+
+  const stuff= allArticlesData.map((data, i) =>{
+    return <Articleliste  key={i} {...data} />
+    
+  
   });
-}, [])
+    
 
-useEffect(() => {
-  console.log("le useState =", allArticlesData)
-}, [allArticlesData])
-
- 
-
-
-
-const articles = allArticlesData.map((data, i) => {
-
-  
-  const jeSaisPas5 = <Image src={data.photos9[0]} width={100} height={200} className={styles.cardPhoto}></Image>;
-  
-  
   return (
-
-    <div key={i} className={styles.articleLinkContainer}>
-      <Link href={`/article/${data._id}`}>
-
-      <div className={styles.articleComplet}>
-          <div className={styles.cardPhotoContainer}>
-            {jeSaisPas5}
-          </div>
-          <div className={styles.modelPriceContainer}>
-            <p>{data.model}</p>
-            <p>{data.price}€</p>
-          </div>
-      </div>
-
-      </Link>
+    <div>
+      <h1>
+        Articles {categorie} {type && `- ${type}`}
+      </h1>
+      <ul>
+        {stuff}
+      </ul>
     </div>
+  );
 
-  )
-});
+  // useEffect(() => {
+  //   console.log("le useState =", allArticlesData)
+  // }, [allArticlesData])
 
-const categorie1 = "Homme"
-const type1 = "Gi"
+  // const articles = allArticlesData.map((data, i) => {
 
-const categorie2 = "Femme"
-const type2 = "Gi"
+  //   const jeSaisPas5 = <Image src={data.photos9[0]} width={100} height={200} className={styles.cardPhoto}></Image>;
 
-const categorie3 = ""
-const type3 = "Gi"
+  //   return (
 
-    return (
-      <div>
-        <h3 className={styles.pageTitle}>Tous les articles</h3>
-        <div className={styles.containerDeTout}>    
-          {articles}
-        </div>
+  //     <div key={i} className={styles.articleLinkContainer}>
+  //       <Link href={`/article/${data._id}`}>
 
-        <div>
-          <ArticleFlexible categorie={categorie1} type={type1}/>
-        </div>
+  //       <div className={styles.articleComplet}>
+  //           <div className={styles.cardPhotoContainer}>
+  //             {jeSaisPas5}
+  //           </div>
+  //           <div className={styles.modelPriceContainer}>
+  //             <p>{data.model}</p>
+  //             <p>{data.price}€</p>
+  //           </div>
+  //       </div>
 
-        <div>
-          <ArticleFlexible categorie={categorie2} type={type2}/>
-        </div>
+  //       </Link>
+  //     </div>
 
-        <div>
-          <ArticleFlexible categorie={categorie3} type={type3}/>
-        </div>
-      </div>
-    );
-   }
-   
-   export default ArticlePage;
+  //   )
+  // });
+
+  //     return (
+  //       <div>
+  //         <h3 className={styles.pageTitle}>Tous les articles</h3>
+  //         <div className={styles.containerDeTout}>
+  //           {articles}
+  //         </div>
+  //       </div>
+  //     );
+}
+
+export default Article;
