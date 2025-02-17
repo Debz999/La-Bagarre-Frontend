@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 
 
 
-function ArticleFlexiblePage(props) {
+function TopArticles(props) {
   const [allArticlesData, setAllArticlesData] = useState([]);
 
   const router = useRouter();
@@ -25,14 +25,18 @@ function ArticleFlexiblePage(props) {
   useEffect(() => {
     
       
-      fetch(`http://localhost:3000/articles/articlesSimililaires?categorie=${categorie}&type=${type}`)
+      fetch(`http://localhost:3000/articles/topArticles1?categorie=${categorie}&type=${type}`)
         .then((response) => response.json())
         .then((articlesTrouves) => {
-          if (articlesTrouves.result) {
-            console.log("Données d'articles récupérées :", articlesTrouves);
-            setAllArticlesData(articlesTrouves.filteredArticles)
-          }
-        })
+            if (articlesTrouves.result) {
+                // Traiter les articles trouvés ici
+                console.log(articlesTrouves.articleRécupéré);
+              } else {
+                // Gérer le cas où aucune donnée n'est trouvée
+                console.log('Aucun article trouvé');
+              }
+            })
+        
     
   }, [categorie, type]); 
 
@@ -81,4 +85,4 @@ const articles = allArticlesData.map((data, i) => {
     );
    }
    
-   export default ArticleFlexiblePage;
+   export default TopArticles;

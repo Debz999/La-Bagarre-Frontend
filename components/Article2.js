@@ -10,7 +10,8 @@ import { useRouter } from 'next/router';
 
 
 import Link from 'next/link';
-import ArticleFlexiblePage from './ArticleFlexible';
+import ArticlesFiltres from './ArticlesFiltres';
+import TopArticles from "./TopArticles";
 
 
 
@@ -19,7 +20,7 @@ import ArticleFlexiblePage from './ArticleFlexible';
 //Peut etre au click sur l'article, recuperer son id et afficher l'article par son id d'ici
 
 // function ArticlePage({ id }) {
-  function Article2Page() {
+  function Article2Page({inputId}) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value); //for token ! missing still
   const [articleCliqueData, setArticleCliqueData] = useState(null);
@@ -32,7 +33,10 @@ import ArticleFlexiblePage from './ArticleFlexible';
 
 
   const router = useRouter();
-  const { id } = router.query; // `id` correspond au paramètre dynamique de l'URL
+
+  const urlId = router.query.id; 
+  const id = inputId || urlId; // On prend articleId si dispo, sinon l'ID de l'URL
+
 
     useEffect(() => {
       if(id) {
@@ -160,8 +164,6 @@ useEffect(() => {
     <Image src={articleCliqueData.photos9[imageIndex]} width="1000%" height="100%" className={styles.photosArticle} onClick={()=> auClick()}></Image>
     
 
-  // const jeSaisPas5 = <ul className={styles.description} style={{ whiteSpace: "pre-line" }} >{articleCliqueData.description.replace(/ ([A-Z])/g, "\n$1")}</ul>
-  // const jeSaisPas5 = <ul className={styles.description}>{articleCliqueData.description}</ul>
   const jeSaisPas5 = <p className={styles.description} style={{ whiteSpace: "pre-line" }} >{articleCliqueData.description}</p>
 
 
@@ -181,7 +183,7 @@ useEffect(() => {
             <p>Catégorie: {articleCliqueData.categorie}</p>
             <p>Type: {articleCliqueData.type}</p>
           </div>
-          <p>Description: {articleCliqueData.description}</p>
+          <p>Description: {jeSaisPas5}</p>
           <div>
             <p>Tailles disponibles: {jeTestCa()}</p>
             <p>
@@ -211,18 +213,19 @@ const title = "Articles Similaires"
           {articles()}
         </div>
 
-        {/* <p> Articles Similaires: </p>
-        <div className={styles.containerDeTout3}>
-          <p className={styles.articlesProposes}> {essaiEssai} </p>
-        </div> */}
-
-        <div className={styles.articleFlexibleContainer}>
+        <div>
           {categorieRecuperee && typeRecupere ? (
-            <ArticleFlexiblePage title={title} categorie={categorieRecuperee} type={typeRecupere}/>
+            <ArticlesFiltres title={title} categorie={categorieRecuperee} type={typeRecupere}/>
             ) : (
             <p>Y'a walou</p>
             )}
         </div>
+
+        {/* <div>
+          <TopArticles categorie={categorieRecuperee} type={typeRecupere}/>
+        </div> */}
+
+        
         
       </div>
 
