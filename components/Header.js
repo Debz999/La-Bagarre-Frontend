@@ -31,11 +31,7 @@ function Header() {
     router.push("/cart");
   };
 
-  //Accès aux sous catégories
-
-  const handleClicksous = (categorie, type) => {
-    router.push(`/articles/articlesC?categorie=${categorie}&type=${type}`);
-  };
+ 
 
   //On met un useEffect pour permettre au menu de bien s'ouvrir et se fermer à chaque click en dehors
 

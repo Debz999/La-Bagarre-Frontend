@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 
-//J'AI PLUS BESOIN DE CETTE PAGE JE CROIS
+
 
 
 function Article() {
@@ -48,7 +48,7 @@ function Article() {
   return (
     <div>
       <h1>
-        Articles {categorie} {type && `- ${type}`}
+        {categorie} {type && `- ${type}`}
       </h1>
       <ul>
         {stuff}

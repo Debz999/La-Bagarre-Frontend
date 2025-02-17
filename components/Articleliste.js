@@ -1,13 +1,16 @@
 
 
-function Articleliste({model, photo9, description} ){
+function Articleliste({model, photos9, description} ){
 
+const photos= photos9.map((photo, i)=>{
+    return(<img key={i} src={photo} alt={model}/>)
 
+})
 
     return(
         <li>
             <h3>{model}</h3>
-            <img src={photo9} alt={model}/>
+            <div>{photos}</div>
             <p>{description}</p>
 
 
