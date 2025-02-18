@@ -51,7 +51,9 @@ function Article() {
         {categorie} {type && `- ${type}`}
       </h1>
       <ul>
-        {stuff}
+        <div className={styles.stuffStyle}>
+          {stuff}
+        </div>
       </ul>
     </div>
   );

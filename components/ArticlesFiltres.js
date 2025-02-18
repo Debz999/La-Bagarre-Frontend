@@ -22,20 +22,6 @@ function ArticlesFiltres(props) {
   const type = props.type
 
 
-  useEffect(() => {
-    
-      
-      fetch(`http://localhost:3000/articles/articlesSimililaires?categorie=${categorie}&type=${type}`)
-        .then((response) => response.json())
-        .then((articlesTrouves) => {
-          if (articlesTrouves.result) {
-            console.log("Données d'articles récupérées :", articlesTrouves);
-            setAllArticlesData(articlesTrouves.filteredArticles)
-          }
-        })
-    
-  }, [categorie, type]); 
-
 
 
 
@@ -70,8 +56,8 @@ const articles = allArticlesData.map((data, i) => {
 
     return (
       <div>
-        <h3 className={styles.pageTitle}>Catégorie: {props.categorie ?? "null"}</h3>
-        <h3>type: {props.type ?? "null"}</h3>
+        <h3 className={styles.pageTitle}>Catégorie: {props.categorie ?? null}</h3>
+        <h3>type: {props.type ?? null}</h3>
         <h3>title: {props.title}</h3>
 
         <div className={styles.containerDeTout}>    

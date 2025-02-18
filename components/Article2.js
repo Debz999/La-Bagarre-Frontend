@@ -12,6 +12,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import ArticlesFiltres from './ArticlesFiltres';
 import TopArticles from "./TopArticles";
+import Articleliste from "./Articleliste";
+
 
 
 
@@ -29,6 +31,7 @@ import TopArticles from "./TopArticles";
   const [categorieRecuperee, setCategorieRecuperee] = useState('')
   const [typeRecupere, setTypeRecupere] = useState('')
   const [essai, setEssai] = useState([])
+  const [similarArticles, setSimilarArticles] = useState([])
   
 
 
@@ -59,7 +62,7 @@ import TopArticles from "./TopArticles";
 //categorieRecuperee c'est data.articleRécupéré.catégorie
 //IL FAUT QUE JE PASSE L'ID D'ICI EN PROPS A ARTICLEFLEXIBLE
 
-// Deuxième requête pour récupérer les articles similaires
+//Deuxième requête pour récupérer les articles similaires
   useEffect(() => {
     if (categorieRecuperee) {
       
@@ -68,7 +71,7 @@ import TopArticles from "./TopArticles";
         .then((articlesSimililaires) => {
           if (articlesSimililaires.result) {
             console.log("Données d'articles similaires récupérées :", articlesSimililaires);
-            setEssai(articlesSimililaires.filteredArticles);  // Mets les articles similaires dans l'état
+            setSimilarArticles(articlesSimililaires.filteredArticles);  // Mets les articles similaires dans l'état
           }
         })
     }
@@ -77,11 +80,11 @@ import TopArticles from "./TopArticles";
 
 
 useEffect(() => {
-console.log("setEssai :", essai)
-}, [essai])
+console.log("setSimilarArticles :", similarArticles)
+}, [similarArticles])
 
-//
-const essaiEssai = essai.map((data) => (
+
+const similarArticle = similarArticles.map((data) => (
   <Link href={`/article/${data._id}`}>
     <Image src={data.photos9[0]} width={200} height={150}></Image>
   </Link>
@@ -122,49 +125,40 @@ useEffect(() => {
   };
 
   const articles = () => {
-    //WHAH CA A REGLER LE SOUCIS CE TRUC
+    
     if (!articleCliqueData) {
       return <p>Chargement...</p>;
     }
 
-
-  const jeTestCa = () => {
+    const sizeOrGiSize = () => {
     if(articleCliqueData.type === "Gi") {
-      
-        const jeSaisPas1 = articleCliqueData.giSizes9.map((sizeGi, index) => (
+        const mappedGiSizes9 = articleCliqueData.giSizes9.map((sizeGi, index) => (
           <option key={index} value={sizeGi}>{sizeGi}</option>
         ))
-        return <select>{jeSaisPas1}</select>;
-    
-    } else {
+        return <select>{mappedGiSizes9}</select>;
 
-      const jeSaisPas0 = articleCliqueData.sizes9.map((size, index) => (
+    } else {
+      const mappedSizes9 = articleCliqueData.sizes9.map((size, index) => (
         <option key={index} value={size}>{size}</option>
       ))
-      return <select>{jeSaisPas0}</select>;
+      return <select>{mappedSizes9}</select>;
 
     }
   }
 
-
-  //AFFICHE UNE LISTE DES colors DISPO, A METTRE DANS UN MENU DEROULANT
-  const jeSaisPas2 = articleCliqueData.colors9.map((color, index) => (
+  const mappedColors9 = articleCliqueData.colors9.map((color, index) => (
     <option key={index} value={color}>{color}</option>
   ))
   
 
-
-  const auClick = () => {
+  const auClickSurPhoto = () => {
     setImageIndex((prevIndex) =>
       prevIndex < articleCliqueData.photos9.length - 1 ? prevIndex + 1 : 0
     );
   };
 
-  const jeSaisPas4 = 
-    <Image src={articleCliqueData.photos9[imageIndex]} width="1000%" height="100%" className={styles.photosArticle} onClick={()=> auClick()}></Image>
-    
 
-  const jeSaisPas5 = <p className={styles.description} style={{ whiteSpace: "pre-line" }} >{articleCliqueData.description}</p>
+  const articleDescription = <p className={styles.description} style={{ whiteSpace: "pre-line" }} >{articleCliqueData.description}</p>
 
 
 
@@ -173,36 +167,35 @@ useEffect(() => {
     <div className={styles.articleComplet}>
 
       <div className={styles.photosContainer}>
-        {jeSaisPas4}
-        <p>{imageIndex + 1}/{articleCliqueData.photos9.length}</p>
+        <Image src={articleCliqueData.photos9[imageIndex]} width="800px" height="900px" className={styles.photosArticle} onClick={()=> auClickSurPhoto()}></Image>
+        <p className={styles.photoLength}>{imageIndex + 1}/{articleCliqueData.photos9.length}</p>
       </div>
 
-        <div className={styles.separateur}>
-          <h3>{articleCliqueData.model}</h3>
-          <div>
-            <p>Catégorie: {articleCliqueData.categorie}</p>
-            <p>Type: {articleCliqueData.type}</p>
-          </div>
-          <p>Description: {jeSaisPas5}</p>
-          <div>
-            <p>Tailles disponibles: {jeTestCa()}</p>
-            <p>
-              Couleurs disponibles: <select>{jeSaisPas2}</select>
-            </p>
-          </div>
-          <p>{articleCliqueData.price}€</p>
-          <button onClick={() => addItemToCart(articleCliqueData._id)} className={styles.buttonAchete}>ACHETE C PAS CHER</button>
+      <div className={styles.separateur}>
+        <h3>{articleCliqueData.model}</h3>
+
+        <div>
+          <p>Catégorie: {articleCliqueData.categorie}</p>
+          <p>Type: {articleCliqueData.type}</p>
         </div>
+        <p>Description: {articleDescription}</p>
+
+        <div>
+          <p>Tailles disponibles: {sizeOrGiSize()}</p>
+          <p>Couleurs disponibles: <select>{mappedColors9}</select> </p>
+        </div>
+
+        <p>{articleCliqueData.price}€</p>
+        <button onClick={() => addItemToCart(articleCliqueData._id)} className={styles.buttonAchete}>ACHETE C PAS CHER</button>
       </div>
+
+    </div>
 
 
 
   )
 };
 
-const jeSaisPas5 = () => {
-
-}
 
 const title = "Articles Similaires"
 
@@ -213,17 +206,30 @@ const title = "Articles Similaires"
           {articles()}
         </div>
 
+        {/* <div>
+          {categorieRecuperee && typeRecupere ? (
+            <ArticlesFiltres title={title} categorie="" type={typeRecupere}/>
+            ) : (
+            <p>Y'a walou</p>
+            )}
+        </div>
+
         <div>
           {categorieRecuperee && typeRecupere ? (
             <ArticlesFiltres title={title} categorie={categorieRecuperee} type={typeRecupere}/>
             ) : (
             <p>Y'a walou</p>
             )}
-        </div>
-
-        {/* <div>
-          <TopArticles categorie={categorieRecuperee} type={typeRecupere}/>
         </div> */}
+
+
+        <div>
+        {articleCliqueData ? (
+          <Articleliste _id={articleCliqueData._id} categorie={articleCliqueData.categorie} type={articleCliqueData.type} model={articleCliqueData.model} photos9={articleCliqueData.photos9} price={articleCliqueData.price}/>
+        ) : (
+          <p> Y'a rien </p>
+        )}
+        </div>
 
         
         
@@ -231,9 +237,5 @@ const title = "Articles Similaires"
 
     );
    }
-
-//Me faut un router.get les articles les plus vendus
-//Et aussi un get articles similaires, ptete meme type d'article
-//Ptete afficher 5 articles et "afficher plus" qui redirige vers la page dédiée au type du produit
 
 export default Article2Page;

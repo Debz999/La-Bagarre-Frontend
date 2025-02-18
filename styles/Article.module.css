@@ -75,3 +75,9 @@
 .articlesProposes{
     border: 2px solid green
 } */
+
+.stuffStyle{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
