@@ -2,7 +2,7 @@ import styles from "../styles/Profil.module.css";
 
 function ProfileForm(props) {
 
-//console.log('props:', props)
+console.log('props:', props)
   return (
       <div className={styles.container}>
       <div className={styles.formGroup}>
@@ -55,6 +55,7 @@ function ProfileForm(props) {
           onChange={(e) => props.handleAddressChanges(e, props.index)}
         />
       </div>
+      <button onClick={() => props.handleDeleteAddress(props._id)} >Delete Address</button>
       </div>
   );
 }
