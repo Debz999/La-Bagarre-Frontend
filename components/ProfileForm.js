@@ -2,7 +2,7 @@ import styles from "../styles/Profil.module.css";
 
 function ProfileForm(props) {
 
-console.log('props:', props)
+//console.log('props:', props)
   return (
       <div className={styles.container}>
       <div className={styles.formGroup}>
