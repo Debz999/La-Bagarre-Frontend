@@ -75,11 +75,14 @@ function Header() {
             handleUserClick();
           }}
         />
+                <div className={styles.cartContainer}>
+        {totalItems > 0 && <div>({totalItems})</div>}
         <FontAwesomeIcon
           className={styles.userIcon}
           icon={faCartShopping}
           onClick={() => handleClickCart()}
         />
+        </div>
       </div>
       {isMenuOpen && (
         <ul ref={menuRef} className={styles.menu}>
