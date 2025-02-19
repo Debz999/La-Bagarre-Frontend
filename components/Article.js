@@ -31,7 +31,7 @@ function Article() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        console.log("setAllArticlesData: " , data)
         if (data.result) {
           setAllArticlesData(data.articles);
         }
