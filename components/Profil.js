@@ -28,7 +28,7 @@ function Profil() {
   });
   const [isBaseEditable, setBaseIsEditable] = useState(false);
   const [isEditable, setIsEditable] = useState(false);
-  const [isNewAddressForm, setIsNewAddressForm] = useState(false)
+  const [isNewAddressForm, setIsNewAddressForm] = useState(false);
 
   //console.log(user);
 
@@ -122,7 +122,7 @@ function Profil() {
     setBaseIsEditable(false);
   };
 
-  //EDIT EXISTING ADDRESS
+  //EDIT EXISTING ADDRESS   ---------- to do, maybe get only one address to become editable 
   const saveEditAddress = () => {
     fetch(`http://localhost:3000/users/editaddress/${user.token}`, {
       method: "PUT",
@@ -153,6 +153,27 @@ function Profil() {
       });
   };
 
+  //DELETE one address
+  const handleDeleteAddress = (addressId) => {
+    console.log(addressId)
+    fetch(`http://localhost:3000/users/deleteaddress/${user.token}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ _id: addressId }),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        //console.log('checking delete')
+        fetch(`http://localhost:3000/users/${user.token}`)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            dispatch(userStore(data.data));
+            setIsEditable(false)
+          });
+      });
+  };
+
   //changes for name and email
   const handleChanges = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -166,9 +187,9 @@ function Profil() {
   };
 
   const addProfileForm = () => {
-    setIsNewAddressForm(!isNewAddressForm)
-    setIsEditable(true)
-  }
+    setIsNewAddressForm(!isNewAddressForm);
+    setIsEditable(true);
+  };
 
   let newAddressForm = (
     <ProfileForm
@@ -176,7 +197,7 @@ function Profil() {
       handleAddressChanges={handleAddressChanges}
     />
   );
-  
+
   //maps all user's addresses
   let allAddresses =
     user.profile.address?.map((data, index) => {
@@ -188,6 +209,7 @@ function Profil() {
           {...data}
           isEditable={isEditable}
           handleAddressChanges={handleAddressChanges}
+          handleDeleteAddress={handleDeleteAddress}
         />
       );
     }) || [];
@@ -234,6 +256,7 @@ function Profil() {
           <ProfileForm
             isEditable={isEditable}
             handleAddressChanges={handleAddressChanges}
+            handleDeleteAddress={handleDeleteAddress}
           />
         )}
         {isNewAddressForm && newAddressForm}
@@ -241,7 +264,7 @@ function Profil() {
           <button className={styles.button} onClick={() => handleSaveInfo()}>
             Enregistrer et commencer le shopping ! ok
           </button>
-          <button onClick={() => setIsEditable(prev => !prev)}>
+          <button onClick={() => setIsEditable((prev) => !prev)}>
             Set Address as editable
           </button>
           <button onClick={() => addProfileForm()}>+</button>
