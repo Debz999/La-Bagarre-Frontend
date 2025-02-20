@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 
 
 import Link from 'next/link';
-import ArticlesFiltres from './ArticlesFiltres';
+import ArticlesSimilaires from './ArticlesSimilaires';
 import TopArticles from "./TopArticles";
 import Articleliste from "./Articleliste";
 
@@ -22,7 +22,7 @@ import Articleliste from "./Articleliste";
 //Peut etre au click sur l'article, recuperer son id et afficher l'article par son id d'ici
 
 // function ArticlePage({ id }) {
-  function Article2Page({inputId}) {
+  function ArticleDetail({inputId}) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value); //for token ! missing still
   const [articleCliqueData, setArticleCliqueData] = useState(null);
@@ -30,7 +30,7 @@ import Articleliste from "./Articleliste";
   const [imageIndex, setImageIndex] = useState(0);
   const [categorieRecuperee, setCategorieRecuperee] = useState('')
   const [typeRecupere, setTypeRecupere] = useState('')
-  const [essai, setEssai] = useState([])
+  // const [essai, setEssai] = useState([])
   const [similarArticles, setSimilarArticles] = useState([])
   
 
@@ -62,34 +62,36 @@ import Articleliste from "./Articleliste";
 //categorieRecuperee c'est data.articleRécupéré.catégorie
 //IL FAUT QUE JE PASSE L'ID D'ICI EN PROPS A ARTICLEFLEXIBLE
 
-//Deuxième requête pour récupérer les articles similaires
-  useEffect(() => {
-    if (categorieRecuperee) {
+// Deuxième requête pour récupérer les articles similaires
+//   useEffect(() => {
+//     if (categorieRecuperee) {
       
-      fetch(`http://localhost:3000/articles/articlesSimililaires?categorie=${categorieRecuperee}&type=${typeRecupere}`)
-        .then((response) => response.json())
-        .then((articlesSimililaires) => {
-          if (articlesSimililaires.result) {
-            console.log("Données d'articles similaires récupérées :", articlesSimililaires);
-            setSimilarArticles(articlesSimililaires.filteredArticles);  // Mets les articles similaires dans l'état
-          }
-        })
-    }
-  }, [categorieRecuperee]); 
+//       fetch(`http://localhost:3000/articles/articlesSimililaires?categorie=${categorieRecuperee}&type=${typeRecupere}`)
+//         .then((response) => response.json())
+//         .then((articlesSimililaires) => {
+//           if (articlesSimililaires.result) {
+//             console.log("Données d'articles similaires récupérées :", articlesSimililaires);
+//             setSimilarArticles(articlesSimililaires.filteredArticles);  // Mets les articles similaires dans l'état
+//           }
+//         })
+//     }
+//   }, [categorieRecuperee, typeRecupere]); 
 
 
 
-useEffect(() => {
-console.log("setSimilarArticles :", similarArticles)
-}, [similarArticles])
 
 
-const similarArticle = similarArticles.map((data) => (
-  <Link href={`/article/${data._id}`}>
-    <Image src={data.photos9[0]} width={200} height={150}></Image>
-  </Link>
+// useEffect(() => {
+// console.log("setSimilarArticles :", similarArticles)
+// }, [similarArticles])
+
+
+// const similarArticle = similarArticles.map((data) => (
+//   <Link href={`/article/${data._id}`}>
+//     <Image src={data.photos9[0]} width={200} height={150}></Image>
+//   </Link>
    
-))
+// ))
 
 
 
@@ -197,7 +199,7 @@ useEffect(() => {
 };
 
 
-const title = "Articles Similaires"
+
 
     return (
       <div className={styles.articleContainer}>
@@ -205,31 +207,28 @@ const title = "Articles Similaires"
         <div className={styles.containerDeTout}>
           {articles()}
         </div>
+{/* 
+         <div>
+          {similarArticle}
 
-        {/* <div>
+        </div>  */}
+
+        <div>
           {categorieRecuperee && typeRecupere ? (
-            <ArticlesFiltres title={title} categorie="" type={typeRecupere}/>
+            <ArticlesSimilaires categorie={categorieRecuperee} type={typeRecupere}/>
             ) : (
-            <p>Y'a walou</p>
+              <p>Y'a walou</p>
             )}
         </div>
 
-        <div>
-          {categorieRecuperee && typeRecupere ? (
-            <ArticlesFiltres title={title} categorie={categorieRecuperee} type={typeRecupere}/>
-            ) : (
-            <p>Y'a walou</p>
-            )}
-        </div> */}
 
-
-        <div>
+        {/* <div>
         {articleCliqueData ? (
-          <Articleliste _id={articleCliqueData._id} categorie={articleCliqueData.categorie} type={articleCliqueData.type} model={articleCliqueData.model} photos9={articleCliqueData.photos9} price={articleCliqueData.price}/>
+          <Articleliste _id={articleCliqueData._id} categorie={categorieRecuperee} type={typeRecupere} model={articleCliqueData.model} photos9={articleCliqueData.photos9} price={articleCliqueData.price}/>
         ) : (
           <p> Y'a rien </p>
         )}
-        </div>
+        </div> */}
 
         
         
@@ -238,4 +237,4 @@ const title = "Articles Similaires"
     );
    }
 
-export default Article2Page;
+export default ArticleDetail;
