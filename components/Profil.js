@@ -11,7 +11,7 @@ function Profil() {
   const router = useRouter();
 
   const [missingInfo, setMissingInfo] = useState(false);
-  const [missingAddressInfo, setMissingAddressInfo] = useState(false);
+  // const [missingAddressInfo, setMissingAddressInfo] = useState(false);
   let profile = user.profile;
   const [userData, setUserData] = useState({
     firstname: profile.firstname || "",
@@ -19,15 +19,14 @@ function Profil() {
     email: profile.email || "",
   });
 
-  const [userAddress, setUserAddress] = useState({
-    number: profile.address?.number || "",
-    street: profile.address?.street || "",
-    city: profile.address?.city || "",
-    zipcode: profile.address?.zipcode || "",
-    country: profile.address?.country || "",
-  });
+  // const [userAddress, setUserAddress] = useState({
+  //   number: profile.address?.number || "",
+  //   street: profile.address?.street || "",
+  //   city: profile.address?.city || "",
+  //   zipcode: profile.address?.zipcode || "",
+  //   country: profile.address?.country || "",
+  // });
   const [isBaseEditable, setBaseIsEditable] = useState(false);
-  const [isEditable, setIsEditable] = useState(false);
   const [isNewAddressForm, setIsNewAddressForm] = useState(false);
 
   //console.log(user);
@@ -53,7 +52,7 @@ function Profil() {
         console.log(data);
         //data.data.email is undefined
         if (!data.data.email) {
-          setIsEditable(true);
+          //setIsEditable(true);
           setBaseIsEditable(true);
         }
         //console.log("firstData", data);
@@ -84,134 +83,119 @@ function Profil() {
         }
       });
   };
-  //ADD NEW ADDRESS
-  const addNewAddress = () => {
-    fetch(`http://localhost:3000/users/newaddress/${user.token}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        number: userAddress.number,
-        street: userAddress.street,
-        city: userAddress.city,
-        zipcode: userAddress.zipcode,
-        country: userAddress.country,
-      }),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        //then fetch for full user here
-        fetch(`http://localhost:3000/users/${user.token}`)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.result === false) {
-              setMissingAddressInfo(true);
-            } else {
-              setMissingAddressInfo(false);
-              //console.log("true data", data.data);
-              dispatch(userStore(data.data));
-            }
-          });
-      });
-  };
+
+  // //ADD NEW ADDRESS
+  // const addNewAddress = () => {
+  //   fetch(`http://localhost:3000/users/newaddress/${user.token}`, {
+  //     method: "PUT",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       number: userAddress.number,
+  //       street: userAddress.street,
+  //       city: userAddress.city,
+  //       zipcode: userAddress.zipcode,
+  //       country: userAddress.country,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then(() => {
+  //       //then fetch for full user here
+  //       fetch(`http://localhost:3000/users/${user.token}`)
+  //         .then((response) => response.json())
+  //         .then((data) => {
+  //           if (data.result === false) {
+  //             setMissingAddressInfo(true);
+  //           } else {
+  //             setMissingAddressInfo(false);
+  //             //console.log("true data", data.data);
+  //             dispatch(userStore(data.data));
+  //           }
+  //         });
+  //     });
+  // };
 
   const handleSaveInfo = () => {
     addUserInfo();
-    addNewAddress();
     //router.push("/");
-    setIsEditable(false);
     setBaseIsEditable(false);
   };
 
-  //EDIT EXISTING ADDRESS   ---------- to do, maybe get only one address to become editable 
-  const saveEditAddress = () => {
-    fetch(`http://localhost:3000/users/editaddress/${user.token}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        number: userAddress.number,
-        street: userAddress.street,
-        city: userAddress.city,
-        zipcode: userAddress.zipcode,
-        country: userAddress.country,
-      }),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        //then fetch for full user here
-        fetch(`http://localhost:3000/users/${user.token}`)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.result === false) {
-              setMissingAddressInfo(true);
-            } else {
-              setMissingAddressInfo(false);
-              console.log("secondData", data.data);
-              dispatch(userStore(data.data));
-              setBaseIsEditable(false);
-            }
-          });
-      });
-  };
+  // //EDIT EXISTING ADDRESS   how to save edited fields and save the previous ones---------- to do, maybe get only one address to become editable
+  // const saveEditAddress = () => {
+  //   fetch(`http://localhost:3000/users/editaddress/${user.token}`, {
+  //     method: "PUT",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       number: userAddress.number,
+  //       street: userAddress.street,
+  //       city: userAddress.city,
+  //       zipcode: userAddress.zipcode,
+  //       country: userAddress.country,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then(() => {
+  //       //then fetch for full user here
+  //       fetch(`http://localhost:3000/users/${user.token}`)
+  //         .then((response) => response.json())
+  //         .then((data) => {
+  //           if (data.result === false) {
+  //             setMissingAddressInfo(true);
+  //           } else {
+  //             setMissingAddressInfo(false);
+  //             console.log("secondData", data.data);
+  //             dispatch(userStore(data.data));
+  //             setBaseIsEditable(false);
+  //           }
+  //         });
+  //     });
+  // };
 
-  //DELETE one address
-  const handleDeleteAddress = (addressId) => {
-    console.log(addressId)
-    fetch(`http://localhost:3000/users/deleteaddress/${user.token}`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ _id: addressId }),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        //console.log('checking delete')
-        fetch(`http://localhost:3000/users/${user.token}`)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            dispatch(userStore(data.data));
-            setIsEditable(false)
-          });
-      });
-  };
+  // //DELETE one address
+  // const handleDeleteAddress = (addressId) => {
+  //   console.log(addressId)
+  //   fetch(`http://localhost:3000/users/deleteaddress/${user.token}`, {
+  //     method: "DELETE",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ _id: addressId }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then(() => {
+  //       //console.log('checking delete')
+  //       fetch(`http://localhost:3000/users/${user.token}`)
+  //         .then((response) => response.json())
+  //         .then((data) => {
+  //           console.log(data);
+  //           dispatch(userStore(data.data));
+  //         });
+  //     });
+  // };
 
   //changes for name and email
   const handleChanges = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  //changes for address (sent to child via props)
-  const handleAddressChanges = (e) => {
-    const newAddresses = { ...userAddress };
-    newAddresses[e.target.name] = e.target.value;
-    setUserAddress(newAddresses);
-  };
+  // //changes for address (sent to child via props)
+  // const handleAddressChanges = (e) => {
+  //   const newAddresses = { ...userAddress };
+  //   newAddresses[e.target.name] = e.target.value;
+  //   setUserAddress(newAddresses);
+  // };
 
   const addProfileForm = () => {
-    setIsNewAddressForm(!isNewAddressForm);
-    setIsEditable(true);
+    setIsNewAddressForm(true);
   };
 
-  let newAddressForm = (
-    <ProfileForm
-      isEditable={isEditable}
-      handleAddressChanges={handleAddressChanges}
-    />
-  );
+  const onRequestCloseNewAddress = () => {
+    setIsNewAddressForm(false)
+  };
 
   //maps all user's addresses
   let allAddresses =
     user.profile.address?.map((data, index) => {
       //console.log(data);
-      return (
-        <ProfileForm
-          key={index}
-          index={index}
-          {...data}
-          isEditable={isEditable}
-          handleAddressChanges={handleAddressChanges}
-          handleDeleteAddress={handleDeleteAddress}
-        />
-      );
+      return <ProfileForm key={index} index={index} {...data} />;
     }) || [];
 
   return (
@@ -249,31 +233,19 @@ function Profil() {
             onChange={(e) => handleChanges(e)}
           />
         </div>
-
+        <button className={styles.button} onClick={() => handleSaveInfo()}>
+          Sauvegarder mon profil
+        </button>
         <h3 className={styles.subtitle}>Votre adresse livraison</h3>
         {allAddresses.length > 0 && allAddresses}
-        {allAddresses.length == 0 && (
-          <ProfileForm
-            isEditable={isEditable}
-            handleAddressChanges={handleAddressChanges}
-            handleDeleteAddress={handleDeleteAddress}
-          />
+
+        {isNewAddressForm || allAddresses.length == 0 && (
+          <ProfileForm onRequestCloseNewAddress={onRequestCloseNewAddress} />
         )}
-        {isNewAddressForm && newAddressForm}
         <div className={styles.buttonContainer}>
-          <button className={styles.button} onClick={() => handleSaveInfo()}>
-            Enregistrer et commencer le shopping ! ok
-          </button>
-          <button onClick={() => setIsEditable((prev) => !prev)}>
-            Set Address as editable
-          </button>
           <button onClick={() => addProfileForm()}>+</button>
-          <button onClick={() => addNewAddress()}>
-            Enregistrer nouvel addresse
-          </button>
         </div>
       </div>
-      {missingAddressInfo && missingInfo && <p>Missing information !</p>}
     </div>
   );
 }
