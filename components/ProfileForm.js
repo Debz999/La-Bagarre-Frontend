@@ -43,7 +43,6 @@ function ProfileForm(props) {
             } else {
               setMissingAddressInfo(false);
               //console.log("true data", data.data);
-              console.log(userAddress)
               dispatch(userStore(data.data));
               setIsEditable(false);
               setUserAddress({
@@ -53,7 +52,6 @@ function ProfileForm(props) {
                 zipcode: "",
                 country: "",
               });
-              console.log(userAddress)
               props.onRequestCloseNewAddress();
             }
           });
@@ -62,7 +60,7 @@ function ProfileForm(props) {
 
   //EDIT EXISTING ADDRESS (doesn't need all fields)
   const saveEditAddress = () => {
-    console.log(props._id)
+    //console.log(props._id)
     fetch(`http://localhost:3000/users/editaddress/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -81,7 +79,7 @@ function ProfileForm(props) {
         fetch(`http://localhost:3000/users/${user.token}`)
           .then((response) => response.json())
           .then((data) => {
-            console.log("edit data", data)
+            //console.log("edit data", data)
             dispatch(userStore(data.data));
           });
       });
@@ -97,11 +95,10 @@ function ProfileForm(props) {
     })
       .then((response) => response.json())
       .then(() => {
-        //console.log('checking delete')
         fetch(`http://localhost:3000/users/${user.token}`)
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
+            //console.log(data);
             dispatch(userStore(data.data));
           });
       });

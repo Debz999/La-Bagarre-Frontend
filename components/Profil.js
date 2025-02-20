@@ -19,46 +19,24 @@ function Profil() {
     email: profile.email || "",
   });
 
-  // const [userAddress, setUserAddress] = useState({
-  //   number: profile.address?.number || "",
-  //   street: profile.address?.street || "",
-  //   city: profile.address?.city || "",
-  //   zipcode: profile.address?.zipcode || "",
-  //   country: profile.address?.country || "",
-  // });
   const [isBaseEditable, setBaseIsEditable] = useState(false);
   const [isNewAddressForm, setIsNewAddressForm] = useState(false);
 
   //console.log(user);
-
-  // // Get existing user profile on click modify
-  // const getExistingUser = () => {
-  //   if (user.token) {
-  //     fetch(`http://localhost:3000/users/${user.token}`)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //       });
-  //   } else {
-  //     console.log("need to log in");
-  //   }
-  // };
 
   //Get existing user profile
   useEffect(() => {
     fetch(`http://localhost:3000/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        //data.data.email is undefined
+        //console.log(data);
+        //data.data.email is undefined, just fyi
         if (!data.data.email) {
           //setIsEditable(true);
           setBaseIsEditable(true);
         }
-        //console.log("firstData", data);
         dispatch(userStore(data.data));
         setUserData(data.data);
-        //SET PROVISIONAL DATA IN USE STATE OR IN REDUCE ?
       });
   }, []);
 
@@ -84,104 +62,16 @@ function Profil() {
       });
   };
 
-  // //ADD NEW ADDRESS
-  // const addNewAddress = () => {
-  //   fetch(`http://localhost:3000/users/newaddress/${user.token}`, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       number: userAddress.number,
-  //       street: userAddress.street,
-  //       city: userAddress.city,
-  //       zipcode: userAddress.zipcode,
-  //       country: userAddress.country,
-  //     }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then(() => {
-  //       //then fetch for full user here
-  //       fetch(`http://localhost:3000/users/${user.token}`)
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           if (data.result === false) {
-  //             setMissingAddressInfo(true);
-  //           } else {
-  //             setMissingAddressInfo(false);
-  //             //console.log("true data", data.data);
-  //             dispatch(userStore(data.data));
-  //           }
-  //         });
-  //     });
-  // };
-
   const handleSaveInfo = () => {
     addUserInfo();
     //router.push("/");
     setBaseIsEditable(false);
   };
 
-  // //EDIT EXISTING ADDRESS   how to save edited fields and save the previous ones---------- to do, maybe get only one address to become editable
-  // const saveEditAddress = () => {
-  //   fetch(`http://localhost:3000/users/editaddress/${user.token}`, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       number: userAddress.number,
-  //       street: userAddress.street,
-  //       city: userAddress.city,
-  //       zipcode: userAddress.zipcode,
-  //       country: userAddress.country,
-  //     }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then(() => {
-  //       //then fetch for full user here
-  //       fetch(`http://localhost:3000/users/${user.token}`)
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           if (data.result === false) {
-  //             setMissingAddressInfo(true);
-  //           } else {
-  //             setMissingAddressInfo(false);
-  //             console.log("secondData", data.data);
-  //             dispatch(userStore(data.data));
-  //             setBaseIsEditable(false);
-  //           }
-  //         });
-  //     });
-  // };
-
-  // //DELETE one address
-  // const handleDeleteAddress = (addressId) => {
-  //   console.log(addressId)
-  //   fetch(`http://localhost:3000/users/deleteaddress/${user.token}`, {
-  //     method: "DELETE",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ _id: addressId }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then(() => {
-  //       //console.log('checking delete')
-  //       fetch(`http://localhost:3000/users/${user.token}`)
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           console.log(data);
-  //           dispatch(userStore(data.data));
-  //         });
-  //     });
-  // };
-
   //changes for name and email
   const handleChanges = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
-
-  // //changes for address (sent to child via props)
-  // const handleAddressChanges = (e) => {
-  //   const newAddresses = { ...userAddress };
-  //   newAddresses[e.target.name] = e.target.value;
-  //   setUserAddress(newAddresses);
-  // };
 
   const addProfileForm = () => {
     setIsNewAddressForm(true);
