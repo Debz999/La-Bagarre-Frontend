@@ -11,7 +11,7 @@ function ProfileForm(props) {
 
   let profile = user.profile;
   const [userAddress, setUserAddress] = useState({
-    id: profile.address?._id ||"",
+    id: profile.address?._id || "",
     number: profile.address?.number || "",
     street: profile.address?.street || "",
     city: profile.address?.city || "",
@@ -33,16 +33,16 @@ function ProfileForm(props) {
       }),
     })
       .then((response) => response.json())
-      .then(() => {
-        //then fetch for full user here
-        fetch(`http://localhost:3000/users/${user.token}`)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.result === false) {
-              setMissingAddressInfo(true);
-            } else {
+      .then((data) => {
+        console.log("firsT DATA", data);
+        if (data.result === false) {
+          setMissingAddressInfo(true);
+        } else {
+          //then fetch for full user here
+          fetch(`http://localhost:3000/users/${user.token}`)
+            .then((response) => response.json())
+            .then((data) => {
               setMissingAddressInfo(false);
-              //console.log("true data", data.data);
               dispatch(userStore(data.data));
               setIsEditable(false);
               setUserAddress({
@@ -53,8 +53,8 @@ function ProfileForm(props) {
                 country: "",
               });
               props.onRequestCloseNewAddress();
-            }
-          });
+            });
+        }
       });
   };
 
@@ -85,7 +85,6 @@ function ProfileForm(props) {
       });
   };
 
-
   //DELETE one address
   const handleDeleteAddress = () => {
     fetch(`http://localhost:3000/users/deleteaddress/${user.token}`, {
@@ -103,7 +102,6 @@ function ProfileForm(props) {
           });
       });
   };
-
 
   const handleEditability = () => {
     setIsEditable(!isEditable);
@@ -169,9 +167,7 @@ function ProfileForm(props) {
           onChange={(e) => handleAddressChanges(e)}
         />
       </div>
-      <button onClick={() => handleDeleteAddress()}>
-        Delete Address
-      </button>
+      <button onClick={() => handleDeleteAddress()}>Delete Address</button>
       <button onClick={() => handleEditability()}>Edit</button>
       <button onClick={() => saveEditAddress()}>
         Enregistrer addresse modifié
@@ -179,7 +175,7 @@ function ProfileForm(props) {
       <button onClick={() => addNewAddress()}>
         Enregistrer nouvel addresse
       </button>
-      {missingAddressInfo && missingInfo && <p>Missing information !</p>}
+      {missingAddressInfo && <p>Missing information !</p>}
     </div>
   );
 }

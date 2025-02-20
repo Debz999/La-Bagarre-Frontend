@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     // domains: [],
-    domains: ["encrypted-tbn0.gstatic.com", "summosports.com"],
+    domains: ["encrypted-tbn0.gstatic.com", "summosports.com", "res.cloudinary.com"],
   },
 };
 
