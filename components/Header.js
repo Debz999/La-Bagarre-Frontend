@@ -33,8 +33,6 @@ function Header() {
     router.push("/cart");
   };
 
- 
-
   //On met un useEffect pour permettre au menu de bien s'ouvrir et se fermer à chaque click en dehors
 
   useEffect(() => {
@@ -51,7 +49,7 @@ function Header() {
     };
   }, [isMenuOpen]);
 
-    /*Get cart total items */
+  /*Get cart total items */
   const totalItems = cart.cartItem.reduce(
     (sum, value) => sum + value.quantity,
     0
@@ -80,6 +78,7 @@ function Header() {
           icon={faCartShopping}
           onClick={() => handleClickCart()}
         />
+        <p>Bienvenue {user.username}</p>
       </div>
       {isMenuOpen && (
         <ul ref={menuRef} className={styles.menu}>
@@ -90,16 +89,20 @@ function Header() {
           <li>
             <Link href="/favoris">Mes favoris</Link>
           </li>
-          <li>Mes commandes</li>
+          <li>
+            <Link href="/orders">Mes commandes</Link>
+          </li>
           <li>Me déconnecter</li>
         </ul>
       )}
       <div className={styles.containerCat}>
-        
-      <Sousmenu categorie="Homme" types={["Gi", "Rashguard", "Short"]} />
-      <Sousmenu categorie="Femme" types={["Gi", "Rashguard", "Short"]} />
-      <Sousmenu categorie="Enfant" types={["Gi", "Rashguard", "Short"]} />
-      <Sousmenu categorie="Accessoires" types={["Ceintures", "Sac", "Casquettes"]} />  
+        <Sousmenu categorie="Homme" types={["Gi", "Rashguard", "Short"]} />
+        <Sousmenu categorie="Femme" types={["Gi", "Rashguard", "Short"]} />
+        <Sousmenu categorie="Enfant" types={["Gi", "Rashguard", "Short"]} />
+        <Sousmenu
+          categorie="Accessoires"
+          types={["Ceintures", "Sac", "Casquettes"]}
+        />
       </div>
     </div>
   );
