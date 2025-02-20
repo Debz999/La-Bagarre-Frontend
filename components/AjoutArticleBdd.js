@@ -1,50 +1,50 @@
-// import React from 'react';
 import { useState, useEffect } from 'react';
 
 import styles from "../styles/Article2.module.css";
-import Article2Page from './Article2';
+import Article2Page from './ArticleDetail';
 
 
 function AjoutArticleBdd() {
 
 
- const [categorie, setCategorie] = useState('');
- const [type, setType] = useState('');
- const [model, setModel] = useState('');
- const [description, setDescription] = useState('');
- const [price, setPrice] = useState('');
- const [onSale, setOnSale] = useState(false);
- const [soldCount, setSoldCount] = useState('');
-const [colors9, setColors9] = useState('');
+const [categorie, setCategorie] = useState('');
+const [type, setType] = useState('');
+const [model, setModel] = useState('');
+const [description, setDescription] = useState('');
+const [price, setPrice] = useState('');
+const [onSale, setOnSale] = useState(false);
+const [soldCount, setSoldCount] = useState('');
+const [colors9, setColors9] = useState('');  
 const [photos9, setPhotos9] = useState('');
 const [sizes9, setSizes9] = useState('');
 const [giSizes9, setGiSizes9] = useState('');
 
- const [inputId, setInputId] = useState('');
+const [inputId, setInputId] = useState('');
+
+// const [photos9, setPhotos9] = useState(''); 
 
 
- const [test, setTest] = useState('');
+
+// console.log(photos9.target.files)
 
 
 
-// console.log(test.target.files)
-
-
-  
 
   const ajoutArticle = () => {
-    // console.log(test)
+    // console.log(photos9)
     // return
 
-    const formData = new FormData();
+    const formData = new FormData(); //formData pour l'envoie de fichiers
 
-    for(let i=0; i < test.length; i++) {
-      // console.log(test[i])
-      formData.append(test[i].name, test[i])
+    for(let i=0; i < photos9.length; i++) {
+      // console.log(photos9[i])
+      formData.append(photos9[i].name, photos9[i])
       
     } 
     console.log([...formData.entries()])
 
+
+    //Vu que le post ne peut pas etre en json ET en formData, on passe tout en formData
     formData.append("categorie", categorie)
     formData.append("type", type)
     formData.append("model", model)
@@ -61,7 +61,7 @@ const [giSizes9, setGiSizes9] = useState('');
 
     fetch("http://localhost:3000/articles/postArticle1", {
       method: "POST",
-      // headers: { "Content-Type": "application/json" },
+      // headers: { "Content-Type": "application/json" }, //Pas de headers pour les formData
       body: formData
     })
       .then((response) => response.json())
@@ -72,30 +72,55 @@ const [giSizes9, setGiSizes9] = useState('');
 
 
  
-
+  //TOUT LE RESTE EST GERE COMME DHABITUDE
   const auClickSurUpdate = () => {
 
     if(!inputId) {
       return res.status(404).json({ message: "Article non trouvé" });
     } 
+
+      const formData = new FormData(); //formData pour l'envoie de fichiers
+
+      for(let i=0; i < photos9.length; i++) {
+        // console.log(photos9[i])
+        formData.append(photos9[i].name, photos9[i])
+        
+      } 
+      console.log([...formData.entries()])
+
+
+      //Vu que le post ne peut pas etre en json ET en formData, on passe tout en formData
+      formData.append("categorie", categorie)
+      formData.append("type", type)
+      formData.append("model", model)
+      formData.append("description", description)
+      formData.append("price", price)
+      formData.append("onSale", onSale)
+      formData.append("soldCount", soldCount)
+      formData.append("colors9", colors9)
+      formData.append("photos9", photos9)
+      formData.append("sizes9", sizes9)
+      formData.append("giSizes9", giSizes9)
+
         fetch(`http://localhost:3000/articles/articleUpdate1/${inputId}`, {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            categorie,
-            type,
-            model,
-            description,
-            price,
-            onSale,
-            soldCount,
-            colors9,  
-            photos9,
-            sizes9,
-            giSizes9,
-          })
+          body: formData
+          // headers: {
+          //   'Content-Type': 'application/json'
+          // },
+          // body: JSON.stringify({
+          //   categorie,
+          //   type,
+          //   model,
+          //   description,
+          //   price,
+          //   onSale,
+          //   soldCount,
+          //   colors9,  
+          //   photos9,
+          //   sizes9,
+          //   giSizes9,
+          // })
         })
         .then(response => response.json())
         .then(data => {
@@ -117,8 +142,8 @@ const [giSizes9, setGiSizes9] = useState('');
       <input onChange={(e) => setPrice(e.target.value)} value={price} placeholder="Prix" className={styles.inputStyle}/>
       <input onChange={(e) => setColors9(e.target.value)} value={colors9} placeholder="Couleurs" className={styles.inputStyle}/>
       
-      <input onChange={(e) => setPhotos9(e.target.value)} value={photos9} placeholder="Photos" className={styles.inputStyle}/>
-      <input onChange={(e) => setTest(e.target.files)} type="file" multiple={true} ></input>
+      {/* <input onChange={(e) => setPhotos9(e.target.value)} value={photos9} placeholder="Photos" className={styles.inputStyle}/> */}
+      <input onChange={(e) => setPhotos9(e.target.files)} type="file" multiple={true} ></input>
       <input onChange={(e) => setSizes9(e.target.value)} value={sizes9} placeholder="Tailles" className={styles.inputStyle}/>
       <input onChange={(e) => setGiSizes9(e.target.value)} value={giSizes9} placeholder="Tailles Gi" className={styles.inputStyle}/>
 

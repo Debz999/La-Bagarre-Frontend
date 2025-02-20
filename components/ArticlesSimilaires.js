@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 
 
 
-function ArticlesFiltres(props) {
+function ArticlesSimilaires(props) {
   const [allArticlesData, setAllArticlesData] = useState([]);
 
   const router = useRouter();
@@ -21,6 +21,20 @@ function ArticlesFiltres(props) {
   const categorie = props.categorie
   const type = props.type
 
+  useEffect(() => {
+    if (!categorie && !type) return;
+    
+      
+      fetch(`http://localhost:3000/articles/articlesSimililaires?categorie=${categorie}&type=${type}`)
+        .then((response) => response.json())
+        .then((articlesTrouves) => {
+          if (articlesTrouves.result) {
+            console.log("Données d'articles récupérées :", articlesTrouves);
+            setAllArticlesData(articlesTrouves.filteredArticles)
+          }
+        })
+    
+  }, [categorie, type]); 
 
 
 
@@ -34,7 +48,7 @@ const articles = allArticlesData.map((data, i) => {
   return (
 
     <div key={i} className={styles.articleLinkContainer}>
-      <Link href={`/article/${data._id}`}>
+      <Link href={`/detailarticle/${data._id}`}>
 
       <div className={styles.articleComplet}>
           <div className={styles.cardPhotoContainer}>
@@ -58,7 +72,7 @@ const articles = allArticlesData.map((data, i) => {
       <div>
         <h3 className={styles.pageTitle}>Catégorie: {props.categorie ?? null}</h3>
         <h3>type: {props.type ?? null}</h3>
-        <h3>title: {props.title}</h3>
+        <h3>Articles similaires</h3>
 
         <div className={styles.containerDeTout}>    
           {articles}
@@ -67,4 +81,4 @@ const articles = allArticlesData.map((data, i) => {
     );
    }
    
-   export default ArticlesFiltres;
+   export default ArticlesSimilaires;

@@ -30,9 +30,8 @@ import { useRouter } from 'next/router';
 //Affiche que l'article qui a le meme ID sur la page Article2
 //Mais marche tres bien sur les autres pages
 
-function Articleliste({model, photos9, price, _id, categorie, type} ){
+function Articleliste({model, photos9, price, _id} ){
     
-    const router = useRouter();
 
 
 
