@@ -125,7 +125,6 @@ if(articleCliqueData.colors9.length > 0) {
     } else {
       console.log("need to log in");
       //TO DO ------- ADD VISIBLE MESSAGE THAT SAYS YOU NEED TO LOG IN -----
-      //dispatch(toggleCart([{_id: articleId, quantity: 1}]))
     }
   };
 
