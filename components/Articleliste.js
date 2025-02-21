@@ -45,6 +45,7 @@ function Articleliste({model, photos9, price, _id} ){
         return(
            
             <div className={styles.test3}>
+
                 <div className={styles.test}>
                     <Link href={`/detailarticle/${_id}`}>
                     <div className={styles.test2}>
