@@ -20,7 +20,7 @@ function Cart() {
       fetch(`http://localhost:3000/carts/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
-          if(data === true) {
+          if (data === true) {
             dispatch(toggleCart(data.data.items));
           }
         });
@@ -29,11 +29,12 @@ function Cart() {
     }
   };
 
+  console.log(cart)
+
   //old get existing cart items, test first but prob will delete
   useEffect(() => {
     getExistingCart();
   }, []);
-
 
   const continueShopping = () => {
     router.push("/");
@@ -44,39 +45,52 @@ function Cart() {
   //console.log("length", cart.cartItem);
   if (cart.cartItem.length > 0) {
     cartContents = cart.cartItem.map((data, i) => {
-      //console.log('check map', data)
+      console.log("check map", data);
       return (
         <div>
           <CartItem key={i} {...data} />
-          <div style={styles.buttonContainer}>
-            <button
-              onClick={() => {
-                createNewOrder();
-              }}
-              style={styles.buttonContainer}
-            >
-              {" "}
-              Procéder au paiement
-            </button>
-            <button
-              onClick={() => {
-                continueShopping();
-              }}
-              style={styles.buttonContainer}
-            >
-              {" "}
-              Continuer mes achats
-            </button>
-          </div>
         </div>
       );
     });
   }
 
+  const totalItems = cart.cartItem.reduce(
+    (sum, value) => sum + value.quantity,
+    0
+  );
+
+  const totalOwed = cart.cartItem.reduce(
+    (sum, value) => sum + value.article.price * value.quantity,
+    0
+  );
+
   return (
     <div>
-      <h1>My Cart</h1>
+      <h1>Mon Panier</h1>
       {cartContents}
+      <p>total items : {totalItems}</p>
+      <p>total owed : {totalOwed}€</p>
+
+      <div style={styles.buttonContainer}>
+        <button
+          onClick={() => {
+            createNewOrder();
+          }}
+          style={styles.buttonContainer}
+        >
+          {" "}
+          Procéder au paiement
+        </button>
+        <button
+          onClick={() => {
+            continueShopping();
+          }}
+          style={styles.buttonContainer}
+        >
+          {" "}
+          Continuer mes achats
+        </button>
+      </div>
     </div>
   );
 }
