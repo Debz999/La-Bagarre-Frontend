@@ -35,7 +35,7 @@ function Articleliste({model, photos9, price, _id} ){
 
 
 
-    console.log(photos9)
+    //console.log(photos9)
 
     const photos= photos9.map((photo, index)=>{
         return(<img key={index} src={photo} alt={model} height="250px"/>)
