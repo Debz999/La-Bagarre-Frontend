@@ -20,7 +20,7 @@ function Cart() {
       fetch(`http://localhost:3000/carts/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
-          if (data === true) {
+          if (data) {
             dispatch(toggleCart(data.data.items));
           }
         });
@@ -45,7 +45,8 @@ function Cart() {
   //console.log("length", cart.cartItem);
   if (cart.cartItem.length > 0) {
     cartContents = cart.cartItem.map((data, i) => {
-      console.log("check map", data);
+      console.log("check map", data); //THIS HAS ALL THE AVAILABLE COLORS AND SIZES
+      //check if i can't use this map to make them always editable, not sure if its worth it, ask
       return (
         <div>
           <CartItem key={i} {...data} />
@@ -68,8 +69,8 @@ function Cart() {
     <div>
       <h1>Mon Panier</h1>
       {cartContents}
-      <p>total items : {totalItems}</p>
-      <p>total owed : {totalOwed}€</p>
+      <p>Quantité d'articles dans ton panier : {totalItems}</p>
+      <p>Montant à payer : {totalOwed}€</p>
 
       <div style={styles.buttonContainer}>
         <button
