@@ -23,7 +23,8 @@ h1 {
 }
 
 h3 {
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 0.8rem;
 }
 
 label {
@@ -48,6 +49,4 @@ height: 56px;
 left: 80px;
 top: 768px;
 border-radius: 8px;
-
-
 }

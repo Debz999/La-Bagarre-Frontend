@@ -63,11 +63,13 @@ function Article() {
       <h1>
         {categorie} {type && `- ${type}`}
       </h1>
-
-      <select onChange={handleSortChange} value={sortOrder}>
-        <option value="croissant">Prix croissant</option>
-        <option value="décroissant">Prix décroissant</option>
-      </select>
+{categorie && (
+  <select onChange={handleSortChange} value={sortOrder}>
+  <option value="croissant">Prix croissant</option>
+  <option value="décroissant">Prix décroissant</option>
+</select>
+)}
+      
 
       <ul>
         <div className={styles.stuffStyle}>

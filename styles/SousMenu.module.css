@@ -24,13 +24,18 @@
 
 .dropDownMenu li a {
   text-decoration: none;
-  color: black;
+  color: #202020;
+  font-size: 0.85rem;;
+font-weight: 300;  
 }
 .dropDownMenu li a:hover {
   color: #12806A;
 }
 
 
+
+
+/* 
 .main {
     display: flex;
     flex-direction: column;
@@ -40,10 +45,6 @@
     padding: 4rem 0;
     color : black;
   }
-
-
-
-  /* 
   .category {
     position: relative;
     padding: 10px;
