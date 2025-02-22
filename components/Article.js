@@ -18,8 +18,14 @@ import { useRouter } from "next/router";
 function Article() {
   const [allArticlesData, setAllArticlesData] = useState([]);
 
+  const [sortOrder, setSortOrder] = useState('croissant'); // État pour choisir le type de tri
+
   const router = useRouter();
   const { categorie, type } = router.query; //pour récuperer les parametres envoyer au click
+
+
+  
+
 
   useEffect(() => {
     if (!categorie) return; //pas de categorie il ne se passe rien
@@ -33,10 +39,14 @@ function Article() {
       .then((data) => {
         console.log("setAllArticlesData: " , data)
         if (data.result) {
-          setAllArticlesData(data.articles);
+          // setAllArticlesData(data.articles);
+          const sortedArticles = data.articles.sort((a, b) => {
+            return sortOrder === 'croissant' ? a.price - b.price : b.price - a.price;
+          });
+          setAllArticlesData(sortedArticles);
         }
       });
-  }, [categorie, type]); // pour que la page se mette à jour à chaque changement de caté et/ou type
+  }, [categorie, type, sortOrder]); // pour que la page se mette à jour à chaque changement de caté et/ou type
 
   const stuff= allArticlesData.map((data, i) =>{
     return <Articleliste  key={i} {...data} />
@@ -45,11 +55,20 @@ function Article() {
   });
     
 
+  const handleSortChange = (e) => {setSortOrder(e.target.value);};
+
+  
   return (
     <div>
       <h1>
         {categorie} {type && `- ${type}`}
       </h1>
+
+      <select onChange={handleSortChange} value={sortOrder}>
+        <option value="croissant">Prix croissant</option>
+        <option value="décroissant">Prix décroissant</option>
+      </select>
+
       <ul>
         <div className={styles.stuffStyle}>
           {stuff}
