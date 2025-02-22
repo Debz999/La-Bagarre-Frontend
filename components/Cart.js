@@ -20,7 +20,7 @@ function Cart() {
       fetch(`http://localhost:3000/carts/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
-          if(data === true) {
+          if (data === true) {
             dispatch(toggleCart(data.data.items));
           }
         });
@@ -34,28 +34,27 @@ function Cart() {
     getExistingCart();
   }, []);
 
-
   const continueShopping = () => {
     router.push("/");
   };
 
-  const saveNewOrder = () =>{
-    if(user.token){
+  const saveNewOrder = () => {
+    if (user.token) {
       fetch(`http://localhost:3000/orders/post/${user.token}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: signUpUsername,
-          password: signUpPassword,
+          adresse : user.adresse,
+          token : user.token,
         }),
       })
-      .then((response)=> response.json())
-      .then((data)=>{
-
-      })
+        .then((response) => response.json())
+        .then((data) => {
+          //envoyer vers page de paiement?
+          //enregistrer la commande dans orders sans possibilité de modifs
+        });
     }
-    }
-    
+  };
 
   //visible elements
   let cartContents = <p>There are no items in your cart yet</p>;
