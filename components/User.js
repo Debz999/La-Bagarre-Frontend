@@ -13,6 +13,8 @@ function User() {
   const [signUpPassword, setSignUpPassword] = useState("");
   const [signInUsername, setSignInUsername] = useState("");
   const [signInPassword, setSignInPassword] = useState("");
+  const [signUpError, setSignUpError] = useState("");
+  const [signInError, setSignInError] = useState("");
 
   const handleRegister = () => {
     fetch("http://localhost:3000/users/signup", {
@@ -30,6 +32,8 @@ function User() {
           setSignUpUsername("");
           setSignUpPassword("");
           router.push("/");
+        } else{
+          setSignUpError(data.error);
         }
       });
   };
@@ -50,6 +54,8 @@ function User() {
           setSignInUsername("");
           setSignInPassword("");
           router.push("/");
+        } else{
+          setSignInError(data.error)
         }
       });
   };
@@ -81,6 +87,7 @@ function User() {
           onChange={(e) => setSignInPassword(e.target.value)}
           value={signInPassword}
         />
+        {signInError ? <div> {signInError} </div> : null}
         <button
           className={styles.button}
           onClick={() => {
@@ -106,6 +113,7 @@ function User() {
           onChange={(e) => setSignUpPassword(e.target.value)}
           value={signUpPassword}
         />
+        {signUpError ? <div> {signUpError} </div> :null }
         <button className={styles.button} onClick={() => handleRegister()}>
           Me créer un compte
         </button>
