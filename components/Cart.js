@@ -39,6 +39,24 @@ function Cart() {
     router.push("/");
   };
 
+  const saveNewOrder = () =>{
+    if(user.token){
+      fetch(`http://localhost:3000/orders/post/${user.token}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: signUpUsername,
+          password: signUpPassword,
+        }),
+      })
+      .then((response)=> response.json())
+      .then((data)=>{
+
+      })
+    }
+    }
+    
+
   //visible elements
   let cartContents = <p>There are no items in your cart yet</p>;
   //console.log("length", cart.cartItem);
@@ -51,7 +69,7 @@ function Cart() {
           <div style={styles.buttonContainer}>
             <button
               onClick={() => {
-                createNewOrder();
+                saveNewOrder();
               }}
               style={styles.buttonContainer}
             >

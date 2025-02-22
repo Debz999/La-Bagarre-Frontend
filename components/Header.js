@@ -73,14 +73,12 @@ function Header() {
             handleUserClick();
           }}
         />
-        <div className={styles.cartContainer}>
-          {totalItems > 0 && <div>({totalItems})</div>}
-          <FontAwesomeIcon
-            className={styles.userIcon}
-            icon={faCartShopping}
-            onClick={() => handleClickCart()}
-          />
-        </div>
+        <FontAwesomeIcon
+          className={styles.userIcon}
+          icon={faCartShopping}
+          onClick={() => handleClickCart()}
+        />
+        <p>Bienvenue {user.username}</p>
       </div>
       {isMenuOpen && (
         <ul ref={menuRef} className={styles.menu}>
@@ -91,7 +89,9 @@ function Header() {
           <li>
             <Link href="/favoris">Mes favoris</Link>
           </li>
-          <li>Mes commandes</li>
+          <li>
+            <Link href="/orders">Mes commandes</Link>
+          </li>
           <li>Me déconnecter</li>
         </ul>
       )}
