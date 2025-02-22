@@ -91,17 +91,18 @@ import Articleliste from "./Articleliste";
 
   useEffect(() => {
     console.log("le useState articleCliqueData=", articleCliqueData);
-if(articleCliqueData) {
-  //sets default value for color and size in case the user doesn't change either one of them
-if(articleCliqueData.giSizes9.length > 0) {
-  setSelectedSize(articleCliqueData.giSizes9[0])
-};
-if(articleCliqueData.sizes9.length > 0) {
-  setSelectedSize(articleCliqueData.sizes9[0])
-};
-if(articleCliqueData.colors9.length > 0) {
-  setSelectedColor(articleCliqueData.colors9[0])
-};
+        
+    if(articleCliqueData) {
+      //sets default value for color and size in case the user doesn't change either one of them
+    if(articleCliqueData.giSizes9.length > 0) {
+      setSelectedSize(articleCliqueData.giSizes9[0])
+    };
+    if(articleCliqueData.sizes9.length > 0) {
+      setSelectedSize(articleCliqueData.sizes9[0])
+    };
+    if(articleCliqueData.colors9.length > 0) {
+      setSelectedColor(articleCliqueData.colors9[0])
+    };
 }
   }, [articleCliqueData]);
 
