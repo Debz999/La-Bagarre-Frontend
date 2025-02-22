@@ -1,3 +1,36 @@
+.sousmenu {
+  position: relative;
+}
+
+.sousmenu:hover {
+  color: #7C7C7C;
+}
+
+.dropDownMenu {
+  position: absolute;    /* removes it from the normal flow */
+  top: 100%;             /* places it just below the parent element */
+  left: 50%;             /* positions it in the middle of the parent */
+  transform: translateX(-50%);  /* perfectly centers the dropdown */
+  z-index: 10;           /* ensures it appears above other elements */
+  background-color: white;
+  padding: 1.5rem;
+  margin-top: 0px;
+  list-style: none;
+}
+
+.dropDownMenu li {
+  margin-bottom: 0.5rem; 
+}
+
+.dropDownMenu li a {
+  text-decoration: none;
+  color: black;
+}
+.dropDownMenu li a:hover {
+  color: #12806A;
+}
+
+
 .main {
     display: flex;
     flex-direction: column;
@@ -7,6 +40,10 @@
     padding: 4rem 0;
     color : black;
   }
+
+
+
+  /* 
   .category {
     position: relative;
     padding: 10px;
@@ -41,4 +78,9 @@
   .subMenu li a {
     text-decoration: none;
     color: black;
-  }
+  } */
+
+
+/*
+Link - className={styles.sousmenuLink}
+*/

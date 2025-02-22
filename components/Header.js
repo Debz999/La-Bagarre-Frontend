@@ -64,21 +64,23 @@ function Header() {
 
       <div className={styles.barreMenu}>
         <Link href="/">
-          <p className={styles.linkHome}> LA BAGARRE</p>
+          <h3 className={styles.linkHome}> LA BAGARRE</h3>
         </Link>
-        <FontAwesomeIcon
-          className={styles.userIcon}
-          icon={faUser}
-          onClick={() => {
-            handleUserClick();
-          }}
-        />
-        <FontAwesomeIcon
-          className={styles.userIcon}
-          icon={faCartShopping}
-          onClick={() => handleClickCart()}
-        />
-        <p>Bienvenue {user.username}</p>
+        <div className={styles.headerIcons}>
+          <span className={styles.welcomeSign}>Bienvenue {user.username}</span>
+          <FontAwesomeIcon
+            className={styles.iconStyle}
+            icon={faUser}
+            onClick={() => {
+              handleUserClick();
+            }}
+          />
+          <FontAwesomeIcon
+            className={styles.iconStyle}
+            icon={faCartShopping}
+            onClick={() => handleClickCart()}
+          />
+        </div>
       </div>
       {isMenuOpen && (
         <ul ref={menuRef} className={styles.menu}>

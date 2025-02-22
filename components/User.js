@@ -32,7 +32,7 @@ function User() {
           setSignUpUsername("");
           setSignUpPassword("");
           router.push("/");
-        } else{
+        } else {
           setSignUpError(data.error);
         }
       });
@@ -54,8 +54,8 @@ function User() {
           setSignInUsername("");
           setSignInPassword("");
           router.push("/");
-        } else{
-          setSignInError(data.error)
+        } else {
+          setSignInError(data.error);
         }
       });
   };
@@ -67,56 +67,75 @@ function User() {
   return (
     <div className={styles.main}>
       <header className={styles.header}>
-        <div>LA BAGARRE</div>
+        <h2>LA BAGARRE</h2>
       </header>
-      <div>
-        <p>Me connecter à mon compte</p>
-        <label>Nom d'utilisateur: </label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          onChange={(e) => setSignInUsername(e.target.value)}
-          value={signInUsername}
-        />
-        <label>Mot de passe: </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          onChange={(e) => setSignInPassword(e.target.value)}
-          value={signInPassword}
-        />
-        {signInError ? <div> {signInError} </div> : null}
-        <button
-          className={styles.button}
-          onClick={() => {
-            handleConnection();
-          }}
-        >
-          Connexion
-        </button>
-        <p>Pas encore de compte ?</p>
-        <label>Nom d'utilisateur: </label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          onChange={(e) => setSignUpUsername(e.target.value)}
-          value={signUpUsername}
-        />
-        <label>Mot de passe: </label>
-        <input
-          type="password"
-          id="password2"
-          name="password"
-          onChange={(e) => setSignUpPassword(e.target.value)}
-          value={signUpPassword}
-        />
-        {signUpError ? <div> {signUpError} </div> :null }
-        <button className={styles.button} onClick={() => handleRegister()}>
-          Me créer un compte
-        </button>
+      <div className={styles.formsContainer}>
+        <div className={styles.formSeparator}>
+          <p>Me connecter à mon compte</p>
+
+          <div className={styles.formRow}>
+            <label>Nom d'utilisateur: </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              onChange={(e) => setSignInUsername(e.target.value)}
+              value={signInUsername}
+            />
+          </div>
+
+          <div className={styles.formRow}>
+            <label>Mot de passe: </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              onChange={(e) => setSignInPassword(e.target.value)}
+              value={signInPassword}
+            />
+          </div>
+
+          {signInError ? <p> {signInError} </p> : null}
+          <button
+            className={styles.button}
+            onClick={() => {
+              handleConnection();
+            }}
+          >
+            Connexion
+          </button>
+        </div>
+
+        <div className={styles.formSeparator}>
+          <p>Pas encore de compte ?</p>
+
+          <div className={styles.formRow}>
+            <label>Nom d'utilisateur: </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              onChange={(e) => setSignUpUsername(e.target.value)}
+              value={signUpUsername}
+            />
+          </div>
+
+          <div className={styles.formRow}>
+            <label>Mot de passe: </label>
+            <input
+              type="password"
+              id="password2"
+              name="password"
+              onChange={(e) => setSignUpPassword(e.target.value)}
+              value={signUpPassword}
+            />
+          </div>
+
+          {signUpError ? <p> {signUpError} </p> : null}
+          <button className={styles.button} onClick={() => handleRegister()}>
+            Me créer un compte
+          </button>
+        </div>
       </div>
     </div>
   );
