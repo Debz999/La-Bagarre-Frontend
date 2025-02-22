@@ -35,7 +35,7 @@ function Articleliste({model, photos9, price, _id} ){
 
 
 
-    console.log(photos9)
+    //console.log(photos9)
 
     const photos= photos9.map((photo, index)=>{
         return(<img key={index} src={photo} alt={model} height="250px"/>)
@@ -45,6 +45,7 @@ function Articleliste({model, photos9, price, _id} ){
         return(
            
             <div className={styles.test3}>
+
                 <div className={styles.test}>
                     <Link href={`/detailarticle/${_id}`}>
                     <div className={styles.test2}>

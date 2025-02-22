@@ -43,10 +43,10 @@ function CartItem(props) {
       });
   };
 
-  const totalItems = cart.cartItem.reduce(
-    (sum, value) => sum + value.quantity,
-    0
-  );
+  // const totalItems = cart.cartItem.reduce(
+  //   (sum, value) => sum + value.quantity,
+  //   0
+  // );
 
   const add = () => {
     //console.log(props.quantity);
@@ -64,16 +64,18 @@ function CartItem(props) {
   return (
     <div className={styles.card}>
       <div key={props._id} className={styles.cartItem}>
-        <Image src="/img.png" width={200} height={225} />
+        <Image src={props.article.photos9[0]} width={200} height={225} />
         <div className={styles.itemDescription}>
           <h3>{props.article.type}</h3>
           <p>{props.article.model}</p>
-          <p>size not included yet</p>
+          <p>Taille: {props.size}</p>
+          <p>Couleur: {props.color}</p>
+          <p>Prix: {props.article.price}€</p>
           <div className={styles.quantityControls}>
             <button onClick={() => minus()} className={styles.icon}>
               -
             </button>
-            <span>{totalItems}</span>
+            <span>{props.quantity}</span>
             <button onClick={() => add()} className={styles.icon}>
               +
             </button>
