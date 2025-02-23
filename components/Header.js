@@ -49,12 +49,13 @@ function Header() {
     };
   }, [isMenuOpen]);
 
+
   /*Get cart total items */
   const totalItems = cart.cartItem.reduce(
     (sum, value) => sum + value.quantity,
     0
   );
-  console.log(totalItems); //works
+  //console.log(totalItems); //works
 
   return (
     <div>

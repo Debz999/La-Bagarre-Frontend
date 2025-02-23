@@ -23,7 +23,7 @@ function Cart() {
           if (data.data) {
             dispatch(toggleCart(data.data.items));
           } else {
-            console.log("no items")
+            console.log("no items");
           }
         });
     } else {
@@ -42,8 +42,8 @@ function Cart() {
     router.push("/");
   };
 
-  const saveNewOrder = () =>{
-    if(user.token){
+  const saveNewOrder = () => {
+    if (user.token) {
       fetch(`http://localhost:3000/orders/post/${user.token}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -52,13 +52,10 @@ function Cart() {
           password: signUpPassword,
         }),
       })
-      .then((response)=> response.json())
-      .then((data)=>{
-
-      })
+        .then((response) => response.json())
+        .then((data) => {});
     }
-    }
-    
+  };
 
   //visible elements
   let cartContents = <p>There are no items in your cart yet</p>;
@@ -87,31 +84,39 @@ function Cart() {
 
   return (
     <div>
-      <h1>Mon Panier</h1>
-      {cartContents}
-      <p>Quantité d'articles dans ton panier : {totalItems}</p>
-      <p>Montant à payer : {totalOwed}€</p>
+      <div className={styles.outerContainer}>
+        <div className={styles.column1}>
+          <h1>MON PANIER</h1>
 
-      <div style={styles.buttonContainer}>
-        <button
-          onClick={() => {
-            saveNewOrder();
-          }}
-          style={styles.buttonContainer}
-        >
-          {" "}
-          Procéder au paiement
-        </button>
-        <button
-          onClick={() => {
-            continueShopping();
-          }}
-          style={styles.buttonContainer}
-        >
-          {" "}
-          Continuer mes achats
-        </button>
+          {cartContents}
+        </div>
+
+        <div className={styles.column2}>
+        <h1>RECAPITULATIF</h1>
+
+          <p>Quantité d'articles dans ton panier : {totalItems}</p>
+          <p>Montant à payer : {totalOwed}€</p>
+            <button className={styles.button}
+              onClick={() => {
+                saveNewOrder();
+              }}
+              
+            >
+              {" "}
+              Procéder au paiement
+            </button>
+
+        </div>
       </div>
+            <button
+              onClick={() => {
+                continueShopping();
+              }}
+              className={styles.buttonContainer}
+            >
+              {" "}
+              Continuer mes achats
+            </button>
     </div>
   );
 }

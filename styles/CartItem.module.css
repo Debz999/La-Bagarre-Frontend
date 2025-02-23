@@ -1,0 +1,59 @@
+.card {
+  width: 100%;
+
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  background-color: white;
+}
+
+.itemTitle {
+  text-transform: uppercase;
+}
+
+.itemDescription {
+    width: 450px;
+    margin-right: 50px;
+    padding-left: 40px;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.quantityControls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.quantityButton {
+  border: 1px solid black;
+  background: none;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.quantityButton:hover {
+  background-color: #202020;
+  color: white;
+}
+
+.iconStyle {
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+@media (max-width: 768px) {
+  .cartItem {
+    width: 100%;
+    margin-left: 0px;
+  }
+}
