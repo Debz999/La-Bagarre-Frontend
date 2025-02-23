@@ -54,7 +54,7 @@ function Header() {
     (sum, value) => sum + value.quantity,
     0
   );
-  //console.log(totalItems); //works
+  console.log(totalItems); //works
 
   return (
     <div>
@@ -75,11 +75,17 @@ function Header() {
               handleUserClick();
             }}
           />
+          
+          <div className={styles.cartContainer}>
+        
           <FontAwesomeIcon
             className={styles.iconStyle}
             icon={faCartShopping}
             onClick={() => handleClickCart()}
           />
+          {totalItems > 0 && <span className={styles.numberContainer}>({totalItems})hi</span>}
+        </div>
+
         </div>
       </div>
       {isMenuOpen && (

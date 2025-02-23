@@ -31,7 +31,7 @@ function Cart() {
     }
   };
 
-  console.log(cart)
+  //console.log(cart)
 
   //old get existing cart items, test first but prob will delete
   useEffect(() => {
@@ -65,7 +65,7 @@ function Cart() {
   //console.log("length", cart.cartItem);
   if (cart.cartItem.length > 0) {
     cartContents = cart.cartItem.map((data, i) => {
-      console.log("check map", data); //THIS HAS ALL THE AVAILABLE COLORS AND SIZES
+      //console.log("check map", data); //THIS HAS ALL THE AVAILABLE COLORS AND SIZES
       //check if i can't use this map to make them always editable, not sure if its worth it, ask
       return (
         <div>
