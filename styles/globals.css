@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap");
 
 body {
   padding: 0;
@@ -51,5 +51,11 @@ input::placeholder {
   font-size: 0.9rem;
 }
 
+button {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
 
-
+button:hover {
+opacity: 93%;
+}

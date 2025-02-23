@@ -25,13 +25,16 @@
   max-height: 300px;
 }
 
-
+.subtitle {
+  color: #6F387C;
+}
 
 .button {
 	background-color: #202020;
 	color: white;
 	height: 50px;
 	width: 300px;
+  margin-top: 20px;
   }
 
 @media (max-width: 768px) {

@@ -3,9 +3,14 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  min-height: 100vh;
-  padding: 4rem 0;
   color: black;
+  background-image: url("/arriere_plan.jpg"); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  min-height: 100vh; 
+  width: 100%;
+  margin: 0;
 }
 
 .header {
@@ -55,7 +60,7 @@
 } */
 
 .subTitle {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .commentaryText {
@@ -65,7 +70,7 @@
 .formRow {
   display: flex;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .formRow label {

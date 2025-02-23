@@ -58,7 +58,7 @@ function Cart() {
   };
 
   //visible elements
-  let cartContents = <p>There are no items in your cart yet</p>;
+  let cartContents = <p>Votre panier est vide</p>;
   //console.log("length", cart.cartItem);
   if (cart.cartItem.length > 0) {
     cartContents = cart.cartItem.map((data, i) => {
@@ -86,15 +86,14 @@ function Cart() {
     <div>
       <div className={styles.outerContainer}>
         <div className={styles.column1}>
-          <h1>MON PANIER</h1>
-
+          <h1 className={styles.subtitle} >MON PANIER</h1>
           {cartContents}
         </div>
 
         <div className={styles.column2}>
-        <h1>RECAPITULATIF</h1>
+        <h1 className={styles.subtitle}>RECAPITULATIF</h1>
 
-          <p>Quantité d'articles dans ton panier : {totalItems}</p>
+          <p>Quantité d'articles dans votre panier : {totalItems}</p>
           <p>Montant à payer : {totalOwed}€</p>
             <button className={styles.button}
               onClick={() => {
@@ -103,7 +102,7 @@ function Cart() {
               
             >
               {" "}
-              Procéder au paiement
+              PROCÉDER AU PAIEMENT
             </button>
 
         </div>
