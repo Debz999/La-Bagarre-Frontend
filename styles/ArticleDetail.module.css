@@ -1,91 +1,41 @@
 .containerDeTout {
-    border: 20px solid black;
     color: black;
     display: flex;
     flex-wrap: wrap;
     gap: 3%;
-    padding: 10px;
     width: 100%;
-    margin-top: 200px;
-    justify-content: center;
-    align-items: center;
-}
-
-.containerDeTout2 {
-    border: 20px solid black;
-    color: black;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3%;
-    padding: 10px;
-    width: 100%;
-    margin-top: 200px;
-    justify-content: center;
-    align-items: center;
-}
-
-.containerDeTout3 {
-    border: 20px solid black;
-    color: black;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3%;
-    padding: 10px;
-    width: 100%;
-    /* margin-top: 200px; */
     justify-content: center;
     align-items: center;
 }
 
 .articleComplet {
     display: flex;
-    /* flex-direction: column; */
-    border: 2px solid greenyellow;
+    /* border: 2px solid greenyellow; */
     color: black;
     width: 100%;
     height: auto;
-    padding: 10px;
     justify-content: center;
 }
 
-.articleLinkContainer {
-    width: 200px;
-    height: auto;
-    color: black;
+.textContainer{
+    /* border: 2px solid orange; */
     display: flex;
     flex-direction: column;
-    margin: 10px 0;
-    padding: 10px;
-    border: 2px solid purple;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 50px;
+    flex: 1;
 }
 
-/* .article:hover {
-    cursor: pointer;
-} */
-
-.modelPriceContainer {
-    border: 2px solid blue;
-    display: flex;
-    justify-content: space-between;
-    padding: 5px;
+.categoryText {
+    background-color: #7C7C7C;
+    padding: 8px;
+    color: white;
+    width: 175px;
 }
-
-.cardPhotoContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid red;
-    width: 100%;
-    height: 300px;
-}
-
-/* .photosArticle {
-    width: 100%;
-    height: 100%;
-} */
 
 .photosContainer{
-    border: 2px solid pink;
+    /* border: 2px solid pink; */
     width: 50%;
     height: auto;
     /* height: 20%; */
@@ -104,11 +54,6 @@
     /* align-items: flex-end; */
     ;
 }
-/* 
-.photosArticle{
-    
-} */
-
 
 
 .buttonAchete {
@@ -120,18 +65,6 @@
 .buttonAchete:hover {
     cursor: pointer;
 }
-
-.separateur{
-    border: 2px solid orange;
-    display: flex;
-    flex-direction: column;
-    padding-left: 20px;
-    flex: 1;
-}
-
-/* .articlesProposes {
-
-} */
 
 .description {
     line-height: 1.5; 

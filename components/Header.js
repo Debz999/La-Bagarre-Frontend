@@ -64,7 +64,7 @@ function Header() {
 
       <div className={styles.barreMenu}>
         <Link href="/">
-          <h3 className={styles.linkHome}> LA BAGARRE</h3>
+          <h1 className={styles.linkHome}> LA BAGARRE</h1>
         </Link>
         <div className={styles.headerIcons}>
           <span className={styles.welcomeSign}>Bienvenue {user.username}</span>

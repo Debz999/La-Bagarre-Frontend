@@ -20,8 +20,10 @@ function Cart() {
       fetch(`http://localhost:3000/carts/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
-          if (data) {
+          if (data.data) {
             dispatch(toggleCart(data.data.items));
+          } else {
+            console.log("no items")
           }
         });
     } else {

@@ -18,7 +18,7 @@ const SousMenu = ({ categorie, types }) => {
       onMouseEnter={() => setSousMenuOpen("Homme")}
       onMouseLeave={() => setSousMenuOpen(null)}
     >
-      <p onClick={handleClickCate}>{categorie}</p>
+      <h3 onClick={handleClickCate}>{categorie}</h3>
       {sousMenuOpen === "Homme" && (
         <ul className={styles.dropDownMenu}>
           {types.map((type) => (

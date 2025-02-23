@@ -1,12 +1,15 @@
-import styles from "../styles/Profil.module.css";
-import { useState } from "react";
+import styles from "../styles/ProfileForm.module.css";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userStore } from "../reducers/user";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function ProfileForm(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
   const [isEditable, setIsEditable] = useState(true);
+
   const [missingAddressInfo, setMissingAddressInfo] = useState(false);
 
   let profile = user.profile;
@@ -21,6 +24,7 @@ function ProfileForm(props) {
 
   //ADD NEW ADDRESS (needs all fields to save)
   const addNewAddress = () => {
+    setIsEditable(false);
     fetch(`http://localhost:3000/users/newaddress/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -34,7 +38,7 @@ function ProfileForm(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("firsT DATA", data);
+        //console.log("firsT DATA", data);
         if (data.result === false) {
           setMissingAddressInfo(true);
         } else {
@@ -44,7 +48,6 @@ function ProfileForm(props) {
             .then((data) => {
               setMissingAddressInfo(false);
               dispatch(userStore(data.data));
-              setIsEditable(false);
               setUserAddress({
                 number: "",
                 street: "",
@@ -53,13 +56,19 @@ function ProfileForm(props) {
                 country: "",
               });
               props.onRequestCloseNewAddress();
+              
             });
         }
       });
   };
 
+  useEffect(() => {
+    console.log("Updated isEditable:", isEditable);
+  }, [isEditable]);
+
   //EDIT EXISTING ADDRESS (doesn't need all fields)
   const saveEditAddress = () => {
+    setIsEditable(false);
     //console.log(props._id)
     fetch(`http://localhost:3000/users/editaddress/${user.token}`, {
       method: "PUT",
@@ -107,19 +116,30 @@ function ProfileForm(props) {
     setIsEditable(!isEditable);
   };
 
+  //Check props for button visibility ------- WHY IS IT ALWAYS SET TO TRUE ????
+  // useEffect(() => {
+  //   console.log(props);
+  //   if (!props.index) {
+  //     setIsEditable(true);
+  //   }
+  // }, []);
+
   //changes for address (sent to child via props)
   const handleAddressChanges = (e) => {
     const newAddresses = { ...userAddress };
     newAddresses[e.target.name] = e.target.value;
     setUserAddress(newAddresses);
   };
+  //console.log(isEditable)
 
   //console.log('props:', props)
   return (
     <div className={styles.container}>
+      <h3 className={styles.subtitle}>Votre adresse livraison</h3>
       <div className={styles.formGroup}>
         <label>Numéro</label>
         <input
+          className={isEditable ? styles.inputEditable : styles.inputReadOnly}
           readOnly={isEditable ? false : "readOnly"}
           type="text"
           placeholder={props.number || "numéro"}
@@ -130,6 +150,7 @@ function ProfileForm(props) {
       <div className={styles.formGroup}>
         <label>Rue</label>
         <input
+          className={isEditable ? styles.inputEditable : styles.inputReadOnly}
           readOnly={isEditable ? false : "readOnly"}
           type="text"
           placeholder={props.street || "rue"}
@@ -140,6 +161,7 @@ function ProfileForm(props) {
       <div className={styles.formGroup}>
         <label>Ville</label>
         <input
+          className={isEditable ? styles.inputEditable : styles.inputReadOnly}
           readOnly={isEditable ? false : "readOnly"}
           type="text"
           placeholder={props.city || "ville"}
@@ -150,6 +172,7 @@ function ProfileForm(props) {
       <div className={styles.formGroup}>
         <label>Code postal</label>
         <input
+          className={isEditable ? styles.inputEditable : styles.inputReadOnly}
           readOnly={isEditable ? false : "readOnly"}
           type="text"
           placeholder={props.zipcode || "code postal"}
@@ -160,6 +183,7 @@ function ProfileForm(props) {
       <div className={styles.formGroup}>
         <label>Pays</label>
         <input
+          className={isEditable ? styles.inputEditable : styles.inputReadOnly}
           readOnly={isEditable ? false : "readOnly"}
           type="text"
           placeholder={props.country || "pays"}
@@ -167,14 +191,38 @@ function ProfileForm(props) {
           onChange={(e) => handleAddressChanges(e)}
         />
       </div>
-      <button onClick={() => handleDeleteAddress()}>Delete Address</button>
-      <button onClick={() => handleEditability()}>Edit</button>
-      <button onClick={() => saveEditAddress()}>
-        Enregistrer addresse modifié
-      </button>
-      <button onClick={() => addNewAddress()}>
-        Enregistrer nouvel addresse
-      </button>
+      <div className={styles.delModContainer}>
+        <button
+          className={styles.buttonDel}
+          onClick={() => handleDeleteAddress()}
+        >
+          SUPPRIMER
+        </button>
+        {!isEditable && props.index !== undefined && (
+          <button
+            className={styles.buttonModif}
+            onClick={() => handleEditability()}
+          >
+            MODIFIER
+          </button>
+        )}
+        {isEditable && props.index !== undefined && (
+          <button
+            className={styles.buttonModif}
+            onClick={() => saveEditAddress()}
+          >
+            Enregistrer addresse modifié
+          </button>
+        )}
+        {props.index === undefined && (
+          <button
+            className={styles.buttonModif}
+            onClick={() => addNewAddress()}
+          >
+            Enregistrer nouvel addresse
+          </button>
+        )}
+      </div>
       {missingAddressInfo && <p>Missing information !</p>}
     </div>
   );

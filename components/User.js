@@ -67,17 +67,18 @@ function User() {
   return (
     <div className={styles.main}>
       <header className={styles.header}>
-        <h2>LA BAGARRE</h2>
+        {/* <h2>LA BAGARRE</h2> */}
       </header>
       <div className={styles.formsContainer}>
         <div className={styles.formSeparator}>
-          <p>Me connecter à mon compte</p>
+          <h2 className={styles.subTitle}>CONNEXION</h2>
 
           <div className={styles.formRow}>
-            <label>Nom d'utilisateur: </label>
+            {/* <label>Nom d'utilisateur: </label> */}
             <input
               type="text"
               id="username"
+              placeholder="Nom d'utilisateur"
               name="username"
               onChange={(e) => setSignInUsername(e.target.value)}
               value={signInUsername}
@@ -85,11 +86,12 @@ function User() {
           </div>
 
           <div className={styles.formRow}>
-            <label>Mot de passe: </label>
+            {/* <label>Mot de passe: </label> */}
             <input
               type="password"
               id="password"
               name="password"
+              placeholder="Mot de passe"
               onChange={(e) => setSignInPassword(e.target.value)}
               value={signInPassword}
             />
@@ -105,27 +107,29 @@ function User() {
             Connexion
           </button>
         </div>
-
         <div className={styles.formSeparator}>
-          <p>Pas encore de compte ?</p>
+          <p className={styles.commentaryText}>Pas encore de compte ?</p>
+          <h2 className={styles.subTitle}>INSCRIPTION</h2>
 
           <div className={styles.formRow}>
-            <label>Nom d'utilisateur: </label>
+            {/* <label>Nom d'utilisateur: </label> */}
             <input
               type="text"
               id="username"
               name="username"
+              placeholder="Nom d'utilisateur"
               onChange={(e) => setSignUpUsername(e.target.value)}
               value={signUpUsername}
             />
           </div>
 
           <div className={styles.formRow}>
-            <label>Mot de passe: </label>
+            {/* <label>Mot de passe: </label> */}
             <input
               type="password"
               id="password2"
               name="password"
+              placeholder="Mot de passe"
               onChange={(e) => setSignUpPassword(e.target.value)}
               value={signUpPassword}
             />

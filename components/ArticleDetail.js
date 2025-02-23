@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleCart } from "../reducers/cart";
-import styles from "../styles/Article2.module.css";
+import styles from "../styles/ArticleDetail.module.css";
 
 import Image from "next/image";
 
@@ -31,6 +31,7 @@ import Articleliste from "./Articleliste";
   const [similarArticles, setSimilarArticles] = useState([]);
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
+  const [isDescriptionShown, setIsDescriptionShown] = useState(false);
 
   const router = useRouter();
 
@@ -199,29 +200,20 @@ const choosingColors = () => {
           </p>
         </div>
 
-        <div className={styles.separateur}>
-          <h3>{articleCliqueData.model}</h3>
-
-          <div>
-            <p>Catégorie: {articleCliqueData.categorie}</p>
-            <p>Type: {articleCliqueData.type}</p>
-          </div>
+        <div className={styles.textContainer}>
+          <h2>{articleCliqueData.model}</h2>
+          <p className={styles.categoryText}>Catégorie: {articleCliqueData.categorie}</p>
+          <p>Type: {articleCliqueData.type}</p>
           <p>Description: {articleDescription}</p>
-
-          <div>
-            <p>Tailles disponibles: {sizeOrGiSize()}</p>
-            <p>
-              Couleurs disponibles: {choosingColors()}
-             
-            </p>
-          </div>
+          <p>Tailles disponibles: {sizeOrGiSize()}</p>
+          <p>Couleurs disponibles: {choosingColors()}</p>
 
           <p>{articleCliqueData.price}€</p>
           <button
             onClick={() => addItemToCart(articleCliqueData._id)}
             className={styles.buttonAchete}
           >
-            ACHETE C PAS CHER
+            AJOUTER AU PANIER
           </button>
         </div>
       </div>
@@ -230,40 +222,24 @@ const choosingColors = () => {
 
 
 
-
+//first div className={styles.articleContainer}
     return (
-      <div className={styles.articleContainer}>
-
+      <div>
         <div className={styles.containerDeTout}>
           {articles()}
         </div>
-{/* 
-         <div>
-          {similarArticle}
-
-        </div>  */}
 
         <div>
           {categorieRecuperee && typeRecupere ? (
-            <ArticlesSimilaires categorie={categorieRecuperee} type={typeRecupere}/>
-            ) : (
-              <p>Y'a walou</p>
-            )}
+            <ArticlesSimilaires
+              categorie={categorieRecuperee}
+              type={typeRecupere}
+            />
+          ) : (
+            <p>Y'a walou</p>
+          )}
         </div>
-
-
-        {/* <div>
-        {articleCliqueData ? (
-          <Articleliste _id={articleCliqueData._id} categorie={categorieRecuperee} type={typeRecupere} model={articleCliqueData.model} photos9={articleCliqueData.photos9} price={articleCliqueData.price}/>
-        ) : (
-          <p> Y'a rien </p>
-        )}
-        </div> */}
-
-        
-        
       </div>
-
     );
    }
 
