@@ -192,12 +192,6 @@ function ProfileForm(props) {
         />
       </div>
       <div className={styles.delModContainer}>
-        <button
-          className={styles.buttonDel}
-          onClick={() => handleDeleteAddress()}
-        >
-          SUPPRIMER
-        </button>
         {!isEditable && props.index !== undefined && (
           <button
             className={styles.buttonModif}
@@ -211,7 +205,7 @@ function ProfileForm(props) {
             className={styles.buttonModif}
             onClick={() => saveEditAddress()}
           >
-            Enregistrer addresse modifié
+            ENREGISTRER MODIFICATIONS
           </button>
         )}
         {props.index === undefined && (
@@ -219,9 +213,15 @@ function ProfileForm(props) {
             className={styles.buttonModif}
             onClick={() => addNewAddress()}
           >
-            Enregistrer nouvel addresse
+            ENREGISTRER NOUVELLE ADDRESSE
           </button>
         )}
+        <button
+          className={styles.buttonDel}
+          onClick={() => handleDeleteAddress()}
+        >
+          SUPPRIMER
+        </button>
       </div>
       {missingAddressInfo && <p>Missing information !</p>}
     </div>

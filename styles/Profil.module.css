@@ -18,7 +18,11 @@
 
  .subtitle {
   text-align: center;
- }
+  margin-bottom: 40px;
+  color: #6F387C;
+  text-transform: uppercase;
+
+}
 
  .formGroup {
   display: grid;
@@ -54,11 +58,11 @@
  }
 
  .button2 {
-  background-color: #d3d3d3;
   height: 50px;
-  width: 80%;
+  width: 50%;
   border: 0px;
   cursor: pointer;
+  border: 2px solid #202020;
  }
 
  @media (max-width: 600px) {

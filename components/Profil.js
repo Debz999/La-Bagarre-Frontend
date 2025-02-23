@@ -91,7 +91,7 @@ function Profil() {
 
   return (
     <div className={styles.main}>
-      <h1>Profil</h1>
+      <h1>PROFIL</h1>
       <div className={styles.container}>
         <h3 className={styles.subtitle}>Vos informations</h3>
 
@@ -136,7 +136,7 @@ function Profil() {
           />
         </div>
         <button className={styles.button} onClick={() => handleSaveInfo()}>
-          Sauvegarder mon profil
+          SAUVEGARDER MON PROFIL
         </button>
       </div>
       {allAddresses.length > 0 && allAddresses}
@@ -145,7 +145,7 @@ function Profil() {
           <ProfileForm onRequestCloseNewAddress={onRequestCloseNewAddress} />
         )}
       <div className={styles.buttonContainer}>
-        <button className={styles.button2} onClick={() => addProfileForm()}>AJOUTER UNE ADDRESSE</button>
+        <button className={styles.button2} onClick={() => addProfileForm()}>+ AJOUTER UNE ADDRESSE</button>
       </div>
     </div>
   );
