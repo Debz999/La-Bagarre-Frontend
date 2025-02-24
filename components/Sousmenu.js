@@ -7,23 +7,23 @@ const SousMenu = ({ categorie, types }) => {
   const [sousMenuOpen, setSousMenuOpen] = useState(null); //état pour sous menu des categories
   const router = useRouter();
 
-  //click sur la categorie seule
   const handleClickCate = () => {
+    //click sur la categorie seule
     router.push(`/article?categorie=${categorie}`);
   };
 
   return (
     <div
-      className={styles.containerCat}
+      className={styles.sousmenu}
       onMouseEnter={() => setSousMenuOpen("Homme")}
       onMouseLeave={() => setSousMenuOpen(null)}
     >
-      <p className={styles.category} onClick={handleClickCate}>{categorie}</p>
+      <h3 onClick={handleClickCate}>{categorie}</h3>
       {sousMenuOpen === "Homme" && (
-        <ul>
+        <ul className={styles.dropDownMenu}>
           {types.map((type) => (
             <li key={type}>
-              <Link href={`/article?categorie=${categorie}&type=${type}`}>
+              <Link className={styles.sousmenuLink} href={`/article?categorie=${categorie}&type=${type}`}>
                 {type}
               </Link>
             </li>

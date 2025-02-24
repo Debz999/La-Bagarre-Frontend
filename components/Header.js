@@ -49,6 +49,7 @@ function Header() {
     };
   }, [isMenuOpen]);
 
+
   /*Get cart total items */
   const totalItems = cart.cartItem.reduce(
     (sum, value) => sum + value.quantity,
@@ -64,21 +65,29 @@ function Header() {
 
       <div className={styles.barreMenu}>
         <Link href="/">
-          <p className={styles.linkHome}> LA BAGARRE</p>
+          <h1 className={styles.linkHome}> LA BAGARRE</h1>
         </Link>
-        <FontAwesomeIcon
-          className={styles.userIcon}
-          icon={faUser}
-          onClick={() => {
-            handleUserClick();
-          }}
-        />
-        <FontAwesomeIcon
-          className={styles.userIcon}
-          icon={faCartShopping}
-          onClick={() => handleClickCart()}
-        />
-        <p>Bienvenue {user.username}</p>
+        <div className={styles.headerIcons}>
+          <span className={styles.welcomeSign}>Bienvenue {user.username}</span>
+          <FontAwesomeIcon
+            className={styles.iconStyle}
+            icon={faUser}
+            onClick={() => {
+              handleUserClick();
+            }}
+          />
+
+          <div className={styles.cartContainer}>
+            <FontAwesomeIcon
+              className={styles.iconStyle}
+              icon={faCartShopping}
+              onClick={() => handleClickCart()}
+            />
+            {totalItems > 0 && (
+              <span className={styles.numberContainer}>{totalItems}</span>
+            )}
+          </div>
+        </div>
       </div>
       {isMenuOpen && (
         <ul ref={menuRef} className={styles.menu}>
@@ -104,6 +113,7 @@ function Header() {
           types={["Ceintures", "Sac", "Casquettes"]}
         />
       </div>
+      
     </div>
   );
 }

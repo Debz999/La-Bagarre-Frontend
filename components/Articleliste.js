@@ -1,7 +1,6 @@
 import styles from "../styles/ArticleListe.module.css"
-
-
 import Link from 'next/link';
+import Image from "next/image";
 import { useRouter } from 'next/router';
 // function Articleliste({model, photos9, description} ){
 
@@ -38,30 +37,24 @@ function Articleliste({model, photos9, price, _id} ){
     //console.log(photos9)
 
     const photos= photos9.map((photo, index)=>{
-        return(<img key={index} src={photo} alt={model} height="250px"/>)
+        return(<img key={index} src={photo} alt={model} className={styles.photo} layout="responsive" />)
     
     })
     
-        return(
-           
-            <div className={styles.test3}>
-
-                <div className={styles.test}>
-                    <Link href={`/detailarticle/${_id}`}>
-                    <div className={styles.test2}>
-                        <h3>{model}</h3>
-                        <div>{photos[0]}</div>
-                        <p>{price}€</p>
-                    </div>
-            
-                    </Link>
-
-            
+        return (
+          <div className={styles.articleContainer}>
+              <Link href={`/detailarticle/${_id}`}>
+                <div className={styles.cardContainer}>
+                  <div>{photos[0]}</div>
+                  <div className={styles.textContainer}>
+                  {/* <p >{model.split(" ").slice(0, 3).join(" ")}</p> */}
+                    <p className={styles.articleTitle}>{model.split(" ").slice(0, 3).join(" ")}</p>
+                    <p className={styles.articlePrice}>{price}€</p>
+                  </div>
                 </div>
-            </div>
-
-
-        )
+              </Link>
+          </div>
+        );
     }
     
     export default Articleliste;

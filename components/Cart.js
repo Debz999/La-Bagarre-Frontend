@@ -20,8 +20,10 @@ function Cart() {
       fetch(`http://localhost:3000/carts/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
-          if (data) {
+          if (data.data) {
             dispatch(toggleCart(data.data.items));
+          } else {
+            console.log("no items");
           }
         });
     } else {
@@ -29,7 +31,7 @@ function Cart() {
     }
   };
 
-  console.log(cart)
+  //console.log(cart)
 
   //old get existing cart items, test first but prob will delete
   useEffect(() => {
@@ -40,6 +42,8 @@ function Cart() {
     router.push("/");
   };
 
+  const saveNewOrder = () => {
+    if (user.token) {
   const saveNewOrder = () => {
     if (user.token) {
       fetch(`http://localhost:3000/orders/post/${user.token}`, {
@@ -59,11 +63,11 @@ function Cart() {
   };
 
   //visible elements
-  let cartContents = <p>There are no items in your cart yet</p>;
+  let cartContents = <p>Votre panier est vide</p>;
   //console.log("length", cart.cartItem);
   if (cart.cartItem.length > 0) {
     cartContents = cart.cartItem.map((data, i) => {
-      console.log("check map", data); //THIS HAS ALL THE AVAILABLE COLORS AND SIZES
+      //console.log("check map", data); //THIS HAS ALL THE AVAILABLE COLORS AND SIZES
       //check if i can't use this map to make them always editable, not sure if its worth it, ask
       return (
         <div>
@@ -85,31 +89,38 @@ function Cart() {
 
   return (
     <div>
-      <h1>Mon Panier</h1>
-      {cartContents}
-      <p>Quantité d'articles dans ton panier : {totalItems}</p>
-      <p>Montant à payer : {totalOwed}€</p>
+      <div className={styles.outerContainer}>
+        <div className={styles.column1}>
+          <h1 className={styles.subtitle} >MON PANIER</h1>
+          {cartContents}
+        </div>
 
-      <div style={styles.buttonContainer}>
-        <button
-          onClick={() => {
-            saveNewOrder();
-          }}
-          style={styles.buttonContainer}
-        >
-          {" "}
-          Procéder au paiement
-        </button>
-        <button
-          onClick={() => {
-            continueShopping();
-          }}
-          style={styles.buttonContainer}
-        >
-          {" "}
-          Continuer mes achats
-        </button>
+        <div className={styles.column2}>
+        <h1 className={styles.subtitle}>RECAPITULATIF</h1>
+
+          <p>Quantité d'articles dans votre panier : {totalItems}</p>
+          <p>Montant à payer : {totalOwed}€</p>
+            <button className={styles.button}
+              onClick={() => {
+                saveNewOrder();
+              }}
+              
+            >
+              {" "}
+              PROCÉDER AU PAIEMENT
+            </button>
+
+        </div>
       </div>
+            <button
+              onClick={() => {
+                continueShopping();
+              }}
+              className={styles.buttonContainer}
+            >
+              {" "}
+              Continuer mes achats
+            </button>
     </div>
   );
 }
