@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 
 function ArticlesSimilaires(props) {
   const [allArticlesData, setAllArticlesData] = useState([]);
+  const [sortOrder, setSortOrder] = useState('croissant');
 
   const router = useRouter();
 
@@ -30,11 +31,15 @@ function ArticlesSimilaires(props) {
         .then((articlesTrouves) => {
           if (articlesTrouves.result) {
             console.log("Données d'articles récupérées :", articlesTrouves);
-            setAllArticlesData(articlesTrouves.filteredArticles)
+            // setAllArticlesData(articlesTrouves.filteredArticles)
+            const sortedArticles = articlesTrouves.filteredArticles.sort((a, b) => {
+              return sortOrder === 'croissant' ? a.price - b.price : b.price - a.price;
+            });
+            setAllArticlesData(sortedArticles);
           }
         })
     
-  }, [categorie, type]); 
+  }, [categorie, type, sortOrder]); 
 
 
 
@@ -42,7 +47,7 @@ function ArticlesSimilaires(props) {
 const articles = allArticlesData.map((data, i) => {
 
   
-  const jeSaisPas5 = <Image src={data.photos9[0]} width={300} height={400} className={styles.cardPhoto}></Image>;
+  const jeSaisPas5 = <Image src={data.photos9[0]} width={200} height={200} className={styles.cardPhoto}></Image>;
   
   
   return (
@@ -55,8 +60,8 @@ const articles = allArticlesData.map((data, i) => {
             {jeSaisPas5}
           </div>
           <div className={styles.modelPriceContainer}>
-            <p>{data.model}</p>
-            <p>{data.price}€</p>
+            <h4 className={styles.modelPlacement}>{data.model}</h4>
+            <h3 className={styles.pricePlacement}>{data.price}€</h3>
           </div>
       </div>
 
@@ -66,15 +71,23 @@ const articles = allArticlesData.map((data, i) => {
   )
 });
 
+const handleSortChange = (e) => {setSortOrder(e.target.value);};
 
 
     return (
       <div>
-        <h3 className={styles.pageTitle}>Catégorie: {props.categorie ?? null}</h3>
-        <h3>type: {props.type ?? null}</h3>
-        <h3>Articles similaires</h3>
+        <h3 className={styles.pageTitle}>{props.categorie ?? null}</h3>
+        <h2>{props.type ?? null}</h2>
+        {/* <h3>Title: {props.title}</h3> */}
+
+        <select onChange={handleSortChange} value={sortOrder}>
+        <option value="croissant">Prix croissant</option>
+        <option value="décroissant">Prix décroissant</option>
+        </select>
+
 
         <div className={styles.containerDeTout}>    
+
           {articles}
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleCart } from "../reducers/cart";
-import styles from "../styles/Article2.module.css";
+import styles from "../styles/ArticleDetail.module.css";
 
 import Image from "next/image";
 
@@ -13,7 +13,7 @@ import Link from 'next/link';
 import ArticlesSimilaires from './ArticlesSimilaires';
 import TopArticles from "./TopArticles";
 import Articleliste from "./Articleliste";
-
+import ArticlesOnSale from "./ArticlesOnSale";
 //Pour l'instant cette page m'affiche tout les articles detaillés,
 //Il me faut seulement l'article cliqué
 //Peut etre au click sur l'article, recuperer son id et afficher l'article par son id d'ici
@@ -260,6 +260,9 @@ const choosingColors = () => {
           <p> Y'a rien </p>
         )}
         </div> */}
+        <div>
+          <ArticlesOnSale/>
+        </div>
 
         
         

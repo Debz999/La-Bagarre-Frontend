@@ -50,18 +50,16 @@
 
 .articleLinkContainer {
     width: 200px;
-    height: auto;
+    /* height: auto; */
     color: black;
     display: flex;
     flex-direction: column;
     margin: 10px 0;
     padding: 10px;
     border: 2px solid purple;
+    
 }
 
-/* .article:hover {
-    cursor: pointer;
-} */
 
 .modelPriceContainer {
     border: 2px solid blue;
@@ -79,21 +77,12 @@
     height: 300px;
 }
 
-/* .photosArticle {
-    width: 100%;
-    height: 100%;
-} */
 
 .photosContainer{
     border: 2px solid pink;
     width: 50%;
     height: auto;
-    /* height: 20%; */
-    /* height: 700px; */
-    /* margin: auto; */
     display: flex;
-    /* justify-content: flex-start; */
-    /* align-items: center; */
     flex-direction: column;
 
 }
@@ -101,13 +90,8 @@
 .photoLength{
     display: flex;
     justify-content: center;
-    /* align-items: flex-end; */
-    ;
 }
-/* 
-.photosArticle{
-    
-} */
+
 
 
 

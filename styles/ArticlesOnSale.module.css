@@ -49,22 +49,13 @@
 }
 
 .modelContainer{
-    display: flex;
-    /* height: 40px;
-    width: 250px; */
-    align-items: center;
-  
-    border-radius: 14px;
-    margin: 0px 10px 5px 10px;
-    /* border-color: rgb(221, 221, 221); */
-    border: solid 2px rgb(221, 221, 221);
-    /* height: 60px; */
-    width: 97%;
-    padding: 10px;
-    min-height: 70px;
-    justify-content: center;
-
+    margin-left: 10px;
     
+    /* width: auto; */
+    height: 40px;
+    width: 250px;
+    align-items: center;
+    margin-right: 10px;
  
 }
 
@@ -78,24 +69,11 @@
     border-color: rgb(221, 221, 221);
     margin-bottom: 5px;
 }
-
 .photos0Container{
     
 }
 
 .priceContainer{
-    display: flex;
-    /* height: 40px;
-    width: 250px; */
-    align-items: center;
-  
-    border-radius: 14px;
-    margin: 0px 10px 5px 10px;
-    /* border-color: rgb(221, 221, 221); */
-    border: solid 2px rgb(221, 221, 221);
-    /* height: 60px; */
-    width: 97%;
-    padding: 10px;
-    min-height: 70px;
-    justify-content: center;
+   margin-right: 10px;
+ 
 }
