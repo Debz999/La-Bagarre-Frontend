@@ -11,7 +11,7 @@ export const cartSlice = createSlice({
   reducers: {
     toggleCart: (state, action) => {
       state.value.cartItem = action.payload;  
-      //console.log('cart reducer', action.payload)
+      console.log('cart reducer', action.payload)
     },
 
     

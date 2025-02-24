@@ -42,8 +42,7 @@ function Cart() {
     router.push("/");
   };
 
-  const saveNewOrder = () => {
-    if (user.token) {
+ 
   const saveNewOrder = () => {
     if (user.token) {
       fetch(`http://localhost:3000/orders/post/${user.token}`, {
@@ -60,7 +59,7 @@ function Cart() {
           //enregistrer la commande dans orders sans possibilité de modifs
         });
     }
-  };
+  }
 
   //visible elements
   let cartContents = <p>Votre panier est vide</p>;
