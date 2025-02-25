@@ -27,12 +27,12 @@ const mappedSales = articlesOnSale.map((article) => (
   <div key={article._id} className={styles.card}>
     <Link href={`/detailarticle/${article._id}`}>
       <div className={styles.test2}>
-        <div className={styles.cardPhotoContainer}>
-        <Image src={article.photos9[0]} alt={article.model} height="350px" width="290px" className={styles.photo}
-        />
-        </div>
+        {/* <div className={styles.cardPhotoContainer}>
+          <Image src={article.photos9[0]} alt={article.model} height="350px" width="290px" className={styles.photo}/>
+        </div> */}
         <div className={styles.modelPriceContainer}>
           <h4 className={styles.modelContainer}>{article.model}</h4>
+          <Image src={article.photos9[0]} alt={article.model} height="350px" width="290px" className={styles.photo}/>
           <h3 className={styles.priceContainer}>{article.price}€</h3>
         </div>
       </div>

@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 
 import Link from 'next/link';
 import ArticlesSimilaires from './ArticlesSimilaires';
-import TopArticles from "./TopArticles";
+import TopArticlesCat from "./TopArticlesCat";
 import Articleliste from "./Articleliste";
 import ArticlesOnSale from "./ArticlesOnSale";
 //Pour l'instant cette page m'affiche tout les articles detaillés,
@@ -246,7 +246,7 @@ const choosingColors = () => {
 
         <div>
           {categorieRecuperee && typeRecupere ? (
-            <ArticlesSimilaires categorie={categorieRecuperee} type={typeRecupere}/>
+            <ArticlesSimilaires title="Produits similaires" categorie={categorieRecuperee} type={typeRecupere}/>
             ) : (
               <p>Y'a walou</p>
             )}
@@ -262,6 +262,14 @@ const choosingColors = () => {
         </div> */}
         <div>
           <ArticlesOnSale/>
+        </div>
+
+        <div>
+        {categorieRecuperee && typeRecupere ? (
+          <TopArticlesCat categorie={categorieRecuperee}/>
+        ) : (
+          <p>Y'a walou</p>
+        )}
         </div>
 
         

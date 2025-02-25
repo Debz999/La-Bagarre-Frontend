@@ -13,37 +13,39 @@ import { useRouter } from 'next/router';
 
 
 
-function TopArticles(props) {
-  const [allArticlesData, setAllArticlesData] = useState([]);
+function TopArticlesCat({categorie}) {
+  const [topArticles, setTopArticles] = useState([]);
 
   const router = useRouter();
 
-  const categorie = props.categorie
-  const type = props.type
+  // const categorie = props.categorie
+  // const type = props.type
 
 
   useEffect(() => {
     
-      
-      fetch(`http://localhost:3000/articles/topArticles1?categorie=${categorie}&type=${type}`)
+      // fetch(`http://localhost:3000/articles/topArticles`)
+      fetch(`http://localhost:3000/articles/topArticles1?categorie=${categorie}`)
         .then((response) => response.json())
         .then((articlesTrouves) => {
             if (articlesTrouves.result) {
                 // Traiter les articles trouvés ici
-                console.log(articlesTrouves.articleRécupéré);
+                console.log("dans top articles: ", articlesTrouves.articleRécupéré);
+                setTopArticles(articlesTrouves.articleRécupéré)
               } else {
                 // Gérer le cas où aucune donnée n'est trouvée
                 console.log('Aucun article trouvé');
+
               }
             })
         
     
-  }, [categorie, type]); 
+  }, [categorie]); 
 
 
 
 
-const articles = allArticlesData.map((data, i) => {
+const articles = topArticles.map((data, i) => {
 
   
   const jeSaisPas5 = <Image src={data.photos9[0]} width={300} height={400} className={styles.cardPhoto}></Image>;
@@ -52,7 +54,7 @@ const articles = allArticlesData.map((data, i) => {
   return (
 
     <div key={i} className={styles.articleLinkContainer}>
-      <Link href={`/article/${data._id}`}>
+      <Link href={`/detailarticle/${data._id}`}>
 
       <div className={styles.articleComplet}>
           <div className={styles.cardPhotoContainer}>
@@ -74,9 +76,9 @@ const articles = allArticlesData.map((data, i) => {
 
     return (
       <div>
-        <h3 className={styles.pageTitle}>Catégorie: {props.categorie ?? "null"}</h3>
-        <h3>type: {props.type ?? "null"}</h3>
-        <h3>title: {props.title}</h3>
+        <h3 className={styles.pageTitle}>Articles pour {categorie ?? "null"} les plus vendus</h3>
+        {/* <h3>type: {type ?? "null"}</h3> */}
+
 
         <div className={styles.containerDeTout}>    
           {articles}
@@ -85,4 +87,4 @@ const articles = allArticlesData.map((data, i) => {
     );
    }
    
-   export default TopArticles;
+   export default TopArticlesCat;

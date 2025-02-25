@@ -76,9 +76,9 @@ const handleSortChange = (e) => {setSortOrder(e.target.value);};
 
     return (
       <div>
-        <h3 className={styles.pageTitle}>{props.categorie ?? null}</h3>
-        <h2>{props.type ?? null}</h2>
-        {/* <h3>Title: {props.title}</h3> */}
+        <h3 className={styles.pageTitle}></h3>
+        
+        <h3>{props.title}</h3>
 
         <select onChange={handleSortChange} value={sortOrder}>
         <option value="croissant">Prix croissant</option>

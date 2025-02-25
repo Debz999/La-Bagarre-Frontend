@@ -6,12 +6,13 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    border: solid 2px transparent;
+    
     border-radius: 14px;
     background-color: rgb(221, 221, 221);
     margin: 30px;
     box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.3); 
-    padding: 20px 30px 20px 30px
+    padding: 20px 30px 20px 30px;
+    /* flex-direction: column; */
 }
 
 
@@ -30,9 +31,16 @@
     border-radius: 14px;
     box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.3); 
     padding-top: 5px;
+    display: flex;
+    flex-direction: column;
 
-   
+}
 
+.card:hover{
+    cursor: pointer;
+    transform: scale(1.05); /* Agrandit légèrement la carte */
+    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.3); /* Ajoute une ombre blanche légère */
+    background-color: #337467; /* Change légèrement la couleur de fond */
 }
 
 .photo{
@@ -49,31 +57,55 @@
 }
 
 .modelContainer{
-    margin-left: 10px;
-    
-    /* width: auto; */
-    height: 40px;
-    width: 250px;
+    display: flex;
+    /* height: 40px;
+    width: 250px; */
     align-items: center;
-    margin-right: 10px;
- 
+  
+    border-radius: 14px;
+    margin: 1px 10px 5px 10px;
+    /* border-color: rgb(221, 221, 221); */
+    border: solid 2px rgb(221, 221, 221);
+    /* height: 60px; */
+    width: 100%;
+    padding: 10px;
+    min-height: 70px;
+    justify-content: center;
+    
 }
 
 .modelPriceContainer{
     display: flex;
     /* justify-content: flex-start;
     align-items: flex-start; */
-    border: solid;
+    /* border: solid; */
     width: 290px;
     border-radius: 14px;
     border-color: rgb(221, 221, 221);
     margin-bottom: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
 }
 /* .photos0Container{
     
 } */
 
 .priceContainer{
-   margin-right: 10px;
- 
+    display: flex;
+    /* height: 40px;
+    width: 250px; */
+    align-items: center;
+  
+    border-radius: 14px;
+    margin: 5px 1px 1px 1px;
+    /* border-color: rgb(221, 221, 221); */
+    border: solid 2px rgb(221, 221, 221);
+    /* height: 60px; */
+    width: 100%;
+    padding: 10px;
+    min-height: 70px;
+    justify-content: center;
+   
 }

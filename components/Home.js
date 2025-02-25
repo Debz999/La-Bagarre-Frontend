@@ -10,7 +10,8 @@ import { useRouter } from "next/router";
 import Article from "./Article";
 import ArticlesOnSale from "./ArticlesOnSale";
 import ArticlesSimilaires from "./ArticlesSimilaires";
-
+import TopArticlesAll from "./TopArticlesAll";
+import AllArticles from "./allArticles";
 
 
 function Home() {
@@ -24,11 +25,12 @@ function Home() {
         <title>LA BAGARRE</title>
       </Head>
       <h1>Home</h1>
-      {/* <Article /> */}
-      <ArticlesSimilaires categorie={categorie} type={type}/>
-      {/* <div className={styles.sales}> */}
-        <ArticlesOnSale/>
-      {/* </div> */}
+
+      <ArticlesOnSale/>
+
+      <TopArticlesAll/>
+
+      <AllArticles/>
       
 
    
