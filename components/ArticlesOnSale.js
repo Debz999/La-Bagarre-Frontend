@@ -45,7 +45,7 @@ const mappedSales = articlesOnSale.map((article) => (
 
   return (
     <div>
-    <h1>Articles en Promotion</h1>
+    <h3 className={styles.pageTitle}>Articles en Promotion</h3>
     <div className={styles.cadre}>
 
     {mappedSales}

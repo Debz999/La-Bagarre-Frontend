@@ -187,7 +187,7 @@ const choosingColors = () => {
 
     return (
       <div className={styles.articleComplet}>
-        <div className={styles.photosContainer}>
+        {/* <div className={styles.photosContainer}> */}
           <Image
             src={articleCliqueData.photos9[imageIndex]}
             width="800px"
@@ -198,31 +198,19 @@ const choosingColors = () => {
           <p className={styles.photoLength}>
             {imageIndex + 1}/{articleCliqueData.photos9.length}
           </p>
-        </div>
+        {/* </div> */}
 
         <div className={styles.separateur}>
-          <h3>{articleCliqueData.model}</h3>
+          <h2>{articleCliqueData.model}</h2>
 
-          <div>
-            <p>Catégorie: {articleCliqueData.categorie}</p>
-            <p>Type: {articleCliqueData.type}</p>
-          </div>
-          <p>Description: {articleDescription}</p>
-
-          <div>
-            <p>Tailles disponibles: {sizeOrGiSize()}</p>
-            <p>
-              Couleurs disponibles: {choosingColors()}
-             
-            </p>
-          </div>
-
-          <p>{articleCliqueData.price}€</p>
+          <h3 className={styles.descriptionContainer}>Description: {articleDescription}</h3>
+          <p>Tailles disponibles: {sizeOrGiSize()}</p>
+          <h2 className={styles.articlePrice}>{articleCliqueData.price}€</h2>
           <button
             onClick={() => addItemToCart(articleCliqueData._id)}
             className={styles.buttonAchete}
           >
-            ACHETE C PAS CHER
+            AJOUTER AU PANIER
           </button>
         </div>
       </div>
@@ -233,44 +221,34 @@ const choosingColors = () => {
 
 
     return (
-      <div className={styles.articleContainer}>
+      <div>
 
-        <div className={styles.containerDeTout}>
-          {articles()}
-        </div>
-{/* 
-         <div>
-          {similarArticle}
+      <h1>
+        {categorieRecuperee} {typeRecupere && `- ${typeRecupere}`}
+      </h1>
 
-        </div>  */}
-
-        <div>
-          {categorieRecuperee && typeRecupere ? (
-            <ArticlesSimilaires title="Produits similaires" categorie={categorieRecuperee} type={typeRecupere}/>
-            ) : (
-              <p>Y'a walou</p>
-            )}
-        </div>
-
-
-        {/* <div>
-        {articleCliqueData ? (
-          <Articleliste _id={articleCliqueData._id} categorie={categorieRecuperee} type={typeRecupere} model={articleCliqueData.model} photos9={articleCliqueData.photos9} price={articleCliqueData.price}/>
+     
+        {articles()}
+     
+        
+        {categorieRecuperee && typeRecupere ? (
+          <ArticlesSimilaires title="Produits similaires" categorie={categorieRecuperee} type={typeRecupere}/>
         ) : (
-          <p> Y'a rien </p>
+          <p>Aucun article trouvé</p>
         )}
-        </div> */}
-        <div>
-          <ArticlesOnSale/>
-        </div>
+       
 
-        <div>
+   
+        <ArticlesOnSale/>
+    
+
+        
         {categorieRecuperee && typeRecupere ? (
           <TopArticlesCat categorie={categorieRecuperee}/>
         ) : (
-          <p>Y'a walou</p>
+          <p>Aucun article trouvé</p>
         )}
-        </div>
+        
 
         
         

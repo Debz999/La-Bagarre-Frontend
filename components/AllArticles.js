@@ -53,7 +53,7 @@ function allArticles() {
 const articles = all.map((data, i) => {
 
   
-  const jeSaisPas5 = <Image src={data.photos9[0]} width={300} height={400} className={styles.cardPhoto}></Image>;
+  // const jeSaisPas5 = <Image src={data.photos9[0]} width={300} height={400} className={styles.cardPhoto}></Image>;
   
   
   return (
@@ -62,12 +62,11 @@ const articles = all.map((data, i) => {
       <Link href={`/detailarticle/${data._id}`}>
 
       <div className={styles.test2}>
-          <div className={styles.cardPhotoContainer}>
-          </div>
+
           <div className={styles.modelPriceContainer}>
-            <p>{data.model}</p>
-            <Image src={data.photos9[0]} width={300} height={400} className={styles.cardPhoto}></Image>
-            <p>{data.price}€</p>
+            <h4 className={styles.modelContainer}>{data.model}</h4>
+            <Image src={data.photos9[0]} width="290px" height="350px" className={styles.photo}></Image>
+            <h3 className={styles.priceContainer}>{data.price}€</h3>
           </div>
       </div>
 
@@ -81,10 +80,10 @@ const handleSortChange = (e) => {setSortOrder(e.target.value);};
 
 
     return (
-      <div>
+      <div className={styles.titleAndSelect}>
         <h3 className={styles.pageTitle}>Tous les articles</h3>
 
-        <select onChange={handleSortChange} value={sortOrder}>
+        <select onChange={handleSortChange} value={sortOrder} className={styles.select}>
         <option value="croissant">Prix croissant</option>
         <option value="décroissant">Prix décroissant</option>
         </select>

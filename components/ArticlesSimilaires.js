@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import styles from "../styles/Article.module.css";
+import styles from "../styles/ArticlesOnSale.module.css";
 
 import Image from "next/image";
 
@@ -52,21 +52,35 @@ const articles = allArticlesData.map((data, i) => {
   
   return (
 
-    <div key={i} className={styles.articleLinkContainer}>
-      <Link href={`/detailarticle/${data._id}`}>
+    // <div key={i} className={styles.articleLinkContainer}>
+    //   <Link href={`/detailarticle/${data._id}`}>
 
-      <div className={styles.articleComplet}>
-          <div className={styles.cardPhotoContainer}>
-            {jeSaisPas5}
-          </div>
-          <div className={styles.modelPriceContainer}>
-            <h4 className={styles.modelPlacement}>{data.model}</h4>
-            <h3 className={styles.pricePlacement}>{data.price}€</h3>
-          </div>
-      </div>
+    //   <div className={styles.articleComplet}>
+    //       <div className={styles.cardPhotoContainer}>
+    //         {jeSaisPas5}
+    //       </div>
+    //       <div className={styles.modelPriceContainer}>
+    //         <h4 className={styles.modelPlacement}>{data.model}</h4>
+    //         <h3 className={styles.pricePlacement}>{data.price}€</h3>
+    //       </div>
+    //   </div>
 
-      </Link>
+    //   </Link>
+    // </div>
+    <div key={i} className={styles.card}>
+    <Link href={`/detailarticle/${data._id}`}>
+
+    <div className={styles.test2}>
+
+        <div className={styles.modelPriceContainer}>
+          <h4 className={styles.modelContainer}>{data.model}</h4>
+          <Image src={data.photos9[0]} width="290px" height="350px" className={styles.photo}></Image>
+          <h3 className={styles.priceContainer}>{data.price}€</h3>
+        </div>
     </div>
+
+    </Link>
+  </div>
 
   )
 });
@@ -76,17 +90,16 @@ const handleSortChange = (e) => {setSortOrder(e.target.value);};
 
     return (
       <div>
-        <h3 className={styles.pageTitle}></h3>
-        
-        <h3>{props.title}</h3>
+       
+        <h3 className={styles.pageTitle}>{props.title}</h3>
 
-        <select onChange={handleSortChange} value={sortOrder}>
+        {/* <select onChange={handleSortChange} value={sortOrder} className={styles.select}>
         <option value="croissant">Prix croissant</option>
         <option value="décroissant">Prix décroissant</option>
-        </select>
+        </select> */}
 
 
-        <div className={styles.containerDeTout}>    
+        <div className={styles.cadre}>    
 
           {articles}
         </div>
