@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleCart } from "../reducers/cart";
 import styles from "../styles/ArticleDetail.module.css";
-import styles from "../styles/ArticleDetail.module.css";
+
 
 import Image from "next/image";
 
@@ -215,7 +215,7 @@ const choosingColors = () => {
             onClick={() => addItemToCart(articleCliqueData._id)}
             className={styles.buttonAchete}
           >
-            AJOUTER AU PANIER
+
             AJOUTER AU PANIER
           </button>
         </div>
