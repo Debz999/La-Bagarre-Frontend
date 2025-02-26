@@ -1,0 +1,211 @@
+.containerDeTout {
+    border: 20px solid black;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3%;
+    padding: 10px;
+    width: 100%;
+    margin-top: 200px;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerDeTout2 {
+    border: 20px solid black;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3%;
+    padding: 10px;
+    width: 100%;
+    margin-top: 200px;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerDeTout3 {
+    border: 20px solid black;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3%;
+    padding: 10px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.articleComplet {
+    display: flex;
+    /* flex-direction: column; */
+    /* border: 2px solid greenyellow; */
+    border-radius: 14px;
+    background-color: #12806A;
+    color: black;
+    width: 97%;
+    height: auto;
+    padding: 10px;
+    justify-content: center;
+    margin-left: 30px;
+    padding: 5px 35px 5px 35px;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.3);
+
+}
+
+.articleLinkContainer {
+    width: 200px;
+    /* height: auto; */
+    color: black;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    padding: 10px;
+    border: 2px solid purple;
+    
+}
+
+
+.modelPriceContainer {
+    border: 2px solid blue;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.cardPhotoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
+    width: 100%;
+    height: 300px;
+}
+
+
+.photosContainer{
+    border: 2px solid pink;
+    width: 50%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.photoLength{
+    display: flex;
+    justify-content: center;
+}
+
+.photosArticle{
+    border-radius: 14px;
+}
+
+
+
+
+.buttonAchete {
+    height: 60px;
+    width: 60%;
+    margin: auto;
+    background-color: #12806A;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.3); 
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+
+}
+
+.buttonAchete:hover {
+    cursor: pointer;
+    transform: scale(1.03); 
+    box-shadow: 0px 0px 15px 5px rgba(199, 241, 224, 0.6);
+    background-color: #abd3ca;
+    color: black;
+   
+}
+
+.separateur{
+    background-color: rgb(221, 221, 221);
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    flex: 1;
+    border-radius: 14px;
+}
+
+/* .articlesProposes {
+
+} */
+
+.description {
+    line-height: 1.5; 
+    margin-left: 20px;
+    
+}
+.descriptionContainer {
+    padding-top: 50px;
+}
+
+
+
+.articlePrice{
+    padding-top: 50px;
+}
+
+
+/* STYLES POUR PAGE AJOUTARTICLEBDD */
+
+.divPromotion {
+    display: flex;
+    align-items: center; 
+    
+}
+
+.selectPromotion {
+    height: 80%;
+}
+
+
+
+.p1{
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 200px;
+    /* background-color: #abd3ca; */
+    padding: 20px;
+    
+}
+.inputStyle {
+    width: 500px;
+    height: 50px;
+
+}
+
+.descriptionInputStyle {
+    width: 500px;
+    height: 300px;
+
+}
+
+
+.divEnsemble {
+    display: flex;
+    
+}
+
+.p2 {
+    /* display: flex;
+    flex-direction: row; */
+    /* justify-content: flex-start; */
+    width: 80%
+}
+
+.filesInput{
+    margin-top: 20px;
+}
