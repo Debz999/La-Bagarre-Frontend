@@ -1,8 +1,8 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  /* justify-content: flex-start;
+  align-items: center; */
   min-height: 100vh;
   padding: 4rem 0;
   color: black;
@@ -25,3 +25,8 @@
   text-decoration: underline;
 }
 
+
+.sales {
+  display: flex;
+  flex-direction: column;
+}

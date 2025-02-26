@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleCart } from "../reducers/cart";
 import styles from "../styles/ArticleDetail.module.css";
+import styles from "../styles/ArticleDetail.module.css";
 
 import Image from "next/image";
 
@@ -11,9 +12,9 @@ import { useRouter } from "next/router";
 
 import Link from 'next/link';
 import ArticlesSimilaires from './ArticlesSimilaires';
-import TopArticles from "./TopArticles";
+import TopArticlesCat from "./TopArticlesCat";
 import Articleliste from "./Articleliste";
-
+import ArticlesOnSale from "./ArticlesOnSale";
 //Pour l'instant cette page m'affiche tout les articles detaillés,
 //Il me faut seulement l'article cliqué
 //Peut etre au click sur l'article, recuperer son id et afficher l'article par son id d'ici
@@ -188,7 +189,7 @@ const choosingColors = () => {
 
     return (
       <div className={styles.articleComplet}>
-        <div className={styles.photosContainer}>
+        {/* <div className={styles.photosContainer}> */}
           <Image
             src={articleCliqueData.photos9[imageIndex]}
             width="800px"
@@ -199,7 +200,7 @@ const choosingColors = () => {
           <p className={styles.photoLength}>
             {imageIndex + 1}/{articleCliqueData.photos9.length}
           </p>
-        </div>
+        {/* </div> */}
 
         <div className={styles.textContainer}>
           <h2>{articleCliqueData.model}</h2>
@@ -214,6 +215,7 @@ const choosingColors = () => {
             onClick={() => addItemToCart(articleCliqueData._id)}
             className={styles.buttonAchete}
           >
+            AJOUTER AU PANIER
             AJOUTER AU PANIER
           </button>
         </div>

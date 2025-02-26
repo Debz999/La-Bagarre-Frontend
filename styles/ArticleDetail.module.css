@@ -12,9 +12,13 @@
     display: flex;
     /* border: 2px solid greenyellow; */
     color: black;
-    width: 100%;
+    width: 97%;
     height: auto;
     justify-content: center;
+    margin-left: 30px;
+    padding: 5px 35px 5px 35px;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.3);
+
 }
 
 .textContainer{
@@ -38,12 +42,7 @@
     /* border: 2px solid pink; */
     width: 50%;
     height: auto;
-    /* height: 20%; */
-    /* height: 700px; */
-    /* margin: auto; */
     display: flex;
-    /* justify-content: flex-start; */
-    /* align-items: center; */
     flex-direction: column;
 
 }
@@ -51,29 +50,44 @@
 .photoLength{
     display: flex;
     justify-content: center;
-    /* align-items: flex-end; */
-    ;
 }
 
 
 .buttonAchete {
     height: 60px;
-    width: 80%;
+    width: 60%;
     margin: auto;
+    background-color: #12806A;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.3); 
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+
 }
 
 .buttonAchete:hover {
     cursor: pointer;
+    transform: scale(1.03); 
+    box-shadow: 0px 0px 15px 5px rgba(199, 241, 224, 0.6);
+    background-color: #abd3ca;
+    color: black;
+   
 }
 
 .description {
     line-height: 1.5; 
     margin-left: 20px;
+    
+}
+.descriptionContainer {
+    padding-top: 50px;
 }
 
 
 
-
+.articlePrice{
+    padding-top: 50px;
+}
 
 
 /* STYLES POUR PAGE AJOUTARTICLEBDD */

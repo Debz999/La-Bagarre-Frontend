@@ -8,19 +8,30 @@ import user from "../reducers/user";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Article from "./Article";
-
+import ArticlesOnSale from "./ArticlesOnSale";
+import ArticlesSimilaires from "./ArticlesSimilaires";
+import TopArticlesAll from "./TopArticlesAll";
+import AllArticles from "./allArticles";
 
 
 function Home() {
   
-
+  const categorie = ""
+  const type = "Tous les articles"
+  // const title = "Tous les articles"
   return (
     <div className={styles.main}>
       <Head>
         <title>LA BAGARRE</title>
       </Head>
       <h1>Home</h1>
-      <Article/>
+
+      <ArticlesOnSale/>
+
+      <TopArticlesAll/>
+
+      <AllArticles/>
+      
 
    
     </div>
