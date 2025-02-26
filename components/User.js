@@ -60,9 +60,9 @@ function User() {
       });
   };
 
-  const handleLogout = () => {
-    dispatch(logout());
-  };
+  // const handleLogout = () => {
+  //   dispatch(logout());
+  // };
 
   return (
     <div className={styles.main}>
