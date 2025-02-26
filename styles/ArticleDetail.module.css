@@ -10,7 +10,6 @@
     
     .articleComplet {
     display: flex;
-    /* border: 2px solid greenyellow; */
     color: black;
     width: 100%;
     height: auto;
@@ -18,7 +17,6 @@
     }
     
     .textContainer{
-    /* border: 2px solid orange; */
     display: flex;
     flex-direction: column;
     padding-left: 100px;
@@ -37,15 +35,6 @@
     }
     
     .photosContainer{
-    /* border: 2px solid pink; /
-    width: 50%;
-    height: auto;
-    / height: 20%; /
-    / height: 700px; /
-    / margin: auto; /
-    display: flex;
-    / justify-content: flex-start; /
-    / align-items: center; */
     flex-direction: column;
     
     }
@@ -53,7 +42,6 @@
     .photoLength{
     display: flex;
     justify-content: center;
-    /* align-items: flex-end; */
     ;
     }
     
