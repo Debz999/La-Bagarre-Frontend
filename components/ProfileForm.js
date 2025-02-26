@@ -8,7 +8,7 @@ import { userStore } from "../reducers/user";
 function ProfileForm(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  const [isEditable, setIsEditable] = useState(true);
+  const [isEditable, setIsEditable] = useState(props.isEditable);
 
   const [missingAddressInfo, setMissingAddressInfo] = useState(false);
 
@@ -62,9 +62,9 @@ function ProfileForm(props) {
       });
   };
 
-  useEffect(() => {
-    console.log("Updated isEditable:", isEditable);
-  }, [isEditable]);
+  // useEffect(() => {
+  //   console.log("Updated isEditable:", isEditable);
+  // }, [isEditable]);
 
   //EDIT EXISTING ADDRESS (doesn't need all fields)
   const saveEditAddress = () => {

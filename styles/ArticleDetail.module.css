@@ -1,3 +1,4 @@
+
 .containerDeTout {
     color: black;
     display: flex;
@@ -6,17 +7,17 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    }
-    
-    .articleComplet {
+}
+.articleComplet {
     display: flex;
+    /* border: 2px solid greenyellow; */
     color: black;
     width: 100%;
     height: auto;
     justify-content: center;
-    }
-    
-    .textContainer{
+}
+.textContainer{
+    /* border: 2px solid orange; */
     display: flex;
     flex-direction: column;
     padding-left: 100px;
@@ -24,57 +25,64 @@
     padding-top: 50px;
     flex: 1;
     height: 800px;
-    }
-    
-    .categoryText {
+}
+.categoryText {
     border: 1px solid #7C7C7C;
     padding: 8px;
     color: #7C7C7C;
     width: 100px;
     text-transform: uppercase;
-    }
-    
-    .photosContainer{
+}
+.photosContainer{
+    /* border: 2px solid pink; */
+    width: 50%;
+    height: auto;
+    /* height: 20%; */
+    /* height: 700px; */
+    /* margin: auto; */
+    display: flex;
+    /* justify-content: flex-start; */
+    /* align-items: center; */
     flex-direction: column;
-    
-    }
-    
-    .photoLength{
+}
+.photoLength{
     display: flex;
     justify-content: center;
+    /* align-items: flex-end; */
     ;
-    }
-    
-    .buttonAchete {
+}
+
+.buttonAchete {
     height: 60px;
     width: 80%;
     margin: 30px auto;
     background-color: #202020;
     color: white;
-    }
-    
-    .buttonAchete:hover {
+}
+.buttonAchete:hover {
     cursor: pointer;
-    }
-    
-    .description {
-    line-height: 1.5;
+}
+.description {
+    line-height: 1.5; 
     margin-left: 20px;
-    }
-    
-    /* STYLES POUR PAGE AJOUTARTICLEBDD */
-    
-    .divPromotion {
+}
+
+
+
+
+
+/* STYLES POUR PAGE AJOUTARTICLEBDD */
+.divPromotion {
     display: flex;
-    align-items: center;
+    align-items: center; 
     
-    }
-    
-    .selectPromotion {
+}
+.selectPromotion {
     height: 80%;
-    }
-    
-    .p1{
+}
+
+
+.p1{
     display: flex;
     /* justify-content: center;
     align-items: center; */
@@ -84,26 +92,22 @@
     width: 50%;
     margin-top: 200px;
     
-    }
-    .inputStyle {
+}
+.inputStyle {
     width: 500px;
     height: 50px;
-    
-    }
-    
-    .descriptionInputStyle {
+}
+.descriptionInputStyle {
     width: 500px;
     height: 300px;
-    
-    }
-    
-    .divEnsemble {
+}
+
+.divEnsemble {
     display: flex;
-    }
-    
-    .p2 {
+}
+.p2 {
     /* display: flex;
-    flex-direction: row; /
-    / justify-content: flex-start; */
+    flex-direction: row; */
+    /* justify-content: flex-start; */
     width: 80%
-    }
+}
