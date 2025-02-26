@@ -6,11 +6,6 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import Link from 'next/link';
 import Articleliste from './Articleliste'
 
-
-
-
-
-
 function Favoris (){
     const dispatch = useDispatch();
     const wishlist = useSelector((state) => state.wishlist.value);
