@@ -16,6 +16,7 @@ function Orders() {
       fetch(`http://localhost:3000/orders/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
+          console.log("données api", data.data);
           dispatch(addOrder(data.data));
           setListOrder(data.data);
         });
@@ -28,18 +29,45 @@ function Orders() {
     allPreviousOrders();
   }, [user.token]);
 
-  console.log('liste commandes', listOrder)
+ 
 
   //visible elements
   let orderContents =
-    !listOrder || listOrder.length === 0 ? (
+    !Array.isArray(listOrder) || listOrder.length === 0 ? (
       <p>Rien à afficher</p>
     ) : (
-      listOrder.map((order, index) => <OneOrder key={index} order={order} />)
+      listOrder.map((order, index) => {
+        if (!order || !order.items || order.items.length === 0) {
+          console.error("Commande invalide ou vide à l'index :", index);
+          return null;
+        }
+
+        const userAddress = user.address || [];
+
+        return (
+          <div key={index}>
+            <h2>Commande du {new Date(order.date).toLocaleDateString()}</h2>
+            <p>Statut : {order.delivery}</p>
+            <p>
+              Adresse :
+              {userAddress.map((addr, idx) => (
+                <span key={idx}>
+                  {addr.number} {addr.street}, {addr.city} {addr.zipcode},
+                  {addr.country}
+                  <br />
+                </span>
+              ))}
+            </p>
+            {order.items.map((item, itemIndex) => (
+              <OneOrder key={itemIndex} item={item} />
+            ))}
+          </div>
+        );
+      })
     );
 
   return (
-    <div>
+    <div className={styles.containerDeTout}>
       <h1>Vos commandes</h1>
       {orderContents}
     </div>

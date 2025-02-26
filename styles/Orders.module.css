@@ -10,16 +10,7 @@
     align-items: center;
 }
 
-/* .articleComplet {
-    display: flex;
-    flex-direction: column;
-    border: 2px solid greenyellow;
-    color: black;
-    width: 100%;
-    height: auto;
-    padding: 10px;
-    justify-content: center;
-} */
+
 
 
 .articleLinkContainer {
@@ -64,17 +55,7 @@
     margin-top: 200px;
 }
 
-/* .article {
-    color: black
-}
 
-.articleContainer{
-    color: black
-}
-
-.articlesProposes{
-    border: 2px solid green
-} */
 
 .stuffStyle{
     display: flex;
