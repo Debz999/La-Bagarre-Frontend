@@ -79,43 +79,6 @@ function Article() {
     </div>
   );
 
-  // useEffect(() => {
-  //   console.log("le useState =", allArticlesData)
-  // }, [allArticlesData])
-
-  // const articles = allArticlesData.map((data, i) => {
-
-  //   const jeSaisPas5 = <Image src={data.photos9[0]} width={100} height={200} className={styles.cardPhoto}></Image>;
-
-  //   return (
-
-  //     <div key={i} className={styles.articleLinkContainer}>
-  //       <Link href={`/article/${data._id}`}>
-
-  //       <div className={styles.articleComplet}>
-  //           <div className={styles.cardPhotoContainer}>
-  //             {jeSaisPas5}
-  //           </div>
-  //           <div className={styles.modelPriceContainer}>
-  //             <p>{data.model}</p>
-  //             <p>{data.price}€</p>
-  //           </div>
-  //       </div>
-
-  //       </Link>
-  //     </div>
-
-  //   )
-  // });
-
-  //     return (
-  //       <div>
-  //         <h3 className={styles.pageTitle}>Tous les articles</h3>
-  //         <div className={styles.containerDeTout}>
-  //           {articles}
-  //         </div>
-  //       </div>
-  //     );
 }
 
 export default Article;

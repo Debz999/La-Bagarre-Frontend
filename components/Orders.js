@@ -1,13 +1,14 @@
-import styles from "../styles/Cart.module.css";
+import styles from "../styles/Orders.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OneOrder from "./OneOrder";
-//import { toggleOrders } from "../reducers/order"; //to be created
+import { addOrder } from "../reducers/orders";
 
 function Orders() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  const [isPaid, setIsPaid] = useState(false);
+  // const [isPaid, setIsPaid] = useState(false);
+  const [listOrder, setListOrder] = useState([]);
 
   // GET EXISTING ORDER ITEMS
   const allPreviousOrders = () => {
@@ -15,8 +16,8 @@ function Orders() {
       fetch(`http://localhost:3000/orders/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
-          //dispatch(toggleOrders(data.data.items));
-          console.log(data);
+          dispatch(addOrder(data.data));
+          setListOrder(data.data);
         });
     } else {
       console.log("need to log in");
@@ -25,14 +26,17 @@ function Orders() {
 
   useEffect(() => {
     allPreviousOrders();
-  }, []);
+  }, [user.token]);
 
-
+  console.log('liste commandes', listOrder)
 
   //visible elements
-  let orderContents = <p>Vous n'avez pas encore passé de commande</p>;
-  //NEED TO DO A MAP HERE TO SEND PROPS TO OneOrder
-  
+  let orderContents =
+    !listOrder || listOrder.length === 0 ? (
+      <p>Rien à afficher</p>
+    ) : (
+      listOrder.map((order, index) => <OneOrder key={index} order={order} />)
+    );
 
   return (
     <div>

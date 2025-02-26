@@ -8,9 +8,8 @@ import Image from "next/image";
 
 import { useRouter } from "next/router";
 
-
-import Link from 'next/link';
-import ArticlesSimilaires from './ArticlesSimilaires';
+import Link from "next/link";
+import ArticlesSimilaires from "./ArticlesSimilaires";
 import TopArticles from "./TopArticles";
 import Articleliste from "./Articleliste";
 
@@ -19,7 +18,7 @@ import Articleliste from "./Articleliste";
 //Peut etre au click sur l'article, recuperer son id et afficher l'article par son id d'ici
 
 // function ArticlePage({ id }) {
-  function ArticleDetail({inputId}) {
+function ArticleDetail({ inputId }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value); //for token ! missing still
   const [articleCliqueData, setArticleCliqueData] = useState(null);
@@ -27,7 +26,7 @@ import Articleliste from "./Articleliste";
   const [imageIndex, setImageIndex] = useState(0);
   const [categorieRecuperee, setCategorieRecuperee] = useState("");
   const [typeRecupere, setTypeRecupere] = useState("");
-  
+
   const [similarArticles, setSimilarArticles] = useState([]);
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
@@ -44,7 +43,6 @@ import Articleliste from "./Articleliste";
         .then((response) => response.json())
         .then((data) => {
           if (data.result) {
-            //console.log(data);
             setArticleCliqueData(data.articleRécupéré);
             setCategorieRecuperee(data.articleRécupéré.categorie);
             setTypeRecupere(data.articleRécupéré.type);
@@ -56,54 +54,45 @@ import Articleliste from "./Articleliste";
   //categorieRecuperee c'est data.articleRécupéré.catégorie
   //IL FAUT QUE JE PASSE L'ID D'ICI EN PROPS A ARTICLEFLEXIBLE
 
-// Deuxième requête pour récupérer les articles similaires
-//   useEffect(() => {
-//     if (categorieRecuperee) {
-      
-//       fetch(`http://localhost:3000/articles/articlesSimililaires?categorie=${categorieRecuperee}&type=${typeRecupere}`)
-//         .then((response) => response.json())
-//         .then((articlesSimililaires) => {
-//           if (articlesSimililaires.result) {
-//             console.log("Données d'articles similaires récupérées :", articlesSimililaires);
-//             setSimilarArticles(articlesSimililaires.filteredArticles);  // Mets les articles similaires dans l'état
-//           }
-//         })
-//     }
-//   }, [categorieRecuperee, typeRecupere]); 
+  // Deuxième requête pour récupérer les articles similaires
+  //   useEffect(() => {
+  //     if (categorieRecuperee) {
 
+  //       fetch(`http://localhost:3000/articles/articlesSimililaires?categorie=${categorieRecuperee}&type=${typeRecupere}`)
+  //         .then((response) => response.json())
+  //         .then((articlesSimililaires) => {
+  //           if (articlesSimililaires.result) {
+  //             console.log("Données d'articles similaires récupérées :", articlesSimililaires);
+  //             setSimilarArticles(articlesSimililaires.filteredArticles);  // Mets les articles similaires dans l'état
+  //           }
+  //         })
+  //     }
+  //   }, [categorieRecuperee, typeRecupere]);
 
+  // useEffect(() => {
+  // console.log("setSimilarArticles :", similarArticles)
+  // }, [similarArticles])
 
+  // const similarArticle = similarArticles.map((data) => (
+  //   <Link href={`/article/${data._id}`}>
+  //     <Image src={data.photos9[0]} width={200} height={150}></Image>
+  //   </Link>
 
-
-// useEffect(() => {
-// console.log("setSimilarArticles :", similarArticles)
-// }, [similarArticles])
-
-
-// const similarArticle = similarArticles.map((data) => (
-//   <Link href={`/article/${data._id}`}>
-//     <Image src={data.photos9[0]} width={200} height={150}></Image>
-//   </Link>
-   
-// ))
-
-
-
+  // ))
 
   useEffect(() => {
-    console.log("le useState articleCliqueData=", articleCliqueData);
-if(articleCliqueData) {
-  //sets default value for color and size in case the user doesn't change either one of them
-if(articleCliqueData.giSizes9.length > 0) {
-  setSelectedSize(articleCliqueData.giSizes9[0])
-};
-if(articleCliqueData.sizes9.length > 0) {
-  setSelectedSize(articleCliqueData.sizes9[0])
-};
-if(articleCliqueData.colors9.length > 0) {
-  setSelectedColor(articleCliqueData.colors9[0])
-};
-}
+    if (articleCliqueData) {
+      //sets default value for color and size in case the user doesn't change either one of them
+      if (articleCliqueData.giSizes9.length > 0) {
+        setSelectedSize(articleCliqueData.giSizes9[0]);
+      }
+      if (articleCliqueData.sizes9.length > 0) {
+        setSelectedSize(articleCliqueData.sizes9[0]);
+      }
+      if (articleCliqueData.colors9.length > 0) {
+        setSelectedColor(articleCliqueData.colors9[0]);
+      }
+    }
   }, [articleCliqueData]);
 
   //Post item to cart
@@ -118,6 +107,7 @@ if(articleCliqueData.colors9.length > 0) {
           quantity: 1,
           size: selectedSize,
           color: selectedColor,
+          price: articleCliqueData.price,
         }),
       })
         .then((response) => response.json())
@@ -143,35 +133,39 @@ if(articleCliqueData.colors9.length > 0) {
     setSelectedColor(e.target.value);
   };
 
-
   const articles = () => {
     if (!articleCliqueData) {
       return <p>Chargement...</p>;
     }
 
-    
     const sizeOrGiSize = () => {
-      const sizes = articleCliqueData.type === "Gi" ? articleCliqueData.giSizes9 : articleCliqueData.sizes9;
+      const sizes =
+        articleCliqueData.type === "Gi"
+          ? articleCliqueData.giSizes9
+          : articleCliqueData.sizes9;
       //console.log(sizes); //this function maps through giSizes9 or sizes9 depending on the type selected
-      return ( 
+      return (
         <select value={selectedSize} onChange={handleSizeChange}>
-        {sizes.map((size, index) => (
-          <option key={index} value={size}>{size}</option>
-        ))}
-      </select>        
-      )
-
+          {sizes.map((size, index) => (
+            <option key={index} value={size}>
+              {size}
+            </option>
+          ))}
+        </select>
+      );
     };
 
-const choosingColors = () => {
-  return ( 
-    <select value={selectedColor} onChange={handleColorChange}>
-    {articleCliqueData.colors9.map((color, index) => (
-      <option key={index} value={color}>{color}</option>
-    ))}
-  </select>        
-  )
-}
+    const choosingColors = () => {
+      return (
+        <select value={selectedColor} onChange={handleColorChange}>
+          {articleCliqueData.colors9.map((color, index) => (
+            <option key={index} value={color}>
+              {color}
+            </option>
+          ))}
+        </select>
+      );
+    };
 
     const auClickSurPhoto = () => {
       setImageIndex((prevIndex) =>
@@ -202,7 +196,9 @@ const choosingColors = () => {
 
         <div className={styles.textContainer}>
           <h2>{articleCliqueData.model}</h2>
-          <p className={styles.categoryText}>Catégorie: {articleCliqueData.categorie}</p>
+          <p className={styles.categoryText}>
+            Catégorie: {articleCliqueData.categorie}
+          </p>
           <p>Type: {articleCliqueData.type}</p>
           <p>Description: {articleDescription}</p>
           <p>Tailles disponibles: {sizeOrGiSize()}</p>
@@ -220,27 +216,23 @@ const choosingColors = () => {
     );
   };
 
+  //first div className={styles.articleContainer}
+  return (
+    <div>
+      <div className={styles.containerDeTout}>{articles()}</div>
 
-
-//first div className={styles.articleContainer}
-    return (
       <div>
-        <div className={styles.containerDeTout}>
-          {articles()}
-        </div>
-
-        <div>
-          {categorieRecuperee && typeRecupere ? (
-            <ArticlesSimilaires
-              categorie={categorieRecuperee}
-              type={typeRecupere}
-            />
-          ) : (
-            <p>Y'a walou</p>
-          )}
-        </div>
+        {categorieRecuperee && typeRecupere ? (
+          <ArticlesSimilaires
+            categorie={categorieRecuperee}
+            type={typeRecupere}
+          />
+        ) : (
+          <p>Y'a walou</p>
+        )}
       </div>
-    );
-   }
+    </div>
+  );
+}
 
 export default ArticleDetail;
