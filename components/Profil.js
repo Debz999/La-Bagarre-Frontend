@@ -86,7 +86,7 @@ function Profil() {
   let allAddresses =
     user.profile.address?.map((data, index) => {
       //console.log(data);
-      return <ProfileForm key={index} index={index} {...data} />;
+      return <ProfileForm key={index} index={index} {...data} isEditable={false}/>;
     }) || [];
 
   return (
@@ -142,7 +142,7 @@ function Profil() {
       {allAddresses.length > 0 && allAddresses}
 
       {isNewAddressForm && (
-          <ProfileForm onRequestCloseNewAddress={onRequestCloseNewAddress} />
+          <ProfileForm onRequestCloseNewAddress={onRequestCloseNewAddress} isEditable={true} />
         )}
       <div className={styles.buttonContainer}>
         <button className={styles.button2} onClick={() => addProfileForm()}>+ AJOUTER UNE ADDRESSE</button>

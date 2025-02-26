@@ -14,8 +14,10 @@
 .photo {
   display: block;
   width: 100%;
-  height: auto;
+  height: 250px;
+  cursor: pointer;
 }
+
 
 .textContainer {
   display: flex;

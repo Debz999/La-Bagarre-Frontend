@@ -25,13 +25,15 @@
     padding-right: 100px;
     padding-top: 50px;
     flex: 1;
+    height: 800px;
 }
 
 .categoryText {
-    background-color: #7C7C7C;
+    border: 1px solid #7C7C7C;
     padding: 8px;
-    color: white;
-    width: 175px;
+    color: #7C7C7C;
+    width: 100px;
+    text-transform: uppercase;
 }
 
 .photosContainer{
@@ -59,7 +61,9 @@
 .buttonAchete {
     height: 60px;
     width: 80%;
-    margin: auto;
+    margin: 30px auto;
+    background-color: #202020;
+    color: white;
 }
 
 .buttonAchete:hover {
