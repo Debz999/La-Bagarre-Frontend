@@ -238,17 +238,13 @@ if(articleCliqueData.colors9.length > 0) {
 //first div className={styles.articleContainer}
     return (
       <div>
-        <div className={styles.containerDeTout}>
-          {articles()}
-        </div>
+        <div className={styles.containerDeTout}>{articles()}</div>
         <div>
-          {categorieRecuperee && typeRecupere ? (
+          {categorieRecuperee && typeRecupere && (
             <ArticlesSimilaires
               categorie={categorieRecuperee}
               type={typeRecupere}
             />
-          ) : (
-            <p>Y'a walou</p>
           )}
         </div>
       </div>

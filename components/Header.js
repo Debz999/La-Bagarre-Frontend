@@ -52,6 +52,20 @@ function Header() {
       document.removeEventListener("mousedown", handleClickOut);
     };
   }, [isMenuOpen]);
+  
+  /*
+    useEffect(() => {
+    if (user.token) {
+      fetch(`http://localhost:3000/carts/${user.token}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.data) {
+            dispatch(toggleCart(data.data.items));
+          }
+        });
+    }
+  }, [user.token]);
+  */
 
   /*Get cart total items */
   const totalItems = cart.cartItem.reduce(
