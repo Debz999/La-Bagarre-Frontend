@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import styles from "../styles/ArticleDetail.module.css";
+import styles from "../styles/AjoutArticleBdd.module.css";
 import Article2Page from './ArticleDetail';
 
 
@@ -130,7 +130,7 @@ const [inputId, setInputId] = useState('');
       <textarea onChange={(e) => setDescription(e.target.value)} value={description} placeholder="Description" className={styles.descriptionInputStyle}/>
       <input onChange={(e) => setPrice(e.target.value)} value={price} placeholder="Prix" className={styles.inputStyle}/>
       <input onChange={(e) => setColors9(e.target.value)} value={colors9} placeholder="Couleurs" className={styles.inputStyle}/>
-      <input onChange={(e) => setPhotos9(e.target.files)} type="file" multiple={true} ></input>
+      <input onChange={(e) => setPhotos9(e.target.files)} type="file" multiple={true} className={styles.filesInput}></input>
       <input onChange={(e) => setSizes9(e.target.value)} value={sizes9} placeholder="Tailles" className={styles.inputStyle}/>
       <input onChange={(e) => setGiSizes9(e.target.value)} value={giSizes9} placeholder="Tailles Gi" className={styles.inputStyle}/>
 
