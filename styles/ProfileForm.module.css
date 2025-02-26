@@ -1,38 +1,28 @@
-.main {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    min-height: 100vh;
-    padding: 3rem 0;
-  }
-  
- .container {
+.container {
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   min-width: 500px;
   padding: 40px;
   background-color: white;
+}
 
- }
-
- .subtitle {
+.subtitle {
   text-align: center;
   margin-bottom: 40px;
   color: #6F387C;
   text-transform: uppercase;
-
 }
 
- .formGroup {
+.formGroup {
   display: grid;
   grid-template-columns: 1fr 2fr; /* Labels (1 part), Inputs (2 parts) */
   align-items: center;
   gap: 0px;
   margin-bottom: 25px;
- }
+}
 
- .inputReadOnly {
+.inputReadOnly {
   background: transparent;
   cursor: default;
   border-bottom: 1px solid transparent;
@@ -42,34 +32,40 @@
   color: black;
 }
 
- .buttonContainer {
+.buttonContainer {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  width: 500px;
- }
+}
 
- .button {
+.button {
+  background-color: #202020;
+  color: white;
+  height: 50px;
+  width: 100%;
+}
+
+.delModContainer {
+  display: flex;
+  justify-content: space-between; /* Push buttons to opposite ends */
+  align-items: center; /* Keep buttons aligned vertically */
+  width: 100%; /* Ensure full width */
+  margin-top: 10px; /* Optional spacing */
+  gap: 30px;
+}
+
+.buttonDel {
+  background-color: #d3d3d3;
+  height: 50px;
+  width: 60%;
+  border: 0px;
+  cursor: pointer;
+}
+
+.buttonModif {
   background-color: #202020;
   color: white;
   height: 50px;
   width: 100%;
   cursor: pointer
- }
-
- .button2 {
-  height: 50px;
-  width: 50%;
-  border: 0px;
-  cursor: pointer;
-  border: 2px solid #202020;
- }
-
- @media (max-width: 600px) {
-  .formGroup {
-    grid-template-columns: 1fr; 
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-
 }

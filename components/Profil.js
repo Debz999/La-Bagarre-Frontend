@@ -34,6 +34,7 @@ function Profil() {
         if (!data.data.email) {
           //setIsEditable(true);
           setBaseIsEditable(true);
+          setIsNewAddressForm(false)
         }
         dispatch(userStore(data.data));
         setUserData(data.data);
@@ -78,7 +79,7 @@ function Profil() {
   };
 
   const onRequestCloseNewAddress = () => {
-    setIsNewAddressForm(false)
+    setIsNewAddressForm(false);
   };
 
   //maps all user's addresses
@@ -90,12 +91,16 @@ function Profil() {
 
   return (
     <div className={styles.main}>
-      <h1>Profil</h1>
+      <h1>PROFIL</h1>
       <div className={styles.container}>
         <h3 className={styles.subtitle}>Vos informations</h3>
+
         <div className={styles.formGroup}>
           <label>Prénom*</label>
           <input
+            className={
+              isBaseEditable ? styles.inputEditable : styles.inputReadOnly
+            }
             readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
             placeholder={user.profile.firstname || "prénom"}
@@ -103,9 +108,13 @@ function Profil() {
             onChange={(e) => handleChanges(e)}
           />
         </div>
+
         <div className={styles.formGroup}>
           <label>Nom*</label>
           <input
+            className={
+              isBaseEditable ? styles.inputEditable : styles.inputReadOnly
+            }
             readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
             placeholder={user.profile.lastname || "nom"}
@@ -116,6 +125,9 @@ function Profil() {
         <div className={styles.formGroup}>
           <label>E-mail*</label>
           <input
+            className={
+              isBaseEditable ? styles.inputEditable : styles.inputReadOnly
+            }
             readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
             placeholder={user.profile.email || "e-mail"}
@@ -124,17 +136,16 @@ function Profil() {
           />
         </div>
         <button className={styles.button} onClick={() => handleSaveInfo()}>
-          Sauvegarder mon profil
+          SAUVEGARDER MON PROFIL
         </button>
-        <h3 className={styles.subtitle}>Votre adresse livraison</h3>
-        {allAddresses.length > 0 && allAddresses}
+      </div>
+      {allAddresses.length > 0 && allAddresses}
 
-        {isNewAddressForm || allAddresses.length == 0 && (
+      {isNewAddressForm && (
           <ProfileForm onRequestCloseNewAddress={onRequestCloseNewAddress} />
         )}
-        <div className={styles.buttonContainer}>
-          <button onClick={() => addProfileForm()}>+</button>
-        </div>
+      <div className={styles.buttonContainer}>
+        <button className={styles.button2} onClick={() => addProfileForm()}>+ AJOUTER UNE ADDRESSE</button>
       </div>
     </div>
   );
