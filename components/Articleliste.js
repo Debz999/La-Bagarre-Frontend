@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-function Articleliste({ model, photos9, price, _id }) {
+function Articleliste({ model, photos9, price, _id, onSale, onSalePrice }) {
   const photos = photos9.map((photo, index) => {
     return (
       <img
@@ -18,6 +18,9 @@ function Articleliste({ model, photos9, price, _id }) {
     );
   });
 
+
+  // <p>{articleCliqueData.onSale ? `Prix intial: ${articleCliqueData.price}` : null} {articleCliqueData.onSale === true ? articleCliqueData.onSalePrice : articleCliqueData.price}€</p>
+
   return (
     <div className={styles.articleContainer}>
       <Link href={`/detailarticle/${_id}`}>
@@ -28,7 +31,8 @@ function Articleliste({ model, photos9, price, _id }) {
             <p className={styles.articleTitle}>
               {model.split(" ").slice(0, 3).join(" ")}
             </p>
-            <p className={styles.articlePrice}>{price}€</p>
+            {/* <p className={styles.articlePrice}>{price}€</p> */}
+            <p className={styles.articlePrice}>{onSale ? `Prix intial: ${price}` : null} {onSale === true ? onSalePrice : price}€</p>
           </div>
         </div>
       </Link>

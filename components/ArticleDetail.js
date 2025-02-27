@@ -74,6 +74,7 @@ function ArticleDetail({ inputId }) {
           quantity: 1,
           size: selectedSize,
           color: selectedColor,
+          price: articleCliqueData.onSale ? articleCliqueData.onSalePrice : articleCliqueData.price,
         }),
       })
         .then((response) => response.json())
