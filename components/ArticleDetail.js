@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,8 +6,8 @@ import { toggleLike } from "../reducers/wishlist";
 import styles from "../styles/ArticleDetail.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Link from 'next/link';
-import ArticlesSimilaires from './ArticlesSimilaires';
+import Link from "next/link";
+import ArticlesSimilaires from "./ArticlesSimilaires";
 import Accordion from "./Accordion";
 import Articleliste from "./Articleliste";
 //Pour l'instant cette page m'affiche tout les articles detaillés,
@@ -36,6 +35,7 @@ function ArticleDetail({ inputId }) {
         .then((response) => response.json())
         .then((data) => {
           if (data.result) {
+            //console.log(data);
             setArticleCliqueData(data.articleRécupéré);
             setCategorieRecuperee(data.articleRécupéré.categorie);
             setTypeRecupere(data.articleRécupéré.type);
@@ -43,40 +43,10 @@ function ArticleDetail({ inputId }) {
         });
     }
   }, [id]);
-  //categorieRecuperee c'est data.articleRécupéré.catégorie
-  //IL FAUT QUE JE PASSE L'ID D'ICI EN PROPS A ARTICLEFLEXIBLE
-// Deuxième requête pour récupérer les articles similaires
-//   useEffect(() => {
-//     if (categorieRecuperee) {
-      
-//       fetch(`http://localhost:3000/articles/articlesSimililaires?categorie=${categorieRecuperee}&type=${typeRecupere}`)
-//         .then((response) => response.json())
-//         .then((articlesSimililaires) => {
-//           if (articlesSimililaires.result) {
-//             console.log("Données d'articles similaires récupérées :", articlesSimililaires);
-//             setSimilarArticles(articlesSimililaires.filteredArticles);  // Mets les articles similaires dans l'état
-//           }
-//         })
-//     }
-//   }, [categorieRecuperee, typeRecupere]); 
-
-
-
-
-// useEffect(() => {
-// console.log("setSimilarArticles :", similarArticles)
-// }, [similarArticles])
-
-// const similarArticle = similarArticles.map((data) => (
-//   <Link href={`/article/${data._id}`}>
-//     <Image src={data.photos9[0]} width={200} height={150}></Image>
-//   </Link>
-   
-// ))
-
-
+  
 
   useEffect(() => {
+    console.log("le useState articleCliqueData=", articleCliqueData);
     if (articleCliqueData) {
       //sets default value for color and size in case the user doesn't change either one of them
       if (articleCliqueData.giSizes9.length > 0) {
@@ -101,7 +71,6 @@ function ArticleDetail({ inputId }) {
           quantity: 1,
           size: selectedSize,
           color: selectedColor,
-          price: articleCliqueData.price,
         }),
       })
         .then((response) => response.json())
@@ -137,15 +106,7 @@ function ArticleDetail({ inputId }) {
           : articleCliqueData.sizes9;
       //console.log(sizes); //this function maps through giSizes9 or sizes9 depending on the type selected
       return (
-      return (
         <select value={selectedSize} onChange={handleSizeChange}>
-          {sizes.map((size, index) => (
-            <option key={index} value={size}>
-              {size}
-            </option>
-          ))}
-        </select>
-      );
           {sizes.map((size, index) => (
             <option key={index} value={size}>
               {size}
@@ -214,9 +175,7 @@ function ArticleDetail({ inputId }) {
         </div>
         <div className={styles.textContainer}>
           <h2>{articleCliqueData.model}</h2>
-          <p className={styles.categoryText}>
-            {articleCliqueData.categorie}
-          </p>
+          <p className={styles.categoryText}>{articleCliqueData.categorie}</p>
           <p>Type: {articleCliqueData.type}</p>
           {/* <p>Description: {articleDescription}</p> */}
           <p>Tailles disponibles: {sizeOrGiSize()}</p>
@@ -228,10 +187,7 @@ function ArticleDetail({ inputId }) {
           >
             AJOUTER AU PANIER
           </button>
-          <button
-            onClick={() => handleLike()}
-            className={styles.buttonFavoris}
-          >
+          <button onClick={() => handleLike()} className={styles.buttonFavoris}>
             AJOUTER AUX FAVORIS
           </button>
           {goToSignup && SignupModule}
@@ -241,20 +197,19 @@ function ArticleDetail({ inputId }) {
     );
   };
 
-
-//first div className={styles.articleContainer}
-    return (
+  //first div className={styles.articleContainer}
+  return (
+    <div>
+      <div className={styles.containerDeTout}>{articles()}</div>
       <div>
-        <div className={styles.containerDeTout}>{articles()}</div>
-        <div>
-          {categorieRecuperee && typeRecupere && (
-            <ArticlesSimilaires
-              categorie={categorieRecuperee}
-              type={typeRecupere}
-            />
-          )}
-        </div>
+        {categorieRecuperee && typeRecupere && (
+          <ArticlesSimilaires
+            categorie={categorieRecuperee}
+            type={typeRecupere}
+          />
+        )}
       </div>
-    );
-   }
+    </div>
+  );
+}
 export default ArticleDetail;
