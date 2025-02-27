@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 function Articleliste({ model, photos9, price, _id }) {
+    const router = useRouter();
+
   const photos = photos9.map((photo, index) => {
     return (
       <img
