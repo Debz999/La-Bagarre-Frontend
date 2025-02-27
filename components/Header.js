@@ -1,12 +1,12 @@
 import styles from "../styles/Header.module.css";
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch, useSelector } from "react-redux";
 import {
   faUser,
   faCartShopping,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import user from "../reducers/user";
 import { logout } from "../reducers/user";

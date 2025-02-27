@@ -1,12 +1,11 @@
 import styles from "../styles/ArticleListe.module.css";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-
-function Articleliste({model, photos9, price, _id} ){
-
-
+function Articleliste({ model, photos9, price, _id }) {
   const photos = photos9.map((photo, index) => {
     return (
       <img
@@ -33,6 +32,13 @@ function Articleliste({model, photos9, price, _id} ){
           </div>
         </div>
       </Link>
+      <FontAwesomeIcon
+        className={styles.iconStyle}
+        icon={faHeart}
+        onClick={() => {
+          router.push("/favoris");
+        }}
+      />
     </div>
   );
 }

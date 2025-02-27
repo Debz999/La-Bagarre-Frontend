@@ -60,10 +60,6 @@ function User() {
       });
   };
 
-  // const handleLogout = () => {
-  //   dispatch(logout());
-  // };
-
   return (
     <div className={styles.main}>
       <header className={styles.header}>
