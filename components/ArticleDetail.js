@@ -60,6 +60,9 @@ function ArticleDetail({ inputId }) {
       }
     }
   }, [articleCliqueData]);
+
+
+  //price: articleCliqueData.onSale ? articleCliqueData.onSalePrice : articleCliqueData.price
   //Post item to cart
   const addItemToCart = (articleId) => {
     if (user.token) {
@@ -180,7 +183,9 @@ function ArticleDetail({ inputId }) {
           {/* <p>Description: {articleDescription}</p> */}
           <p>Tailles disponibles: {sizeOrGiSize()}</p>
           <p>Couleurs disponibles: {choosingColors()}</p>
-          <p>{articleCliqueData.price}€</p>
+          {/* <p>{articleCliqueData.price} {articleCliqueData.onSale === true ? articleCliqueData.onSalePrice : articleCliqueData.price}€</p> */}
+          {/* <p>{articleCliqueData.onSale ? "Prix intial: " : null}</p> */}
+          <p>{articleCliqueData.onSale ? `Prix intial: ${articleCliqueData.price}` : null} {articleCliqueData.onSale === true ? articleCliqueData.onSalePrice : articleCliqueData.price}€</p>
           <button
             onClick={() => addItemToCart(articleCliqueData._id)}
             className={styles.buttonAchete}

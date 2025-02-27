@@ -21,12 +21,12 @@ function ArticlesOnSale() {
   }, []); // L'API est appelée une seule fois à l'initialisation
 
 
-
+{/* <h3 className={styles.priceContainer}>{article.onSale ? article.onSalePrice : article.price}€</h3> */}
 
 const mappedSales = articlesOnSale.map((data, i) => (
   // <div key={article._id} className={styles.articleLinkContainer}>
   <Articleliste  key={i} {...data} />
-
+  
 
   // <div key={article._id} className={styles.card}>
   //   <Link href={`/detailarticle/${article._id}`}>

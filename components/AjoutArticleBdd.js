@@ -20,6 +20,7 @@ const [sizes9, setSizes9] = useState('');
 const [giSizes9, setGiSizes9] = useState('');
 
 const [inputId, setInputId] = useState('');
+const [onSalePrice, setOnSalePrice] = useState('');
 
 
 
@@ -48,6 +49,7 @@ const [inputId, setInputId] = useState('');
     formData.append("photos9", photos9)
     formData.append("sizes9", sizes9)
     formData.append("giSizes9", giSizes9)
+    formData.append("onSalePrice", onSalePrice)
 
     fetch("http://localhost:3000/articles/postArticle1", {
       method: "POST",
@@ -91,6 +93,12 @@ const [inputId, setInputId] = useState('');
       formData.append("photos9", photos9)
       formData.append("sizes9", sizes9)
       formData.append("giSizes9", giSizes9)
+      formData.append("onSalePrice", onSalePrice)
+
+
+      // if(onSale){
+      //   setPrice(onSalePrice)
+      // }
 
         fetch(`http://localhost:3000/articles/articleUpdate1/${inputId}`, {
           method: 'PUT',
@@ -120,6 +128,15 @@ const [inputId, setInputId] = useState('');
   }
 
 
+  const verif = onSale ? (
+    <input 
+      onChange={(e) => setOnSalePrice(e.target.value)} 
+      value={onSalePrice} 
+      placeholder="Prix en promotion" 
+      className={styles.inputStyle}
+    />
+  ) : null; // Si onSale est false, rien ne s'affiche
+
 
  return (
    <div className={styles.divEnsemble}>
@@ -140,6 +157,8 @@ const [inputId, setInputId] = useState('');
           <option value="true">Oui</option>
           <option value="false">Non</option>
         </select>
+        {verif}
+        {/* <input onChange={(e) => setOnSalePrice(e.target.value)} value={onSalePrice} placeholder="Prix en promotion" className={styles.inputStyle}/> */}
         <input onChange={(e) => setSoldCount(e.target.value)} value={soldCount} placeholder="soldCount"/>
       </div>
       <input onChange={(e) => setInputId(e.target.value)} value={inputId} placeholder="Id article" className={styles.inputStyle}/>
