@@ -4,11 +4,12 @@ import { Provider } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import user from '../reducers/user'
 import cart from '../reducers/cart'
+import wishlist from '../reducers/wishlist';
 import Header from '../components/Header'
 
 const reducers = combineReducers({ user});
 const store = configureStore({
-  reducer: {user, cart},
+  reducer: {user, cart, wishlist},
  });
 
 function App({ Component, pageProps }) {

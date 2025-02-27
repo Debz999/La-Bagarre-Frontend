@@ -2,7 +2,11 @@ import styles from "../styles/Header.module.css";
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
-import { faUser, faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faCartShopping,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import user from "../reducers/user";
 import Link from "next/link";
@@ -49,7 +53,6 @@ function Header() {
     };
   }, [isMenuOpen]);
 
-
   /*Get cart total items */
   const totalItems = cart.cartItem.reduce(
     (sum, value) => sum + value.quantity,
@@ -69,6 +72,13 @@ function Header() {
         </Link>
         <div className={styles.headerIcons}>
           <span className={styles.welcomeSign}>Bienvenue {user.username}</span>
+          <FontAwesomeIcon
+            className={styles.iconStyle}
+            icon={faHeart}
+            onClick={() => {
+              router.push("/favoris");
+            }}
+          />
           <FontAwesomeIcon
             className={styles.iconStyle}
             icon={faUser}
@@ -113,7 +123,6 @@ function Header() {
           types={["Ceintures", "Sac", "Casquettes"]}
         />
       </div>
-      
     </div>
   );
 }

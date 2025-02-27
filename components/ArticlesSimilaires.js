@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import styles from "../styles/Article.module.css";
+import styles from "../styles/ArticlesOnSale.module.css";
 
 import Image from "next/image";
 
@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 
 function ArticlesSimilaires(props) {
   const [allArticlesData, setAllArticlesData] = useState([]);
+  const [sortOrder, setSortOrder] = useState('croissant');
 
   const router = useRouter();
 
@@ -30,11 +31,15 @@ function ArticlesSimilaires(props) {
         .then((articlesTrouves) => {
           if (articlesTrouves.result) {
             console.log("Données d'articles récupérées :", articlesTrouves);
-            setAllArticlesData(articlesTrouves.filteredArticles)
+            // setAllArticlesData(articlesTrouves.filteredArticles)
+            const sortedArticles = articlesTrouves.filteredArticles.sort((a, b) => {
+              return sortOrder === 'croissant' ? a.price - b.price : b.price - a.price;
+            });
+            setAllArticlesData(sortedArticles);
           }
         })
     
-  }, [categorie, type]); 
+  }, [categorie, type, sortOrder]); 
 
 
 
@@ -42,39 +47,60 @@ function ArticlesSimilaires(props) {
 const articles = allArticlesData.map((data, i) => {
 
   
-  const jeSaisPas5 = <Image src={data.photos9[0]} width={300} height={400} className={styles.cardPhoto}></Image>;
+  const jeSaisPas5 = <Image src={data.photos9[0]} width={200} height={200} className={styles.cardPhoto}></Image>;
   
   
   return (
 
-    <div key={i} className={styles.articleLinkContainer}>
-      <Link href={`/detailarticle/${data._id}`}>
+    // <div key={i} className={styles.articleLinkContainer}>
+    //   <Link href={`/detailarticle/${data._id}`}>
 
-      <div className={styles.articleComplet}>
-          <div className={styles.cardPhotoContainer}>
-            {jeSaisPas5}
-          </div>
-          <div className={styles.modelPriceContainer}>
-            <p>{data.model}</p>
-            <p>{data.price}€</p>
-          </div>
-      </div>
+    //   <div className={styles.articleComplet}>
+    //       <div className={styles.cardPhotoContainer}>
+    //         {jeSaisPas5}
+    //       </div>
+    //       <div className={styles.modelPriceContainer}>
+    //         <h4 className={styles.modelPlacement}>{data.model}</h4>
+    //         <h3 className={styles.pricePlacement}>{data.price}€</h3>
+    //       </div>
+    //   </div>
 
-      </Link>
+    //   </Link>
+    // </div>
+    <div key={i} className={styles.card}>
+    <Link href={`/detailarticle/${data._id}`}>
+
+    <div className={styles.test2}>
+
+        <div className={styles.modelPriceContainer}>
+          <h4 className={styles.modelContainer}>{data.model}</h4>
+          <Image src={data.photos9[0]} width="290px" height="350px" className={styles.photo}></Image>
+          <h3 className={styles.priceContainer}>{data.price}€</h3>
+        </div>
     </div>
+
+    </Link>
+  </div>
 
   )
 });
 
+const handleSortChange = (e) => {setSortOrder(e.target.value);};
 
 
     return (
       <div>
-        <h3 className={styles.pageTitle}>Catégorie: {props.categorie ?? null}</h3>
-        <h3>type: {props.type ?? null}</h3>
-        <h3>Articles similaires</h3>
+       
+        <h3 className={styles.pageTitle}>{props.title}</h3>
 
-        <div className={styles.containerDeTout}>    
+        {/* <select onChange={handleSortChange} value={sortOrder} className={styles.select}>
+        <option value="croissant">Prix croissant</option>
+        <option value="décroissant">Prix décroissant</option>
+        </select> */}
+
+
+        <div className={styles.cadre}>    
+
           {articles}
         </div>
       </div>
