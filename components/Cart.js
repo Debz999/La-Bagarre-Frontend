@@ -5,6 +5,7 @@ import CartItem from "./CartItem";
 import { toggleCart } from "../reducers/cart";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import {addOrder} from '../reducers/orders'
 
 function Cart() {
   const dispatch = useDispatch();
@@ -42,8 +43,7 @@ function Cart() {
     router.push("/");
   };
 
-  const saveNewOrder = () => {
-    if (user.token) {
+ 
   const saveNewOrder = () => {
     if (user.token) {
       fetch(`http://localhost:3000/orders/post/${user.token}`, {
@@ -56,11 +56,11 @@ function Cart() {
       })
         .then((response) => response.json())
         .then((data) => {
-          //envoyer vers page de paiement?
-          //enregistrer la commande dans orders sans possibilité de modifs
+          dispatch(addOrder(data));
+          router.push('/orders')
         });
     }
-  };
+  }
 
   //visible elements
   let cartContents = <p>Votre panier est vide</p>;

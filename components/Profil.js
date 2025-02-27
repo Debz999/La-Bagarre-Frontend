@@ -12,7 +12,7 @@ function Profil() {
 
   const [missingInfo, setMissingInfo] = useState(false);
   // const [missingAddressInfo, setMissingAddressInfo] = useState(false);
-  let profile = user.profile;
+  let profile = user;
   const [userData, setUserData] = useState({
     firstname: profile.firstname || "",
     lastname: profile.lastname || "",
@@ -29,8 +29,8 @@ function Profil() {
     fetch(`http://localhost:3000/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
-        //data.data.email is undefined, just fyi
+        // console.log('profil',data.data);
+        
         if (!data.data.email) {
           //setIsEditable(true);
           setBaseIsEditable(true);
@@ -84,7 +84,7 @@ function Profil() {
 
   //maps all user's addresses
   let allAddresses =
-    user.profile.address?.map((data, index) => {
+    user.address?.map((data, index) => {
       //console.log(data);
       return <ProfileForm key={index} index={index} {...data} isEditable={false}/>;
     }) || [];
@@ -103,7 +103,7 @@ function Profil() {
             }
             readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
-            placeholder={user.profile.firstname || "prénom"}
+            placeholder={user.firstname || "prénom"}
             name="firstname"
             onChange={(e) => handleChanges(e)}
           />
@@ -117,7 +117,7 @@ function Profil() {
             }
             readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
-            placeholder={user.profile.lastname || "nom"}
+            placeholder={user.lastname || "nom"}
             name="lastname"
             onChange={(e) => handleChanges(e)}
           />
@@ -130,7 +130,7 @@ function Profil() {
             }
             readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
-            placeholder={user.profile.email || "e-mail"}
+            placeholder={user.email || "e-mail"}
             name="email"
             onChange={(e) => handleChanges(e)}
           />

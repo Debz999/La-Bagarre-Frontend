@@ -12,7 +12,7 @@ function ProfileForm(props) {
 
   const [missingAddressInfo, setMissingAddressInfo] = useState(false);
 
-  let profile = user.profile;
+  let profile = user;
   const [userAddress, setUserAddress] = useState({
     id: profile.address?._id || "",
     number: profile.address?.number || "",

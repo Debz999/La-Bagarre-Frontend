@@ -1,0 +1,64 @@
+.containerDeTout {
+    border: 20px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+    padding: 10px;
+    width: 100%;
+    /* margin-top: 200px; */
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.articleLinkContainer {
+    width: 250px;
+    height: auto;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    padding: 10px;
+    border: 2px solid purple;
+
+}
+
+.article:hover {
+    cursor: pointer;
+}
+
+.modelPriceContainer {
+    border: 2px solid blue;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.cardPhotoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
+    width: 100%;
+    height: 300px;
+    /* overflow: hidden; */
+}
+
+.cardPhotoContainer:hover {
+    cursor: pointer;
+}
+
+.pageTitle{
+    color: black;
+    margin-top: 200px;
+}
+
+
+
+.stuffStyle{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

@@ -1,13 +1,14 @@
-import styles from "../styles/Cart.module.css";
+import styles from "../styles/Orders.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OneOrder from "./OneOrder";
-//import { toggleOrders } from "../reducers/order"; //to be created
+import { addOrder } from "../reducers/orders";
 
 function Orders() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  const [isPaid, setIsPaid] = useState(false);
+  // const [isPaid, setIsPaid] = useState(false);
+  const [listOrder, setListOrder] = useState([]);
 
   // GET EXISTING ORDER ITEMS
   const allPreviousOrders = () => {
@@ -15,8 +16,9 @@ function Orders() {
       fetch(`http://localhost:3000/orders/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
-          //dispatch(toggleOrders(data.data.items));
-          console.log(data);
+          console.log("données api", data.data);
+          dispatch(addOrder(data.data));
+          setListOrder(data.data);
         });
     } else {
       console.log("need to log in");
@@ -25,17 +27,47 @@ function Orders() {
 
   useEffect(() => {
     allPreviousOrders();
-  }, []);
+  }, [user.token]);
 
-
+ 
 
   //visible elements
-  let orderContents = <p>Vous n'avez pas encore passé de commande</p>;
-  //NEED TO DO A MAP HERE TO SEND PROPS TO OneOrder
-  
+  let orderContents =
+    !Array.isArray(listOrder) || listOrder.length === 0 ? (
+      <p>Rien à afficher</p>
+    ) : (
+      listOrder.map((order, index) => {
+        if (!order || !order.items || order.items.length === 0) {
+          console.error("Commande invalide ou vide à l'index :", index);
+          return null;
+        }
+
+        const userAddress = user.address || [];
+
+        return (
+          <div key={index}>
+            <h2>Commande du {new Date(order.date).toLocaleDateString()}</h2>
+            <p>Statut : {order.delivery}</p>
+            <p>
+              Adresse :
+              {userAddress.map((addr, idx) => (
+                <span key={idx}>
+                  {addr.number} {addr.street}, {addr.city} {addr.zipcode},
+                  {addr.country}
+                  <br />
+                </span>
+              ))}
+            </p>
+            {order.items.map((item, itemIndex) => (
+              <OneOrder key={itemIndex} item={item} />
+            ))}
+          </div>
+        );
+      })
+    );
 
   return (
-    <div>
+    <div className={styles.containerDeTout}>
       <h1>Vos commandes</h1>
       {orderContents}
     </div>

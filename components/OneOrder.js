@@ -1,23 +1,18 @@
-import styles from "../styles/Cart.module.css";
+import styles from "../styles/OneOrder.module.css";
 import { useSelector } from "react-redux";
 
-function OrderOne(props) {
-  const cart = useSelector((state) => state.cart.value);
-  const user = useSelector((state) => state.user.value);
-
-  /*
-  STEPS
-  if user logged, i can retrieve past orders. 
-just place the strucrure of each order, will send data via props
-nothing else here  */
+function OneOrder(props) {
+  const item= props.item
 
   return (
     <div className={styles.card}>
-      <p>Article name</p>
-      <p>Quantity</p>
-      <p>Total paid per article</p>
+      <p>Taille : {item.size}</p>
+      <p>Couleur : {item.color} </p>
+      <p> Prix : {item.price} </p>
+      <p>Quantité : {item.quantity}</p>
+     
     </div>
   );
 }
 
-export default OrderOne;
+export default OneOrder;

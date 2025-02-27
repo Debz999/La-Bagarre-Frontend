@@ -15,14 +15,14 @@ import Articleliste from "./Articleliste";
 //Il me faut seulement l'article cliqué
 //Peut etre au click sur l'article, recuperer son id et afficher l'article par son id d'ici
 // function ArticlePage({ id }) {
-  function ArticleDetail({inputId}) {
+function ArticleDetail({ inputId }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value); //for token ! missing still
   const [articleCliqueData, setArticleCliqueData] = useState(null);
   const [imageIndex, setImageIndex] = useState(0);
   const [categorieRecuperee, setCategorieRecuperee] = useState("");
   const [typeRecupere, setTypeRecupere] = useState("");
-  
+
   const [similarArticles, setSimilarArticles] = useState([]);
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
@@ -36,7 +36,6 @@ import Articleliste from "./Articleliste";
         .then((response) => response.json())
         .then((data) => {
           if (data.result) {
-            //console.log(data);
             setArticleCliqueData(data.articleRécupéré);
             setCategorieRecuperee(data.articleRécupéré.categorie);
             setTypeRecupere(data.articleRécupéré.type);
@@ -78,19 +77,18 @@ import Articleliste from "./Articleliste";
 
 
   useEffect(() => {
-    console.log("le useState articleCliqueData=", articleCliqueData);
-if(articleCliqueData) {
-  //sets default value for color and size in case the user doesn't change either one of them
-if(articleCliqueData.giSizes9.length > 0) {
-  setSelectedSize(articleCliqueData.giSizes9[0])
-};
-if(articleCliqueData.sizes9.length > 0) {
-  setSelectedSize(articleCliqueData.sizes9[0])
-};
-if(articleCliqueData.colors9.length > 0) {
-  setSelectedColor(articleCliqueData.colors9[0])
-};
-}
+    if (articleCliqueData) {
+      //sets default value for color and size in case the user doesn't change either one of them
+      if (articleCliqueData.giSizes9.length > 0) {
+        setSelectedSize(articleCliqueData.giSizes9[0]);
+      }
+      if (articleCliqueData.sizes9.length > 0) {
+        setSelectedSize(articleCliqueData.sizes9[0]);
+      }
+      if (articleCliqueData.colors9.length > 0) {
+        setSelectedColor(articleCliqueData.colors9[0]);
+      }
+    }
   }, [articleCliqueData]);
   //Post item to cart
   const addItemToCart = (articleId) => {
@@ -103,6 +101,7 @@ if(articleCliqueData.colors9.length > 0) {
           quantity: 1,
           size: selectedSize,
           color: selectedColor,
+          price: articleCliqueData.price,
         }),
       })
         .then((response) => response.json())
@@ -138,7 +137,15 @@ if(articleCliqueData.colors9.length > 0) {
           : articleCliqueData.sizes9;
       //console.log(sizes); //this function maps through giSizes9 or sizes9 depending on the type selected
       return (
+      return (
         <select value={selectedSize} onChange={handleSizeChange}>
+          {sizes.map((size, index) => (
+            <option key={index} value={size}>
+              {size}
+            </option>
+          ))}
+        </select>
+      );
           {sizes.map((size, index) => (
             <option key={index} value={size}>
               {size}
