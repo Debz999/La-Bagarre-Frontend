@@ -11,6 +11,8 @@ import Link from 'next/link';
 
 import { useRouter } from 'next/router';
 
+import Articleliste from './Articleliste';
+
 
 
 function allArticles() {
@@ -57,21 +59,22 @@ const articles = all.map((data, i) => {
   
   
   return (
+    <Articleliste  key={i} {...data} />
 
-    <div key={i} className={styles.card}>
-      <Link href={`/detailarticle/${data._id}`}>
+    // <div key={i} className={styles.card}>
+    //   <Link href={`/detailarticle/${data._id}`}>
 
-      <div className={styles.test2}>
+    //   <div className={styles.test2}>
 
-          <div className={styles.modelPriceContainer}>
-            <h4 className={styles.modelContainer}>{data.model}</h4>
-            <Image src={data.photos9[0]} width="290px" height="350px" className={styles.photo}></Image>
-            <h3 className={styles.priceContainer}>{data.price}€</h3>
-          </div>
-      </div>
+    //       <div className={styles.modelPriceContainer}>
+    //         <h4 className={styles.modelContainer}>{data.model}</h4>
+    //         <Image src={data.photos9[0]} width="290px" height="350px" className={styles.photo}></Image>
+    //         <h3 className={styles.priceContainer}>{data.price}€</h3>
+    //       </div>
+    //   </div>
 
-      </Link>
-    </div>
+    //   </Link>
+    // </div>
 
   )
 });
@@ -80,6 +83,9 @@ const handleSortChange = (e) => {setSortOrder(e.target.value);};
 
 
     return (
+
+
+
       <div className={styles.titleAndSelect}>
         <h3 className={styles.pageTitle}>Tous les articles</h3>
 
@@ -88,10 +94,15 @@ const handleSortChange = (e) => {setSortOrder(e.target.value);};
         <option value="décroissant">Prix décroissant</option>
         </select>
 
-        
+            {/* <div className={styles.containerDeTout}>
+              <h2 className={styles.pageTitle}>Articles en Promotion</h2>
+              <div className={styles.stuffStyle}>{articles}</div>
+            </div> */}
+            
         <div className={styles.cadre}>    
           {articles}
         </div>
+
       </div>
     );
    }

@@ -36,3 +36,18 @@
 .articlePrice {
     font-weight: 300;
 }
+
+
+.barre {
+  text-decoration: line-through;
+  
+}
+
+/* .normalPrice{
+  font-weight: 300;
+} */
+/* .priceAndOnSalePrice{
+  display: flex;
+  flex-direction: column;
+
+} */

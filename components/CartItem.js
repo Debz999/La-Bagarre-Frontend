@@ -74,7 +74,20 @@ function CartItem(props) {
           <h3 className={styles.itemTitle}>{props.article.model}</h3>
           <p>Taille: {props.size}</p>
           <p>Couleur: {props.color}</p>
-          <p>Prix: {props.article.price}€</p>
+          {/* <p>Prix: {props.article.price}€</p> */}
+
+          <p className={styles.articlePrice}>
+          {props.article.onSale ? (
+            <>
+              <span className={styles.barre}>{props.article.price}€</span>
+              <br/>
+              <span className={styles.onSalePrice}>{props.article.onSalePrice}€</span>
+            </>
+          ) : (
+            <span className={styles.normalPrice}>{props.article.price}€</span>
+          )}
+        </p>
+
           <div className={styles.buttonsContainer}>
             <div className={styles.quantityControls}>
               <button onClick={() => minus()} className={styles.quantityButton}>

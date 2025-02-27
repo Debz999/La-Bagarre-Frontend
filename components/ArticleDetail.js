@@ -10,6 +10,8 @@ import Link from "next/link";
 import ArticlesSimilaires from "./ArticlesSimilaires";
 import Accordion from "./Accordion";
 import Articleliste from "./Articleliste";
+
+import ArticlesOnSale from "./ArticlesOnSale";
 //Pour l'instant cette page m'affiche tout les articles detaillés,
 //Il me faut seulement l'article cliqué
 //Peut etre au click sur l'article, recuperer son id et afficher l'article par son id d'ici
@@ -43,7 +45,6 @@ function ArticleDetail({ inputId }) {
         });
     }
   }, [id]);
-  
 
   useEffect(() => {
     console.log("le useState articleCliqueData=", articleCliqueData);
@@ -61,7 +62,6 @@ function ArticleDetail({ inputId }) {
     }
   }, [articleCliqueData]);
 
-
   //price: articleCliqueData.onSale ? articleCliqueData.onSalePrice : articleCliqueData.price
   //Post item to cart
   const addItemToCart = (articleId) => {
@@ -74,7 +74,9 @@ function ArticleDetail({ inputId }) {
           quantity: 1,
           size: selectedSize,
           color: selectedColor,
-          price: articleCliqueData.onSale ? articleCliqueData.onSalePrice : articleCliqueData.price,
+          price: articleCliqueData.onSale
+            ? articleCliqueData.onSalePrice
+            : articleCliqueData.price,
         }),
       })
         .then((response) => response.json())
@@ -183,10 +185,27 @@ function ArticleDetail({ inputId }) {
           <p>Type: {articleCliqueData.type}</p>
           {/* <p>Description: {articleDescription}</p> */}
           <p>Tailles disponibles: {sizeOrGiSize()}</p>
-          <p>Couleurs disponibles: {choosingColors()}</p>
-          {/* <p>{articleCliqueData.price} {articleCliqueData.onSale === true ? articleCliqueData.onSalePrice : articleCliqueData.price}€</p> */}
-          {/* <p>{articleCliqueData.onSale ? "Prix intial: " : null}</p> */}
-          <p>{articleCliqueData.onSale ? `Prix intial: ${articleCliqueData.price}` : null} {articleCliqueData.onSale === true ? articleCliqueData.onSalePrice : articleCliqueData.price}€</p>
+          {choosingColors.length > 1 ? (
+            <p>Couleurs disponibles: {choosingColors()}</p>
+          ) : (
+            <p>Couleur disponible: {choosingColors()}</p>
+          )}
+
+          <p className={styles.articlePrice}>
+            {articleCliqueData.onSale ? (
+              <>
+                <span className={styles.barre}>{articleCliqueData.price}€</span>
+                <br />
+                <span className={styles.onSalePrice}>
+                  Promotion: {articleCliqueData.onSalePrice}€
+                </span>
+              </>
+            ) : (
+              <span className={styles.normalPrice}>
+                {articleCliqueData.price}€
+              </span>
+            )}
+          </p>
           <button
             onClick={() => addItemToCart(articleCliqueData._id)}
             className={styles.buttonAchete}
@@ -214,6 +233,10 @@ function ArticleDetail({ inputId }) {
             type={typeRecupere}
           />
         )}
+      </div>
+      <div>
+          <ArticlesOnSale/>
+
       </div>
     </div>
   );

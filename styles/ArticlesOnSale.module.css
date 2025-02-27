@@ -16,3 +16,7 @@
 }
 
 
+.cadre{
+    display: flex;
+    flex-wrap: wrap;
+}

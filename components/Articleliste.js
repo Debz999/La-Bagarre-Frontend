@@ -31,8 +31,22 @@ function Articleliste({ model, photos9, price, _id, onSale, onSalePrice }) {
             <p className={styles.articleTitle}>
               {model.split(" ").slice(0, 3).join(" ")}
             </p>
-            {/* <p className={styles.articlePrice}>{price}€</p> */}
-            <p className={styles.articlePrice}>{onSale ? `Prix intial: ${price}` : null} {onSale === true ? onSalePrice : price}€</p>
+
+            <p className={styles.articlePrice}>
+              {onSale ? (
+                <>
+                  <span className={styles.barre}>{price}€</span>
+                  <br/>
+                  <span className={styles.onSalePrice}>{onSalePrice}€</span>
+                </>
+              ) : (
+                <span className={styles.normalPrice}>{price}€</span>
+              )}
+            </p>
+          
+  
+       
+
           </div>
         </div>
       </Link>
