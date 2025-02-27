@@ -214,7 +214,7 @@ if(articleCliqueData.colors9.length > 0) {
           {/* <p>Description: {articleDescription}</p> */}
           <p>Tailles disponibles: {sizeOrGiSize()}</p>
           <p>Couleurs disponibles: {choosingColors()}</p>
-          <p>{articleCliqueData.price}€</p>
+          <p>{articleCliqueData.onSale === true ? articleCliqueData.onSalePrice : articleCliqueData.price}€</p>
           <button
             onClick={() => addItemToCart(articleCliqueData._id)}
             className={styles.buttonAchete}
