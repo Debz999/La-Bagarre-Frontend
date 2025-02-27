@@ -1,19 +1,22 @@
 import styles from "../styles/Header.module.css";
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch, useSelector } from "react-redux";
 import {
   faUser,
   faCartShopping,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import user from "../reducers/user";
+import { logout } from "../reducers/user";
 import Link from "next/link";
 import Sousmenu from "./Sousmenu";
 import { useRouter } from "next/router";
 
 function Header() {
+  const dispatch = useDispatch();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false); //état pour le menu User visible uniquement si logIn
   const [sousMenuOpen, setSousMenuOpen] = useState(null); //état pour sous menu des categories
   const user = useSelector((state) => state.user.value);
@@ -52,6 +55,25 @@ function Header() {
       document.removeEventListener("mousedown", handleClickOut);
     };
   }, [isMenuOpen]);
+  
+  /*
+    useEffect(() => {
+    if (user.token) {
+      fetch(`http://localhost:3000/carts/${user.token}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.data) {
+            dispatch(toggleCart(data.data.items));
+          }
+        });
+    }
+  }, [user.token]);
+  */
+
+  const handleLogout = () => {
+setIsMenuOpen(false);
+    dispatch(logout());
+  };
 
   /*Get cart total items */
   const totalItems = cart.cartItem.reduce(
@@ -111,7 +133,7 @@ function Header() {
           <li>
             <Link href="/orders">Mes commandes</Link>
           </li>
-          <li>Me déconnecter</li>
+          <li onClick={() => handleLogout()} >Me déconnecter</li>
         </ul>
       )}
       <div className={styles.containerCat}>

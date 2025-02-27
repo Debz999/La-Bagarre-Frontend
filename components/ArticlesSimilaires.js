@@ -1,15 +1,11 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
 import styles from "../styles/ArticlesOnSale.module.css";
-
 import Image from "next/image";
-
-
 import Link from 'next/link';
-
 import { useRouter } from 'next/router';
+import Articleliste from './Articleliste';
 
 
 
@@ -42,56 +38,39 @@ function ArticlesSimilaires(props) {
   }, [categorie, type, sortOrder]); 
 
 
-
-
 const articles = allArticlesData.map((data, i) => {
 
+  // const jeSaisPas5 = <Image src={data.photos9[0]} width={200} height={200} className={styles.cardPhoto}></Image>;
+    
+  return ( 
+  <Articleliste  key={i} {...data} />
   
-  const jeSaisPas5 = <Image src={data.photos9[0]} width={200} height={200} className={styles.cardPhoto}></Image>;
-  
-  
-  return (
-
-    // <div key={i} className={styles.articleLinkContainer}>
+    // <div key={i} className={styles.card}>
     //   <Link href={`/detailarticle/${data._id}`}>
-
-    //   <div className={styles.articleComplet}>
-    //       <div className={styles.cardPhotoContainer}>
-    //         {jeSaisPas5}
-    //       </div>
+    //     <div className={styles.test2}>
     //       <div className={styles.modelPriceContainer}>
-    //         <h4 className={styles.modelPlacement}>{data.model}</h4>
-    //         <h3 className={styles.pricePlacement}>{data.price}€</h3>
+    //         <h4 className={styles.modelContainer}>{data.model}</h4>
+    //         <Image
+    //           src={data.photos9[0]}
+    //           width="290px"
+    //           height="350px"
+    //           className={styles.photo}
+    //         ></Image>
+    //         <h3 className={styles.priceContainer}>{data.price}€</h3>
     //       </div>
-    //   </div>
-
+    //     </div>
     //   </Link>
     // </div>
-    <div key={i} className={styles.card}>
-    <Link href={`/detailarticle/${data._id}`}>
-
-    <div className={styles.test2}>
-
-        <div className={styles.modelPriceContainer}>
-          <h4 className={styles.modelContainer}>{data.model}</h4>
-          <Image src={data.photos9[0]} width="290px" height="350px" className={styles.photo}></Image>
-          <h3 className={styles.priceContainer}>{data.price}€</h3>
-        </div>
-    </div>
-
-    </Link>
-  </div>
-
-  )
+  );
 });
 
-const handleSortChange = (e) => {setSortOrder(e.target.value);};
+//const handleSortChange = (e) => {setSortOrder(e.target.value);};
 
 
     return (
-      <div>
+      <div className={styles.containerDeTout}>
        
-        <h3 className={styles.pageTitle}>{props.title}</h3>
+        <h2 className={styles.pageTitle}>{props.title}ARTICLES SIMILAIRES</h2>
 
         {/* <select onChange={handleSortChange} value={sortOrder} className={styles.select}>
         <option value="croissant">Prix croissant</option>
@@ -99,9 +78,9 @@ const handleSortChange = (e) => {setSortOrder(e.target.value);};
         </select> */}
 
 
-        <div className={styles.cadre}>    
-
+        <div className={styles.stuffStyle}>    
           {articles}
+
         </div>
       </div>
     );
