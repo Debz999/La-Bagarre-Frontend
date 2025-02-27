@@ -49,6 +49,7 @@ const [onSalePrice, setOnSalePrice] = useState('');
     formData.append("photos9", photos9)
     formData.append("sizes9", sizes9)
     formData.append("giSizes9", giSizes9)
+    formData.append("onSalePrice", onSalePrice)
 
     fetch("http://localhost:3000/articles/postArticle1", {
       method: "POST",
@@ -92,6 +93,8 @@ const [onSalePrice, setOnSalePrice] = useState('');
       formData.append("photos9", photos9)
       formData.append("sizes9", sizes9)
       formData.append("giSizes9", giSizes9)
+      formData.append("onSalePrice", onSalePrice)
+
 
       // if(onSale){
       //   setPrice(onSalePrice)

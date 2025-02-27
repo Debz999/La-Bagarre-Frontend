@@ -20,10 +20,11 @@ function ArticlesOnSale() {
   }, []); // L'API est appelée une seule fois à l'initialisation
 
 
-
+console.log(articlesOnSale)
 
 const mappedSales = articlesOnSale.map((article) => (
   // <div key={article._id} className={styles.articleLinkContainer}>
+  
   <div key={article._id} className={styles.card}>
     <Link href={`/detailarticle/${article._id}`}>
       <div className={styles.test2}>
@@ -33,7 +34,7 @@ const mappedSales = articlesOnSale.map((article) => (
         <div className={styles.modelPriceContainer}>
           <h4 className={styles.modelContainer}>{article.model}</h4>
           <Image src={article.photos9[0]} alt={article.model} height="350px" width="290px" className={styles.photo}/>
-          <h3 className={styles.priceContainer}>{article.price}€</h3>
+          <h3 className={styles.priceContainer}>{article.onSale ? article.onSalePrice : article.price}€</h3>
         </div>
       </div>
     
