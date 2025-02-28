@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import styles from "../styles/ArticlesOnSale.module.css";
+import styles from "../styles/allArticles.module.css";
 
 import Image from "next/image";
 
@@ -21,8 +21,6 @@ function allArticles() {
 
   const router = useRouter();
 
-  // const categorie = props.categorie
-  // const type = props.type
 
 
   useEffect(() => {
@@ -86,20 +84,17 @@ const handleSortChange = (e) => {setSortOrder(e.target.value);};
 
 
 
-      <div className={styles.titleAndSelect}>
-        <h3 className={styles.pageTitle}>Tous les articles</h3>
+      <div className={styles.containerDeTout}>
 
-        <select onChange={handleSortChange} value={sortOrder} className={styles.select}>
-        <option value="croissant">Prix croissant</option>
-        <option value="décroissant">Prix décroissant</option>
-        </select>
+        <div className={styles.titleAndSort}>
+          <h2 className={styles.pageTitle}>Tous les articles</h2>
+          <select onChange={handleSortChange} value={sortOrder} className={styles.select}>
+          <option value="croissant">Prix croissant</option>
+          <option value="décroissant">Prix décroissant</option>
+          </select>
+        </div>
 
-            {/* <div className={styles.containerDeTout}>
-              <h2 className={styles.pageTitle}>Articles en Promotion</h2>
-              <div className={styles.stuffStyle}>{articles}</div>
-            </div> */}
-            
-        <div className={styles.cadre}>    
+        <div className={styles.stuffStyle}>    
           {articles}
         </div>
 
