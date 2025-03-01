@@ -10,13 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import user from "../reducers/user";
 import { logout } from "../reducers/user";
+import { emptyCartItem, toggleCart } from "../reducers/cart";
 import Link from "next/link";
 import Sousmenu from "./Sousmenu";
 import { useRouter } from "next/router";
 
 function Header() {
   const dispatch = useDispatch();
-
+const [isReloaded, setIsReloaded] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); //état pour le menu User visible uniquement si logIn
   const [sousMenuOpen, setSousMenuOpen] = useState(null); //état pour sous menu des categories
   const user = useSelector((state) => state.user.value);
@@ -56,28 +57,29 @@ function Header() {
     };
   }, [isMenuOpen]);
   
+  useEffect(() => {
+  if (user.token) {
+    fetch(`http://localhost:3000/carts/${user.token}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.data) {
+          dispatch(toggleCart(data.data.items));
+        }
+      });
+  }
+}, [user.token]);
   /*
-    useEffect(() => {
-    if (user.token) {
-      fetch(`http://localhost:3000/carts/${user.token}`)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.data) {
-            dispatch(toggleCart(data.data.items));
-          }
-        });
-    }
-  }, [user.token]);
   */
 
   const handleLogout = () => {
-setIsMenuOpen(false);
+    setIsMenuOpen(false);
     dispatch(logout());
-    router.push("/");
+dispatch(emptyCartItem()); 
+   router.push("/");
   };
 
   /*Get cart total items */
-  const totalItems = cart.cartItem.reduce(
+  let totalItems = cart.cartItem.reduce(
     (sum, value) => sum + value.quantity,
     0
   );

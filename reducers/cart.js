@@ -13,6 +13,10 @@ export const cartSlice = createSlice({
       console.log("cart reducer", action.payload);
     },
 
+    emptyCartItem: (state, action) => {
+      state.value.cartItem = [];
+    },
+
     addToTemporaryCart: (state, action) => {
       const checkModel = state.value.temporaryCart.some(
         (e) => e.model === action.payload.model
@@ -49,6 +53,6 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { toggleCart, addToTemporaryCart, removeFromTemporaryCart } =
+export const { toggleCart, emptyCartItem, addToTemporaryCart, removeFromTemporaryCart } =
   cartSlice.actions;
 export default cartSlice.reducer;

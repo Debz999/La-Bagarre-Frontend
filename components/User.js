@@ -7,6 +7,7 @@ import styles from "../styles/User.module.css";
 function User() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
+  const cart = useSelector((state) => state.cart.value);
   const router = useRouter();
 
   const [signUpUsername, setSignUpUsername] = useState("");
@@ -29,6 +30,9 @@ function User() {
       .then((data) => {
         if (data.result) {
           dispatch(login({ username: signUpUsername, token: data.token }));
+          if(cart.temporaryCart.length > 0) {
+            cart.temporaryCart.map((e) => {})
+          }
           setSignUpUsername("");
           setSignUpPassword("");
           router.push("/");
