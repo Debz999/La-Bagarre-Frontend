@@ -30,9 +30,9 @@ function User() {
       .then((data) => {
         if (data.result) {
           dispatch(login({ username: signUpUsername, token: data.token }));
-          if(cart.temporaryCart.length > 0) {
-            cart.temporaryCart.map((e) => {})
-          }
+          // if(cart.temporaryCart.length > 0) {
+          //   cart.temporaryCart.map((e) => {})
+          // }
           setSignUpUsername("");
           setSignUpPassword("");
           router.push("/");
