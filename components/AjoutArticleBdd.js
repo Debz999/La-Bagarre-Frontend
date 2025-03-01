@@ -52,7 +52,7 @@ function AjoutArticleBdd() {
       .then((data) => {
         if (data.result) {
           console.log("Article ajouté :", data);
-          alert("Article ajouté");
+          alert("Article ajouté avec succès");
         } else {
           alert("Une erreur est survenu lors de l'ajout");
         }
@@ -93,8 +93,10 @@ function AjoutArticleBdd() {
   //BOUTON UPDATE
   const auClickSurUpdate = () => {
     if (!inputId) {
-      return res.status(404).json({ message: "Article non trouvé" });
+      alert("L'ID de l'article est requis pour la modification.");
+      return;
     }
+
 
     const formData = new FormData(); //formData pour l'envoie de fichiers
 
@@ -125,7 +127,12 @@ function AjoutArticleBdd() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // Affiche l'article mis à jour
+        console.log("ca ici: ", data); // Affiche l'article mis à jour
+        if (data.result) {
+          alert("Article modifié avec succès");
+        } else {
+          alert("Une erreur est survenue lors de la modification");
+        }
       });
   };
 
