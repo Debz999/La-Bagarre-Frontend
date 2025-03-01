@@ -77,15 +77,8 @@ function CartItem(props) {
       dispatch(removeFromTemporaryCart(props))
     }
   };
-  console.log(props)
-//update quantity in temporary cart stopped working, i think its linked to articles
-  // let updateQuantity;
-  // if(user.token){
-  //   updateQuantity = props.quantity;
-  // } else {
-  //   updateQuantity = cart.temporaryCart.quantity;
-  // }
-  console.log(cart.temporaryCart)
+
+  //console.log(cart.temporaryCart)
   //console.log('props', props.article.model)
 
 

@@ -53,25 +53,27 @@ setIsLiked(wishlist.some((article) => article.model === model));
 
   return (
     <div className={styles.articleContainer}>
-      <Link href={`/detailarticle/${_id}`}>
         <div className={styles.cardContainer}>
+      <Link href={`/detailarticle/${_id}`}>
           <div>{photos[0]}</div>
-          <div className ={styles.bottomContainer}> add text and heart here</div>
+          </Link>
+          <div className ={styles.bottomContainer}>
           <div className={styles.textContainer}>
             {/* <p >{model.split(" ").slice(0, 3).join(" ")}</p> */}
             <p className={styles.articleTitle}>
               {model.split(" ").slice(0, 3).join(" ")}
             </p>
             {/* <p className={styles.articlePrice}>{price}€</p> */}
-            <p className={styles.articlePrice}>{onSale ? `Prix intial: ${price}` : null} {onSale === true ? onSalePrice : price}€</p>
+            <p className={styles.articlePrice}>{onSale ? `${price}` : null} {onSale === true ? onSalePrice : price}€</p>
           </div>
-        </div>
-      </Link>
       <FontAwesomeIcon
       className={`${styles.iconStyle} ${isLiked ? styles.iconLiked : ""}`}
       icon={isLiked ? faSolidHeart : faRegHeart}
         onClick={() => handleLikeArticle()}
       />
+
+          </div>
+        </div>
     </div>
   );
 }
