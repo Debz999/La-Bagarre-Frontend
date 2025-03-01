@@ -1,7 +1,7 @@
 import styles from "../styles/CartItem.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { toggleCart } from "../reducers/cart";
+import { toggleCart, removeFromTemporaryCart, addToTemporaryCart } from "../reducers/cart";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -54,15 +54,27 @@ function CartItem(props) {
 
   const add = () => {
     //console.log(props.quantity);
-    updateDatabaseQuantity(props.quantity + 1);
+    if(user.token) {
+      updateDatabaseQuantity(props.quantity + 1);
+    } else {
+      dispatch(addToTemporaryCart({model: props.model, quantity: props.quantity + 1}))
+    }
   };
 
   const minus = () => {
-    updateDatabaseQuantity(props.quantity - 1);
+    if(user.token) {
+      updateDatabaseQuantity(props.quantity - 1);
+    } else {
+      dispatch(addToTemporaryCart({model: props.model, quantity: props.quantity - 1}))
+    }
   };
 
   const handleDelete = () => {
-    deleteFromDatabase();
+    if(user.token) {
+      deleteFromDatabase();
+    } else {
+      dispatch(removeFromTemporaryCart(props))
+    }
   };
 
   return (
