@@ -18,8 +18,9 @@ export const cartSlice = createSlice({
     },
 
     addToTemporaryCart: (state, action) => {
+      console.log(action.payload)
       const checkModel = state.value.temporaryCart.some(
-        (e) => e.model === action.payload.model
+        (e) => e.model === action.payload.article.model
       );
 
       if (!checkModel) {
@@ -28,10 +29,10 @@ export const cartSlice = createSlice({
         //console.log('reducer action.payload', action.payload)
       } else {
         const existingModel = state.value.temporaryCart.find(
-          (e) => e.model === action.payload.model
+          (e) => e.model === action.payload.article.model
         );
         existingModel.quantity = action.payload.quantity;
-        console.log("item has already ");
+        console.log('quantity change')
       }
     },
 
@@ -50,9 +51,14 @@ export const cartSlice = createSlice({
         console.log("item has already ");
       }
     },
+
+    
+    emptyTemporaryCart: (state, action) => {
+      state.value.temporaryCart = [];
+    },
   },
 });
 
-export const { toggleCart, emptyCartItem, addToTemporaryCart, removeFromTemporaryCart } =
+export const { toggleCart, emptyCartItem, addToTemporaryCart, removeFromTemporaryCart, emptyTemporaryCart } =
   cartSlice.actions;
 export default cartSlice.reducer;

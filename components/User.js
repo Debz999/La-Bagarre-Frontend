@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../reducers/user";
+import { toggleCart, emptyTemporaryCart } from "../reducers/cart";
 import { useRouter } from "next/router";
 import styles from "../styles/User.module.css";
 
@@ -30,9 +31,24 @@ function User() {
       .then((data) => {
         if (data.result) {
           dispatch(login({ username: signUpUsername, token: data.token }));
-          // if(cart.temporaryCart.length > 0) {
-          //   cart.temporaryCart.map((e) => {})
-          // }
+          if(cart.temporaryCart.length > 0) {
+            console.log('test cart55', cart.temporaryCart)
+            fetch(`http://localhost:3000/carts/postFromTemporary/${data.token}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({temporaryCart: cart.temporaryCart}),
+            })
+              .then((response) => response.json())
+              .then(() => {
+                //add get fetch here
+                fetch(`http://localhost:3000/carts/${data.token}`)
+                  .then((response) => response.json())
+                  .then((data) => {
+                    dispatch(toggleCart(data.data.items));
+                    dispatch(emptyTemporaryCart());
+                  });
+              });
+          }
           setSignUpUsername("");
           setSignUpPassword("");
           router.push("/");
