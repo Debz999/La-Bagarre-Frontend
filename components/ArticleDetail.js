@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleCart } from "../reducers/cart";
+import { toggleCart, addToTemporaryCart } from "../reducers/cart";
 import { toggleLike } from "../reducers/wishlist";
 import styles from "../styles/ArticleDetail.module.css";
 import Image from "next/image";
@@ -89,6 +89,7 @@ function ArticleDetail({ inputId }) {
     } else {
       seGoToSignup(true);
       console.log("need to log in");
+      //dispatch(addToTemporaryCart(articleCliqueData))
       //TO DO ------- ADD VISIBLE MESSAGE THAT SAYS YOU NEED TO LOG IN -----
     }
   };

@@ -13,7 +13,7 @@ export const cartSlice = createSlice({
       console.log('cart reducer', action.payload)
     },
 
-    toggleTemporaryCart: (state, action) => {
+    addToTemporaryCart: (state, action) => {
       
       const checkModel = state.value.temporaryCart.some(
         (e) => e.model === action.payload.model
@@ -24,15 +24,29 @@ export const cartSlice = createSlice({
         console.log("added");
         //console.log('reducer action.payload', action.payload)
       } else {
-        state.value.temporaryCart = state.value.temporaryCart.filter(
-          (e) => e.model !== action.payload.model
-        );
-        console.log("removed");
+        console.log("item has already ");
       }
     },
     
+    removeFromTemporaryCart: (state, action) => {
+      
+      const checkModel = state.value.temporaryCart.some(
+        (e) => e.model === action.payload.model
+      );
+
+      if (!checkModel) {
+        console.log("");
+        //console.log('reducer action.payload', action.payload)
+      } else {
+        state.value.temporaryCart = state.value.temporaryCart.filter(
+          (e) => e.model !== action.payload.model
+        );
+        console.log("item has already ");
+      }
+    },
+
   },
 });
 
-export const { toggleCart, toggleTemporaryCart } = cartSlice.actions;
+export const { toggleCart, addToTemporaryCart, removeFromTemporaryCart } = cartSlice.actions;
 export default cartSlice.reducer;

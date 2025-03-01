@@ -36,3 +36,24 @@
 .articlePrice {
     font-weight: 300;
 }
+
+.iconStyle {
+  font-size: 20px;
+  cursor: pointer;
+  position: relative;
+  margin-left: 20px;
+  color: #12806a;
+  cursor: pointer;
+  -webkit-text-stroke: 0.1px #6F387C; 
+  fill: none; /* Ensure only the border appears */
+}
+
+.iconLiked {
+  font-size: 20px;
+  cursor: pointer;
+  position: relative;
+  margin-left: 20px;
+  color:  #6F387C;
+  cursor: pointer;
+}
+

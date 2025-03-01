@@ -10,7 +10,7 @@ export const wishlistSlice = createSlice({
   initialState,
   reducers: {
     toggleLike: (state, action) => {
-      console.log("checking wishlist reducer");
+      console.log("checking wishlist reducer", action.payload);
 
       const checkModel = state.value.some(
         (e) => e.model === action.payload.model

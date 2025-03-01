@@ -73,6 +73,7 @@ function Header() {
   const handleLogout = () => {
 setIsMenuOpen(false);
     dispatch(logout());
+    router.push("/");
   };
 
   /*Get cart total items */

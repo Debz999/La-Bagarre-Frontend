@@ -18,9 +18,9 @@ import ArticlesSimilaires from "./ArticlesSimilaires";
 
 function Article() {
   const [allArticlesData, setAllArticlesData] = useState([]);
-
   const [sortOrder, setSortOrder] = useState('croissant'); // État pour choisir le type de tri
 
+  const wishlist = useSelector((state) => state.wishlist.value);
   const router = useRouter();
   const { categorie, type } = router.query; //pour récuperer les parametres envoyer au click
 
@@ -35,7 +35,7 @@ function Article() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log("setAllArticlesData: " , data)
+        //console.log("setAllArticlesData: " , data)
         if (data.result) {
           // setAllArticlesData(data.articles);
           const sortedArticles = data.articles.sort((a, b) => {
@@ -48,13 +48,9 @@ function Article() {
 
   const stuff= allArticlesData.map((data, i) =>{
     return <Articleliste  key={i} {...data} />
-    
-  
   });
-    
 
   const handleSortChange = (e) => {setSortOrder(e.target.value);};
-
   
   return (
     <div>
