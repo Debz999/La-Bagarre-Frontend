@@ -15,8 +15,9 @@ function Orders() {
     if (user.token) {
       fetch(`http://localhost:3000/orders/${user.token}`)
         .then((response) => response.json())
+        
         .then((data) => {
-          console.log("données api", data.data);
+          // console.log("données api", data.data);
           dispatch(addOrder(data.data));
           setListOrder(data.data);
         });
