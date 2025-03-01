@@ -53,7 +53,7 @@ function Cart() {
         .then((response) => response.json())
         .then((data) => {
           dispatch(addOrder(data));
-          router.push("/orders");
+          router.push('/validation')
         });
     } else {
       seGoToSignup(true);
