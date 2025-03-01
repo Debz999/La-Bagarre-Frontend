@@ -25,7 +25,7 @@ function ArticleDetail({ inputId }) {
   const [similarArticles, setSimilarArticles] = useState([]);
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
-  const [goToSignup, seGoToSignup] = useState(false);
+  // const [goToSignup, seGoToSignup] = useState(false);
   const router = useRouter();
   const urlId = router.query.id;
   const id = inputId || urlId; // On prend articleId si dispo, sinon l'ID de l'URL
@@ -43,7 +43,6 @@ function ArticleDetail({ inputId }) {
         });
     }
   }, [id]);
-  
 
   useEffect(() => {
     console.log("le useState articleCliqueData=", articleCliqueData);
@@ -61,7 +60,6 @@ function ArticleDetail({ inputId }) {
     }
   }, [articleCliqueData]);
 
-
   //price: articleCliqueData.onSale ? articleCliqueData.onSalePrice : articleCliqueData.price
   //Post item to cart
   const addItemToCart = (articleId) => {
@@ -74,7 +72,9 @@ function ArticleDetail({ inputId }) {
           quantity: 1,
           size: selectedSize,
           color: selectedColor,
-          price: articleCliqueData.onSale ? articleCliqueData.onSalePrice : articleCliqueData.price,
+          price: articleCliqueData.onSale
+            ? articleCliqueData.onSalePrice
+            : articleCliqueData.price,
         }),
       })
         .then((response) => response.json())
@@ -87,10 +87,19 @@ function ArticleDetail({ inputId }) {
             });
         });
     } else {
-      seGoToSignup(true);
+      // seGoToSignup(true);
       console.log("need to log in");
-      //dispatch(addToTemporaryCart(articleCliqueData))
-      //TO DO ------- ADD VISIBLE MESSAGE THAT SAYS YOU NEED TO LOG IN -----
+      dispatch(
+        addToTemporaryCart({
+          article: articleCliqueData,
+          quantity: 1,
+          size: selectedSize,
+          color: selectedColor,
+          price: articleCliqueData.onSale
+            ? articleCliqueData.onSalePrice
+            : articleCliqueData.price,
+        })
+      );
     }
   };
   const handleSizeChange = (e) => {
@@ -140,30 +149,20 @@ function ArticleDetail({ inputId }) {
     const handleLike = () => {
       dispatch(toggleLike(articleCliqueData));
     };
-    // let likeStyle = {};
-    // console.log(articleCliqueData._id);
-    // const likedArticles = wishlist.map((e) => e.model);
-    // if (likedArticles.includes(_id)) {
-    //   likeStyle = { color: "red" };
-    // }
-    // const articleDescription = (
-    //   <p className={styles.description} style={{ whiteSpace: "pre-line" }}>
-    //     {articleCliqueData.description}
-    //   </p>
+    
+    // let SignupModule = (
+    //   <div>
+    //     <p>
+    //       Voulez-vous vous connecter pour ajouter des articles dans le panier?
+    //     </p>
+    //     <button className={styles.button2} onClick={() => router.push("/user")}>
+    //       Yes!
+    //     </button>
+    //     <button className={styles.button3} onClick={() => seGoToSignup(false)}>
+    //       Continue browsing
+    //     </button>
+    //   </div>
     // );
-    let SignupModule = (
-      <div>
-        <p>
-          Voulez-vous vous connecter pour ajouter des articles dans le panier?
-        </p>
-        <button className={styles.button2} onClick={() => router.push("/user")}>
-          Yes!
-        </button>
-        <button className={styles.button3} onClick={() => seGoToSignup(false)}>
-          Continue browsing
-        </button>
-      </div>
-    );
     return (
       <div className={styles.articleComplet}>
         <div className={styles.photosContainer}>
@@ -187,7 +186,15 @@ function ArticleDetail({ inputId }) {
           <p>Couleurs disponibles: {choosingColors()}</p>
           {/* <p>{articleCliqueData.price} {articleCliqueData.onSale === true ? articleCliqueData.onSalePrice : articleCliqueData.price}€</p> */}
           {/* <p>{articleCliqueData.onSale ? "Prix intial: " : null}</p> */}
-          <p>{articleCliqueData.onSale ? `Prix intial: ${articleCliqueData.price}` : null} {articleCliqueData.onSale === true ? articleCliqueData.onSalePrice : articleCliqueData.price}€</p>
+          <p>
+            {articleCliqueData.onSale
+              ? `Prix intial: ${articleCliqueData.price}`
+              : null}{" "}
+            {articleCliqueData.onSale === true
+              ? articleCliqueData.onSalePrice
+              : articleCliqueData.price}
+            €
+          </p>
           <button
             onClick={() => addItemToCart(articleCliqueData._id)}
             className={styles.buttonAchete}
@@ -197,7 +204,7 @@ function ArticleDetail({ inputId }) {
           <button onClick={() => handleLike()} className={styles.buttonFavoris}>
             AJOUTER AUX FAVORIS
           </button>
-          {goToSignup && SignupModule}
+          {/* {goToSignup && SignupModule} */}
           <Accordion description={articleCliqueData.description} />
         </div>
       </div>

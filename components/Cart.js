@@ -5,12 +5,13 @@ import CartItem from "./CartItem";
 import { toggleCart } from "../reducers/cart";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {addOrder} from '../reducers/orders'
+import { addOrder } from "../reducers/orders";
 
 function Cart() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value); //for token ! missing still
   const cart = useSelector((state) => state.cart.value);
+  const [goToSignup, seGoToSignup] = useState(false);
   // console.log(user.token); //it works, just need to link the cart to the rest
   // console.log("cartPage value", cart.cartItem);
   const router = useRouter();
@@ -39,32 +40,42 @@ function Cart() {
     getExistingCart();
   }, []);
 
-  const continueShopping = () => {
-    router.push("/");
-  };
-
- 
   const saveNewOrder = () => {
     if (user.token) {
       fetch(`http://localhost:3000/orders/post/${user.token}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          adresse : user.adresse,
-          token : user.token,
+          adresse: user.adresse,
+          token: user.token,
         }),
       })
         .then((response) => response.json())
         .then((data) => {
           dispatch(addOrder(data));
-          router.push('/orders')
+          router.push("/orders");
         });
+    } else {
+      seGoToSignup(true);
+
     }
-  }
+  };
+
+  //console.log(cart.temporaryCart)
 
   //visible elements
   let cartContents = <p>Votre panier est vide</p>;
   //console.log("length", cart.cartItem);
+  if (cart.temporaryCart.length > 0) {
+    cartContents = cart.temporaryCart.map((data, i) => {
+      return (
+        <div>
+          <CartItem key={i} {...data} />
+        </div>
+      );
+    });
+  }
+
   if (cart.cartItem.length > 0) {
     cartContents = cart.cartItem.map((data, i) => {
       //console.log("check map", data); //THIS HAS ALL THE AVAILABLE COLORS AND SIZES
@@ -77,50 +88,55 @@ function Cart() {
     });
   }
 
-  const totalItems = cart.cartItem.reduce(
-    (sum, value) => sum + value.quantity,
-    0
+  const totalItems = (
+    cart.cartItem.length > 0 ? cart.cartItem : cart.temporaryCart
+  ).reduce((sum, value) => sum + value.quantity, 0);
+
+  const totalOwed = (
+    cart.cartItem.length > 0 ? cart.cartItem : cart.temporaryCart
+  ).reduce((sum, value) => sum + value.article.price * value.quantity, 0);
+
+  let SignupModule = (
+    <div>
+      <p>
+        Voulez-vous vous connecter pour ajouter des articles dans le panier?
+      </p>
+      <button className={styles.button2} onClick={() => router.push("/user")}>
+        Yes!
+      </button>
+      <button className={styles.button3} onClick={() => seGoToSignup(false)}>
+        Continue browsing
+      </button>
+    </div>
   );
 
-  const totalOwed = cart.cartItem.reduce(
-    (sum, value) => sum + value.article.price * value.quantity,
-    0
-  );
 
   return (
     <div>
       <div className={styles.outerContainer}>
         <div className={styles.column1}>
-          <h1 className={styles.subtitle} >MON PANIER</h1>
+          <h1 className={styles.subtitle}>MON PANIER</h1>
           {cartContents}
         </div>
 
         <div className={styles.column2}>
-        <h1 className={styles.subtitle}>RECAPITULATIF</h1>
+          <h1 className={styles.subtitle}>RECAPITULATIF</h1>
 
           <p>Quantité d'articles dans votre panier : {totalItems}</p>
           <p>Montant à payer : {totalOwed}€</p>
-            <button className={styles.button}
-              onClick={() => {
-                saveNewOrder();
-              }}
-              
-            >
-              {" "}
-              PROCÉDER AU PAIEMENT
-            </button>
-
+          <button
+            className={styles.button}
+            onClick={() => {
+              saveNewOrder();
+            }}
+          >
+            {" "}
+            PROCÉDER AU PAIEMENT
+          </button>
         </div>
       </div>
-            <button
-              onClick={() => {
-                continueShopping();
-              }}
-              className={styles.buttonContainer}
-            >
-              {" "}
-              Continuer mes achats
-            </button>
+      {goToSignup && SignupModule}
+     
     </div>
   );
 }
