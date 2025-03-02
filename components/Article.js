@@ -7,8 +7,6 @@ import styles from "../styles/Article.module.css";
 
 import Image from "next/image";
 
-import Link from "next/link";
-
 import { useRouter } from "next/router";
 import ArticlesSimilaires from "./ArticlesSimilaires";
 

@@ -9,7 +9,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Article from "./Article";
 import ArticlesOnSale from "./ArticlesOnSale";
-import ArticlesSimilaires from "./ArticlesSimilaires";
 import TopArticlesAll from "./TopArticlesAll";
 import AllArticles from "./AllArticles";
 

@@ -1,6 +1,5 @@
 import styles from "../styles/Accordion.module.css";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Accordion({description}) {
   const [isOpen, setIsOpen] = useState(false);
