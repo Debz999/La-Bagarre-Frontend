@@ -6,6 +6,8 @@ import {
   faCartShopping,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faSolidHeart } from "@fortawesome/free-solid-svg-icons"; // Filled heart
+import { faHeart as faRegHeart } from "@fortawesome/free-regular-svg-icons"; // Outlined heart
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import user from "../reducers/user";
@@ -17,11 +19,13 @@ import { useRouter } from "next/router";
 
 function Header() {
   const dispatch = useDispatch();
-const [isReloaded, setIsReloaded] = useState(false);
+  const [isReloaded, setIsReloaded] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); //état pour le menu User visible uniquement si logIn
   const [sousMenuOpen, setSousMenuOpen] = useState(null); //état pour sous menu des categories
+  const [isLiked, setIsLiked] = useState(false);
   const user = useSelector((state) => state.user.value);
   const cart = useSelector((state) => state.cart.value);
+  const wishlist = useSelector((state) => state.wishlist.value);
 
   const router = useRouter();
   const menuRef = useRef(null);
@@ -56,26 +60,33 @@ const [isReloaded, setIsReloaded] = useState(false);
       document.removeEventListener("mousedown", handleClickOut);
     };
   }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (user.token) {
+      fetch(`http://localhost:3000/carts/${user.token}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.data) {
+            dispatch(toggleCart(data.data.items));
+          }
+        });
+    }
+  }, [user.token]);
+
   
   useEffect(() => {
-  if (user.token) {
-    fetch(`http://localhost:3000/carts/${user.token}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.data) {
-          dispatch(toggleCart(data.data.items));
-        }
-      });
-  }
-}, [user.token]);
-  /*
-  */
+    if (wishlist.length > 0) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+  }, [wishlist]);
 
   const handleLogout = () => {
     setIsMenuOpen(false);
     dispatch(logout());
-dispatch(emptyCartItem()); 
-   router.push("/");
+    dispatch(emptyCartItem());
+    router.push("/");
   };
 
   /*Get cart total items */
@@ -99,7 +110,7 @@ dispatch(emptyCartItem());
           <span className={styles.welcomeSign}>Bienvenue {user.username}</span>
           <FontAwesomeIcon
             className={styles.iconStyle}
-            icon={faHeart}
+            icon={isLiked ? faSolidHeart : faRegHeart}
             onClick={() => {
               router.push("/favoris");
             }}
@@ -136,7 +147,7 @@ dispatch(emptyCartItem());
           <li>
             <Link href="/orders">Mes commandes</Link>
           </li>
-          <li onClick={() => handleLogout()} >Me déconnecter</li>
+          <li onClick={() => handleLogout()}>Me déconnecter</li>
         </ul>
       )}
       <div className={styles.containerCat}>

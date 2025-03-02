@@ -11,7 +11,7 @@ import Article from "./Article";
 import ArticlesOnSale from "./ArticlesOnSale";
 import ArticlesSimilaires from "./ArticlesSimilaires";
 import TopArticlesAll from "./TopArticlesAll";
-import AllArticles from "./allArticles";
+import AllArticles from "./AllArticles";
 
 
 function Home() {
@@ -24,7 +24,6 @@ function Home() {
       <Head>
         <title>LA BAGARRE</title>
       </Head>
-      <h1>Home</h1>
 
       <ArticlesOnSale/>
 

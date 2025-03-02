@@ -12,7 +12,7 @@ function Accordion({description}) {
       className={styles.accordionButton}
       onClick={() => setIsOpen(!isOpen)}
     >
-      Description
+      DESCRIPTION
       <span>{isOpen ? "-" : "+"}</span>
     </button>
     {isOpen && <p className={styles.accordionContent} style={{ whiteSpace: "pre-line" }} >{description}</p>}

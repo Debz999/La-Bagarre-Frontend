@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import ArticlesSimilaires from "./ArticlesSimilaires";
 import Accordion from "./Accordion";
-import Articleliste from "./Articleliste";
 //Pour l'instant cette page m'affiche tout les articles detaillés,
 //Il me faut seulement l'article cliqué
 //Peut etre au click sur l'article, recuperer son id et afficher l'article par son id d'ici
@@ -17,14 +16,15 @@ import Articleliste from "./Articleliste";
 function ArticleDetail({ inputId }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value); //for token ! missing still
+  const wishlist = useSelector((state) => state.wishlist.value);
   const [articleCliqueData, setArticleCliqueData] = useState(null);
   const [imageIndex, setImageIndex] = useState(0);
   const [categorieRecuperee, setCategorieRecuperee] = useState("");
   const [typeRecupere, setTypeRecupere] = useState("");
-
   const [similarArticles, setSimilarArticles] = useState([]);
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
+  const [isLiked, setIsLiked] = useState(false);
   // const [goToSignup, seGoToSignup] = useState(false);
   const router = useRouter();
   const urlId = router.query.id;
@@ -45,7 +45,7 @@ function ArticleDetail({ inputId }) {
   }, [id]);
 
   useEffect(() => {
-    console.log("le useState articleCliqueData=", articleCliqueData);
+    //console.log("le useState articleCliqueData=", articleCliqueData);
     if (articleCliqueData) {
       //sets default value for color and size in case the user doesn't change either one of them
       if (articleCliqueData.giSizes9.length > 0) {
@@ -59,6 +59,12 @@ function ArticleDetail({ inputId }) {
       }
     }
   }, [articleCliqueData]);
+
+  useEffect(() => {
+if(wishlist && articleCliqueData) {
+  setIsLiked(wishlist.some((article) => article.model === articleCliqueData.model));
+}
+    }, [wishlist, articleCliqueData]);
 
   //price: articleCliqueData.onSale ? articleCliqueData.onSalePrice : articleCliqueData.price
   //Post item to cart
@@ -108,6 +114,7 @@ function ArticleDetail({ inputId }) {
   const handleColorChange = (e) => {
     setSelectedColor(e.target.value);
   };
+  
 
   const articles = () => {
     if (!articleCliqueData) {
@@ -179,6 +186,15 @@ function ArticleDetail({ inputId }) {
         </div>
         <div className={styles.textContainer}>
           <h2>{articleCliqueData.model}</h2>
+          <h3>
+            {articleCliqueData.onSale
+              ? <s>{articleCliqueData.price}</s>
+              : null}{" "}
+            {articleCliqueData.onSale === true
+              ? articleCliqueData.onSalePrice
+              : articleCliqueData.price}
+            €
+          </h3>
           <p className={styles.categoryText}>{articleCliqueData.categorie}</p>
           <p>Type: {articleCliqueData.type}</p>
           {/* <p>Description: {articleDescription}</p> */}
@@ -186,15 +202,6 @@ function ArticleDetail({ inputId }) {
           <p>Couleurs disponibles: {choosingColors()}</p>
           {/* <p>{articleCliqueData.price} {articleCliqueData.onSale === true ? articleCliqueData.onSalePrice : articleCliqueData.price}€</p> */}
           {/* <p>{articleCliqueData.onSale ? "Prix intial: " : null}</p> */}
-          <p>
-            {articleCliqueData.onSale
-              ? `Prix intial: ${articleCliqueData.price}`
-              : null}{" "}
-            {articleCliqueData.onSale === true
-              ? articleCliqueData.onSalePrice
-              : articleCliqueData.price}
-            €
-          </p>
           <div className={styles.buttonContainer}>
           <button
             onClick={() => addItemToCart(articleCliqueData._id)}
@@ -203,7 +210,7 @@ function ArticleDetail({ inputId }) {
             AJOUTER AU PANIER
           </button>
           <button onClick={() => handleLike()} className={styles.buttonFavoris}>
-            AJOUTER AUX FAVORIS
+            {!isLiked && 'AJOUTER AUX' || isLiked && 'ENLEVER DES'} FAVORIS
           </button>
           </div>
           {/* {goToSignup && SignupModule} */}
@@ -212,6 +219,7 @@ function ArticleDetail({ inputId }) {
       </div>
     );
   };
+
 
   //first div className={styles.articleContainer}
   return (
