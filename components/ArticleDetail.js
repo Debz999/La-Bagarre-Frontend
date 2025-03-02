@@ -195,6 +195,7 @@ function ArticleDetail({ inputId }) {
               : articleCliqueData.price}
             €
           </p>
+          <div className={styles.buttonContainer}>
           <button
             onClick={() => addItemToCart(articleCliqueData._id)}
             className={styles.buttonAchete}
@@ -204,6 +205,7 @@ function ArticleDetail({ inputId }) {
           <button onClick={() => handleLike()} className={styles.buttonFavoris}>
             AJOUTER AUX FAVORIS
           </button>
+          </div>
           {/* {goToSignup && SignupModule} */}
           <Accordion description={articleCliqueData.description} />
         </div>

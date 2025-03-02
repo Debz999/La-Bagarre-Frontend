@@ -1,6 +1,8 @@
 .container {
   border-bottom: 1px solid #d1d5db; /* Light gray border */
   width: 100%;
+  padding-right: 30px;
+  
 }
 
 .accordionButton {

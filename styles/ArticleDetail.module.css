@@ -25,12 +25,13 @@
     padding-top: 50px;
     flex: 1;
     height: 800px;
+
 }
 .categoryText {
     border: 1px solid #7C7C7C;
     padding: 8px;
     color: #7C7C7C;
-    width: 100px;
+    width: 117px;
     text-transform: uppercase;
 }
 .photosContainer{
@@ -52,16 +53,35 @@
     ;
 }
 
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+gap: 100px;
+margin-top: 20px;
+
+}
+
 .buttonAchete {
     height: 60px;
-    width: 80%;
-    margin: 30px auto;
+    width: 200px;
     background-color: #202020;
     color: white;
 }
 .buttonAchete:hover {
     cursor: pointer;
 }
+
+.buttonFavoris {
+    background-color: #d3d3d3;
+    height: 50px;
+    width: 60%;
+    border: 0px;
+    cursor: pointer;
+
+  }
+
 .description {
     line-height: 1.5; 
     margin-left: 20px;
