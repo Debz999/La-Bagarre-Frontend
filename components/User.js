@@ -73,6 +73,7 @@ function User() {
           dispatch(login({ username: signInUsername, token: data.token }));
           setSignInUsername("");
           setSignInPassword("");
+          dispatch(emptyTemporaryCart());
           router.push("/");
         } else {
           setSignInError(data.error);

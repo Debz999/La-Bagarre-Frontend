@@ -39,6 +39,7 @@
 
 .articleTitle {
     font-weight: 600;
+    text-transform: uppercase;
 }
 .articlePrice {
     font-weight: 300;

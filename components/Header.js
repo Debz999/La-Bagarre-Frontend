@@ -61,6 +61,7 @@ function Header() {
     };
   }, [isMenuOpen]);
 
+  //Get cart from DB
   useEffect(() => {
     if (user.token) {
       fetch(`http://localhost:3000/carts/${user.token}`)
@@ -73,7 +74,7 @@ function Header() {
     }
   }, [user.token]);
 
-  
+  //update heart if there are liked elements
   useEffect(() => {
     if (wishlist.length > 0) {
       setIsLiked(true);
@@ -82,6 +83,7 @@ function Header() {
     }
   }, [wishlist]);
 
+  //logout
   const handleLogout = () => {
     setIsMenuOpen(false);
     dispatch(logout());
@@ -89,12 +91,15 @@ function Header() {
     router.push("/");
   };
 
-  /*Get cart total items */
-  let totalItems = cart.cartItem.reduce(
-    (sum, value) => sum + value.quantity,
-    0
-  );
-  //console.log(totalItems); //works
+  //Get cart total items
+  // let totalItems = cart.cartItem.reduce(
+  //   (sum, value) => sum + value.quantity,
+  //   0
+  // ); //console.log(totalItems); //works
+  const totalItems = (
+      cart.cartItem.length > 0 ? cart.cartItem : cart.temporaryCart
+    ).reduce((sum, value) => sum + value.quantity, 0);
+
 
   return (
     <div>
