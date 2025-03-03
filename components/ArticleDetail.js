@@ -28,10 +28,12 @@ function ArticleDetail({ inputId }) {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [isLiked, setIsLiked] = useState(false);
+  const [reviews, setReviews] = useState([]);
   // const [goToSignup, seGoToSignup] = useState(false);
   const router = useRouter();
   const urlId = router.query.id;
   const id = inputId || urlId; // On prend articleId si dispo, sinon l'ID de l'URL
+
   useEffect(() => {
     if (id) {
       fetch(`http://localhost:3000/articles/${id}`)
@@ -42,6 +44,7 @@ function ArticleDetail({ inputId }) {
             setArticleCliqueData(data.articleRécupéré);
             setCategorieRecuperee(data.articleRécupéré.categorie);
             setTypeRecupere(data.articleRécupéré.type);
+            setReviews(data.articleRécupéré.reviews || []);
           }
         });
     }
