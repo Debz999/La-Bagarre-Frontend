@@ -140,3 +140,9 @@
   /* justify-content: flex-start; */
   width: 80%;
 }
+
+
+.barre {
+    text-decoration: line-through;
+    
+  }

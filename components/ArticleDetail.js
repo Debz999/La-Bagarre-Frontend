@@ -9,6 +9,9 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import ArticlesSimilaires from "./ArticlesSimilaires";
 import Accordion from "./Accordion";
+import Articleliste from "./Articleliste";
+
+import ArticlesOnSale from "./ArticlesOnSale";
 //Pour l'instant cette page m'affiche tout les articles detaillés,
 //Il me faut seulement l'article cliqué
 //Peut etre au click sur l'article, recuperer son id et afficher l'article par son id d'ici
@@ -78,6 +81,9 @@ if(wishlist && articleCliqueData) {
           quantity: 1,
           size: selectedSize,
           color: selectedColor,
+          price: articleCliqueData.onSale
+            ? articleCliqueData.onSalePrice
+            : articleCliqueData.price,
           price: articleCliqueData.onSale
             ? articleCliqueData.onSalePrice
             : articleCliqueData.price,
@@ -232,6 +238,10 @@ if(wishlist && articleCliqueData) {
             type={typeRecupere}
           />
         )}
+      </div>
+      <div>
+          <ArticlesOnSale/>
+
       </div>
     </div>
   );

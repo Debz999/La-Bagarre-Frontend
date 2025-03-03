@@ -164,6 +164,7 @@
 
 .selectPromotion {
     height: 80%;
+    margin-top: 10px;
 }
 
 
@@ -176,7 +177,7 @@
     align-items: center;
     flex-direction: column;
     width: 50%;
-    margin-top: 200px;
+    
     /* background-color: #abd3ca; */
     padding: 20px;
     
@@ -184,13 +185,26 @@
 .inputStyle {
     width: 500px;
     height: 50px;
+    padding-left: 20px;
+    background-color: #F5F5F5;
+    border: 1px solid rgb(171, 169, 169);
+    color: black;
+    margin-top: 10px;
 
 }
+
+
+    
+
 
 .descriptionInputStyle {
     width: 500px;
     height: 300px;
-
+    padding-left: 20px;
+    background-color: #F5F5F5;
+    border: 1px solid rgb(171, 169, 169);
+    color: black;
+    margin-top: 10px;
 }
 
 
@@ -208,4 +222,10 @@
 
 .filesInput{
     margin-top: 20px;
+}
+
+
+
+.button{
+    margin: 10px;
 }

@@ -92,9 +92,14 @@ function Cart() {
     cart.cartItem.length > 0 ? cart.cartItem : cart.temporaryCart
   ).reduce((sum, value) => sum + value.quantity, 0);
 
+  // const totalOwed = cart.cartItem.reduce(
+  //   (sum, value) => sum + value.article.price * value.quantity,
+  //   0
+  // );
   const totalOwed = (
     cart.cartItem.length > 0 ? cart.cartItem : cart.temporaryCart
-  ).reduce((sum, value) => sum + value.article.price * value.quantity, 0);
+  ).reduce((sum, value) =>
+      sum + (value.article.onSale ? value.article.onSalePrice : value.article.price) * value.quantity, 0);
 
   let SignupModule = (
     <div>

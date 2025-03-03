@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Articleliste from './Articleliste';
 
 
-import styles from "../styles/ArticlesOnSale.module.css";
+import styles from "../styles/allArticles.module.css";
 
 import Image from "next/image";
 
@@ -12,6 +12,8 @@ import Image from "next/image";
 import Link from 'next/link';
 
 import { useRouter } from 'next/router';
+
+import Articleliste from './Articleliste';
 
 
 
@@ -21,8 +23,6 @@ function allArticles() {
 
   const router = useRouter();
 
-  // const categorie = props.categorie
-  // const type = props.type
 
 
   useEffect(() => {
@@ -64,6 +64,7 @@ const articles = all.map((data, i) => {
     //   <Link href={`/detailarticle/${data._id}`}>
 
     //   <div className={styles.test2}>
+    //   <div className={styles.test2}>
 
     //       <div className={styles.modelPriceContainer}>
     //         <h4 className={styles.modelContainer}>{data.model}</h4>
@@ -71,7 +72,15 @@ const articles = all.map((data, i) => {
     //         <h3 className={styles.priceContainer}>{data.price}€</h3>
     //       </div>
     //   </div>
+    //       <div className={styles.modelPriceContainer}>
+    //         <h4 className={styles.modelContainer}>{data.model}</h4>
+    //         <Image src={data.photos9[0]} width="290px" height="350px" className={styles.photo}></Image>
+    //         <h3 className={styles.priceContainer}>{data.price}€</h3>
+    //       </div>
+    //   </div>
 
+    //   </Link>
+    // </div>
     //   </Link>
     // </div>
 
@@ -94,6 +103,7 @@ const handleSortChange = (e) => {setSortOrder(e.target.value);};
         <div className={styles.stuffStyle}>    
           {articles}
         </div>
+
       </div>
     );
    }
