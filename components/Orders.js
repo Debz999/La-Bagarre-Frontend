@@ -46,9 +46,9 @@ function Orders() {
             <h2>Commande du {new Date(order.date).toLocaleDateString()}</h2>
             <p>Statut : {order.delivery}</p>
             <p>
-              Adresse :{order.address.number} {order.address.street}{" "}
-              {order.address.city} {order.address.zipcode}{" "}
-              {order.address.country}
+              Adresse :{order?.address?.number} {order?.address?.street}{" "}
+              {order?.address?.city} {order?.address?.zipcode}{" "}
+              {order?.address?.country}
             </p>
             {order.items.map((item, itemIndex) => (
               <OneOrder key={itemIndex} item={item} />

@@ -6,7 +6,7 @@ function OneOrder(props) {
 
   return (
     <div className={styles.card}>
-      <p>Article : {item.model} </p>
+      <p>Article : {item.article.model} </p>
       <p>Taille : {item.size}</p>
       <p>Couleur : {item.color} </p>
       <p> Prix : {item.price} </p>

@@ -11,6 +11,7 @@ function Cart() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value); //for token ! missing still
   const cart = useSelector((state) => state.cart.value);
+
   const [goToSignup, seGoToSignup] = useState(false);
   // console.log(user.token); //it works, just need to link the cart to the rest
   // console.log("cartPage value", cart.cartItem);
@@ -39,7 +40,7 @@ function Cart() {
   useEffect(() => {
     getExistingCart();
   }, []);
-
+  console.log('cartmodel',cart)
   const saveNewOrder = () => {
     if (user.token) {
       fetch(`http://localhost:3000/orders/post/${user.token}`, {
@@ -48,16 +49,16 @@ function Cart() {
         body: JSON.stringify({
           adresse: user.adresse,
           token: user.token,
+          article: cart.cartItem,
         }),
       })
         .then((response) => response.json())
         .then((data) => {
           dispatch(addOrder(data));
-          router.push('/validation')
+          router.push("/validation");
         });
     } else {
       seGoToSignup(true);
-
     }
   };
 
@@ -110,7 +111,6 @@ function Cart() {
     </div>
   );
 
-
   return (
     <div>
       <div className={styles.outerContainer}>
@@ -136,7 +136,6 @@ function Cart() {
         </div>
       </div>
       {goToSignup && SignupModule}
-     
     </div>
   );
 }
