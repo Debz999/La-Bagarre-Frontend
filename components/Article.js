@@ -7,8 +7,6 @@ import styles from "../styles/Article.module.css";
 
 import Image from "next/image";
 
-import Link from "next/link";
-
 import { useRouter } from "next/router";
 import ArticlesSimilaires from "./ArticlesSimilaires";
 
@@ -54,9 +52,9 @@ function Article() {
   
   return (
     <div>
-      <h1>
+      <h2 className={styles.pageTitle}>
         {categorie} {type && `- ${type}`}
-      </h1>
+      </h2>
 {categorie && (
   <select onChange={handleSortChange} value={sortOrder}>
   <option value="croissant">Prix croissant</option>

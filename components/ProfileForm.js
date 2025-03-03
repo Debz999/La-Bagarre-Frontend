@@ -24,7 +24,10 @@ function ProfileForm(props) {
 
   //ADD NEW ADDRESS (needs all fields to save)
   const addNewAddress = () => {
-    setIsEditable(false);
+    console.log(missingAddressInfo)
+    if(missingAddressInfo){
+      setIsEditable(false);
+    }
     fetch(`http://localhost:3000/users/newaddress/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

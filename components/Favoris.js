@@ -10,7 +10,7 @@ function Favoris (){
     const dispatch = useDispatch();
     const wishlist = useSelector((state) => state.wishlist.value);
   
-    console.log('wishlist', wishlist)
+    //console.log('wishlist', wishlist)
 
 
     const likedArticles = wishlist.map((data, i) => {

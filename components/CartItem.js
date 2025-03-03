@@ -1,7 +1,7 @@
 import styles from "../styles/CartItem.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { toggleCart, removeFromTemporaryCart, addToTemporaryCart } from "../reducers/cart";
+import { toggleCart, removeFromTemporaryCart, changeQuantityTemporaryCart } from "../reducers/cart";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -52,12 +52,13 @@ function CartItem(props) {
   //   0
   // );
 
+  //console.log(props)
   const add = () => {
     //console.log(props.quantity);
     if(user.token) {
       updateDatabaseQuantity(props.quantity + 1);
     } else {
-      dispatch(addToTemporaryCart({model: props.model, quantity: props.quantity + 1}))
+      dispatch(changeQuantityTemporaryCart({model: props.article.model, quantity: props.quantity + 1}))
     }
   };
 
@@ -65,7 +66,7 @@ function CartItem(props) {
     if(user.token) {
       updateDatabaseQuantity(props.quantity - 1);
     } else {
-      dispatch(addToTemporaryCart({model: props.model, quantity: props.quantity - 1}))
+      dispatch(changeQuantityTemporaryCart({model: props.article.model, quantity: props.quantity - 1}))
     }
   };
 
@@ -76,6 +77,10 @@ function CartItem(props) {
       dispatch(removeFromTemporaryCart(props))
     }
   };
+
+  //console.log(cart.temporaryCart)
+  //console.log('props', props.article.model)
+
 
   return (
     <div className={styles.card}>

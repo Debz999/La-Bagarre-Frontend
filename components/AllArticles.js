@@ -1,6 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Articleliste from './Articleliste';
+
 
 import styles from "../styles/ArticlesOnSale.module.css";
 
@@ -57,21 +59,21 @@ const articles = all.map((data, i) => {
   
   
   return (
+    <Articleliste  key={i} {...data} />
+    // <div key={i} className={styles.card}>
+    //   <Link href={`/detailarticle/${data._id}`}>
 
-    <div key={i} className={styles.card}>
-      <Link href={`/detailarticle/${data._id}`}>
+    //   <div className={styles.test2}>
 
-      <div className={styles.test2}>
+    //       <div className={styles.modelPriceContainer}>
+    //         <h4 className={styles.modelContainer}>{data.model}</h4>
+    //         <Image src={data.photos9[0]} width="290px" height="350px" className={styles.photo}></Image>
+    //         <h3 className={styles.priceContainer}>{data.price}€</h3>
+    //       </div>
+    //   </div>
 
-          <div className={styles.modelPriceContainer}>
-            <h4 className={styles.modelContainer}>{data.model}</h4>
-            <Image src={data.photos9[0]} width="290px" height="350px" className={styles.photo}></Image>
-            <h3 className={styles.priceContainer}>{data.price}€</h3>
-          </div>
-      </div>
-
-      </Link>
-    </div>
+    //   </Link>
+    // </div>
 
   )
 });
@@ -89,7 +91,7 @@ const handleSortChange = (e) => {setSortOrder(e.target.value);};
         </select>
 
         
-        <div className={styles.cadre}>    
+        <div className={styles.stuffStyle}>    
           {articles}
         </div>
       </div>
