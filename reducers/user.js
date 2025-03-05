@@ -18,13 +18,15 @@ export const userSlice = createSlice({
     },
     userStore: (state, action) => {
       state.value.profile = action.payload.profile;
-      state.value.address = action. payload.address;  
-
-      console.log('user reducer', action.payload)
+      //state.value.address = action. payload.address; 
+      console.log('user action payload', action.payload)
+    },
+    addressStore: (state, action) => {
+      state.value.address = action. payload.address; 
     },
 
   },
 });
 
-export const { login, logout, userStore } = userSlice.actions;
+export const { login, logout, userStore, addressStore } = userSlice.actions;
 export default userSlice.reducer;

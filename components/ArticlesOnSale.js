@@ -13,7 +13,7 @@ function ArticlesOnSale() {
       .then(response => response.json())
       .then(data => {
         if (data.result) {
-          console.log("articlesOnSales: ", data)
+          //console.log("articlesOnSales: ", data)
           setArticlesOnSale(data.articlesOnSales); // Mettre à jour l'état avec les articles
         }
       })

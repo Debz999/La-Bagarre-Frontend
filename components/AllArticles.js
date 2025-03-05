@@ -30,7 +30,7 @@ function allArticles() {
         .then((articlesTrouves) => {
             if (articlesTrouves.result) {
                 // Traiter les articles trouvés ici
-                console.log("dans allArticles: ", articlesTrouves.allArticles);
+                //console.log("dans allArticles: ", articlesTrouves.allArticles);
                 const sortedArticles = articlesTrouves.allArticles.sort((a, b) => {
                   return sortOrder === 'croissant' ? a.price - b.price : b.price - a.price;
                 });

@@ -1,7 +1,7 @@
 import styles from "../styles/ProfileForm.module.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userStore } from "../reducers/user";
+import { userStore, addressStore } from "../reducers/user";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -24,7 +24,7 @@ function ProfileForm(props) {
 
   //ADD NEW ADDRESS (needs all fields to save)
   const addNewAddress = () => {
-    console.log(missingAddressInfo)
+    //console.log(missingAddressInfo)
     if(missingAddressInfo){
       setIsEditable(false);
     }
@@ -50,7 +50,7 @@ function ProfileForm(props) {
             .then((response) => response.json())
             .then((data) => {
               setMissingAddressInfo(false);
-              dispatch(userStore(data.data));
+              dispatch(addressStore(data.data));
               setUserAddress({
                 number: "",
                 street: "",
@@ -68,7 +68,7 @@ function ProfileForm(props) {
   // useEffect(() => {
   //   console.log("Updated isEditable:", isEditable);
   // }, [isEditable]);
-
+//console.log('profile form user', user);
   //EDIT EXISTING ADDRESS (doesn't need all fields)
   const saveEditAddress = () => {
     setIsEditable(false);
@@ -92,7 +92,7 @@ function ProfileForm(props) {
           .then((response) => response.json())
           .then((data) => {
             //console.log("edit data", data)
-            dispatch(userStore(data.data));
+            dispatch(addressStore(data.data));
           });
       });
   };
@@ -110,7 +110,7 @@ function ProfileForm(props) {
           .then((response) => response.json())
           .then((data) => {
             //console.log(data);
-            dispatch(userStore(data.data));
+            dispatch(addressStore(data.data));
           });
       });
   };
