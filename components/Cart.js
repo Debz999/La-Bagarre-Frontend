@@ -60,8 +60,19 @@ function Cart() {
     } else {
       seGoToSignup(true);
     }
-  };
+  }
 
+  const handleGoToPayment = () => {
+    
+    if(!user.token) {
+      seGoToSignup(true);
+    } else if (user.token && user.address.length === 0) {
+      router.push("/profil")
+    } else if (user.token && user.address.length > 0) {
+      //console.log(user.address)
+      router.push('/validation')
+    }
+  }
   //console.log(cart.temporaryCart)
 
   //visible elements
@@ -105,13 +116,13 @@ function Cart() {
   let SignupModule = (
     <div>
       <p>
-        Voulez-vous vous connecter pour ajouter des articles dans le panier?
+        Voulez-vous vous connecter pour continuer avec votre commande ?
       </p>
       <button className={styles.button2} onClick={() => router.push("/user")}>
-        Yes!
+        Oui ! Je me connecte
       </button>
       <button className={styles.button3} onClick={() => seGoToSignup(false)}>
-        Continue browsing
+        Continuer mes achats
       </button>
     </div>
   );
@@ -131,9 +142,7 @@ function Cart() {
           <p>Montant à payer : {totalOwed}€</p>
           <button
             className={styles.button}
-            onClick={() => {
-              saveNewOrder();
-            }}
+            onClick={() => handleGoToPayment()}
           >
             {" "}
             PROCÉDER AU PAIEMENT
