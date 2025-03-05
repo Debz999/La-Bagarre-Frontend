@@ -240,7 +240,6 @@ if(wishlist && articleCliqueData) {
             <ModalAvis isOpen={isModalOpen} onClose={closeModal} reviews={reviews} articleId={articleCliqueData._id}/>
           </div> */}
           
-
           <div className={styles.buttonContainer}>
           <button
             onClick={() => addItemToCart(articleCliqueData._id)}
