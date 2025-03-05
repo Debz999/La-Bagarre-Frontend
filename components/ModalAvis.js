@@ -23,7 +23,6 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // Envoi du token JWT pour récupérer automatiquement l'userId
       },
       body: JSON.stringify({
         token: token,
@@ -37,11 +36,24 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
       //   }
       //   return response.json();
       // })
+      .then((response) => {
+        // Vérifie d'abord si la réponse est correcte (code 200)
+        console.log("Réponse API : ", response); // Affiche la réponse brute pour inspection
+        if (!response.ok) {
+          throw new Error("Erreur lors de l'envoi de l'avis");
+        }
+        return response.json(); // Convertir la réponse en JSON
+      })
       .then((data) => {
+        console.log("Données reçues après envoi de l'avis :", data);
+        if (data && data.article && data.article.reviews) {
         setReviews(data.article.reviews); // Mettre à jour les avis affichés
         alert("Avis ajouté avec succès !");
         setAvisClient(""); // Réinitialiser l'input
         setNote(5);
+      } else {
+        alert("Aucun avis trouvé dans la réponse.");
+      }
       })
       // .catch((error) => {
       //   console.error(error);
