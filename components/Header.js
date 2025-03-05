@@ -45,7 +45,7 @@ function Header() {
     router.push("/cart");
   };
 
-  //On met un useEffect pour permettre au menu de bien s'ouvrir et se fermer à chaque click en dehors
+  //On met un useEffect pour permettre au menu de bien s'ouvrir et se fermer à chaque click en dehors d
 
   useEffect(() => {
     const handleClickOut = (event) => {
