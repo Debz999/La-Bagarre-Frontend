@@ -10,7 +10,7 @@ export const cartSlice = createSlice({
   reducers: {
     toggleCart: (state, action) => {
       state.value.cartItem = action.payload;
-      console.log("cart reducer", action.payload);
+      //console.log("cart reducer", action.payload);
     },
 
     emptyCartItem: (state, action) => {
@@ -18,7 +18,7 @@ export const cartSlice = createSlice({
     },
 
     addToTemporaryCart: (state, action) => {
-      console.log(action.payload)
+      //console.log(action.payload)
       const checkModel = state.value.temporaryCart.some(
         (e) => e.model === action.payload.article.model
       );

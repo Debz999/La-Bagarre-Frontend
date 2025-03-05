@@ -81,7 +81,7 @@ function Profil() {
   const onRequestCloseNewAddress = () => {
     setIsNewAddressForm(false);
   };
-
+console.log(user)
   //maps all user's addresses
   let allAddresses =
     user.address?.map((data, index) => {
