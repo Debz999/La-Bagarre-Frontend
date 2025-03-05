@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Articleliste from './Articleliste';
 
 
-import styles from "../styles/allArticles.module.css";
+import styles from "../styles/AllArticles.module.css";
 
 import Image from "next/image";
 
