@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { addOrder } from "../reducers/orders";
 import { useRouter } from "next/router";
+import { emptyCartItem } from "../reducers/cart";
 
 function Validation() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
+  const cart = useSelector((state) => state.cart.value);
   const [goToSignup, seGoToSignup] = useState(false);
   const [selectAddress, setSelectAddress] = useState("");
   const router = useRouter();
@@ -18,19 +20,42 @@ function Validation() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           address: user.address[selectAddress],
-
+          token: user.token,
+          article: cart.cartItem,
         }),
       })
         .then((response) => response.json())
         .then((data) => {
           console.log('checking order', data)
           dispatch(addOrder(data));
-          //router.push("/orders");
+          dispatch(emptyCartItem());
+          router.push("/orders");
         });
     } else {
-  console.log("needs to signup");
+      seGoToSignup(true);
     }
   };
+//console.log(user.address[selectAddress]) //address works
+  // const saveNewOrder = () => {
+  //   if (user.token) {
+  //     fetch(`http://localhost:3000/orders/post/${user.token}`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         address: user.address[selectAddress],
+
+  //       }),
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log('checking order', data)
+  //         dispatch(addOrder(data));
+  //         //router.push("/orders");
+  //       });
+  //   } else {
+  // console.log("needs to signup");
+  //   }
+  // };
 
   const handleSelectAddress = (index) => {
     console.log(index);

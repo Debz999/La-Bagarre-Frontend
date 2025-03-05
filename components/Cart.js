@@ -34,33 +34,33 @@ function Cart() {
     }
   };
 
-  //console.log(cart)
+  console.log(cart)
 
   //old get existing cart items, test first but prob will delete
   useEffect(() => {
     getExistingCart();
   }, []);
-  console.log('cartmodel',cart)
-  const saveNewOrder = () => {
-    if (user.token) {
-      fetch(`http://localhost:3000/orders/post/${user.token}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          adresse: user.adresse,
-          token: user.token,
-          article: cart.cartItem,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          dispatch(addOrder(data));
-          router.push("/validation");
-        });
-    } else {
-      seGoToSignup(true);
-    }
-  }
+  //console.log('cartmodel',cart)
+  // const saveNewOrder = () => {
+  //   if (user.token) {
+  //     fetch(`http://localhost:3000/orders/post/${user.token}`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         adresse: user.adresse,
+  //         token: user.token,
+  //         article: cart.cartItem,
+  //       }),
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         dispatch(addOrder(data));
+  //         router.push("/validation");
+  //       });
+  //   } else {
+  //     seGoToSignup(true);
+  //   }
+  // }
 
   const handleGoToPayment = () => {
     
