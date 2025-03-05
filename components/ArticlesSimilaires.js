@@ -26,7 +26,7 @@ function ArticlesSimilaires(props) {
         .then((response) => response.json())
         .then((articlesTrouves) => {
           if (articlesTrouves.result) {
-            console.log("Données d'articles récupérées :", articlesTrouves);
+            //console.log("Données d'articles récupérées :", articlesTrouves);
             // setAllArticlesData(articlesTrouves.filteredArticles)
             const sortedArticles = articlesTrouves.filteredArticles.sort((a, b) => {
               return sortOrder === 'croissant' ? a.price - b.price : b.price - a.price;

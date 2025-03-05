@@ -47,11 +47,6 @@ function CartItem(props) {
       });
   };
 
-  // const totalItems = cart.cartItem.reduce(
-  //   (sum, value) => sum + value.quantity,
-  //   0
-  // );
-
   //console.log(props)
   const add = () => {
     //console.log(props.quantity);

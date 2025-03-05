@@ -22,14 +22,14 @@ function Profil() {
   const [isBaseEditable, setBaseIsEditable] = useState(false);
   const [isNewAddressForm, setIsNewAddressForm] = useState(false);
 
-  //console.log(user);
+  console.log(user);
 
   //Get existing user profile
   useEffect(() => {
     fetch(`https://la-bagarre-backend.vercel.app/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
-        // console.log('profil',data.data);
+        //console.log('profil',data.data);
         
         if (!data.data.email) {
           //setIsEditable(true);
@@ -54,7 +54,8 @@ function Profil() {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data)
+        console.log(data.user)
+        dispatch(userStore(data.user))
         if (data.result === false) {
           setMissingInfo(true);
         } else {
@@ -62,7 +63,6 @@ function Profil() {
         }
       });
   };
-
   const handleSaveInfo = () => {
     addUserInfo();
     //router.push("/");
@@ -81,7 +81,7 @@ function Profil() {
   const onRequestCloseNewAddress = () => {
     setIsNewAddressForm(false);
   };
-console.log(user)
+//console.log(user)
   //maps all user's addresses
   let allAddresses =
     user.address?.map((data, index) => {
@@ -103,7 +103,7 @@ console.log(user)
             }
             readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
-            placeholder={user.firstname || "prénom"}
+            placeholder={userData.firstname || "prénom"}
             name="firstname"
             onChange={(e) => handleChanges(e)}
           />
@@ -117,7 +117,7 @@ console.log(user)
             }
             readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
-            placeholder={user.lastname || "nom"}
+            placeholder={userData.lastname || "nom"}
             name="lastname"
             onChange={(e) => handleChanges(e)}
           />
@@ -130,7 +130,7 @@ console.log(user)
             }
             readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
-            placeholder={user.email || "e-mail"}
+            placeholder={userData.email || "e-mail"}
             name="email"
             onChange={(e) => handleChanges(e)}
           />
