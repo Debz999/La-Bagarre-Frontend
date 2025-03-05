@@ -12,10 +12,10 @@ import Accordion from "./Accordion";
 import Articleliste from "./Articleliste";
 
 import ArticlesOnSale from "./ArticlesOnSale";
-//Pour l'instant cette page m'affiche tout les articles detaillés,
-//Il me faut seulement l'article cliqué
-//Peut etre au click sur l'article, recuperer son id et afficher l'article par son id d'ici
-// function ArticlePage({ id }) {
+
+// import ModalAvis from "./ModalAvis"; 
+
+
 function ArticleDetail({ inputId }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value); //for token ! missing still
@@ -28,22 +28,33 @@ function ArticleDetail({ inputId }) {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [isLiked, setIsLiked] = useState(false);
+
+  // const [reviews, setReviews] = useState([]);
+  // const [isModalOpen, setIsModalOpen] = useState(false); 
+
   // const [goToSignup, seGoToSignup] = useState(false);
   const router = useRouter();
   const urlId = router.query.id;
   const id = inputId || urlId; // On prend articleId si dispo, sinon l'ID de l'URL
+
+
+
+
+
   useEffect(() => {
     if (id) {
       fetch(`https://la-bagarre-backend.vercel.app/articles/${id}`)
         .then((response) => response.json())
         .then((data) => {
           if (data.result) {
-            //console.log(data);
+            console.log(data);
             setArticleCliqueData(data.articleRécupéré);
             setCategorieRecuperee(data.articleRécupéré.categorie);
             setTypeRecupere(data.articleRécupéré.type);
+            // setReviews(data.articleRécupéré.reviews || []);
           }
         });
+       
     }
   }, [id]);
 
@@ -62,6 +73,17 @@ function ArticleDetail({ inputId }) {
       }
     }
   }, [articleCliqueData]);
+
+
+  // const openModal = () => {
+  //     setIsModalOpen(true);
+  //   };
+    
+  // const closeModal = () => {
+  //     setIsModalOpen(false);
+  //   };
+
+
 
   useEffect(() => {
 if(wishlist && articleCliqueData) {
@@ -176,6 +198,9 @@ if(wishlist && articleCliqueData) {
     //     </button>
     //   </div>
     // );
+
+
+
     return (
       <div className={styles.articleComplet}>
         <div className={styles.photosContainer}>
@@ -206,8 +231,15 @@ if(wishlist && articleCliqueData) {
           {/* <p>Description: {articleDescription}</p> */}
           <p>Tailles disponibles: {sizeOrGiSize()}</p>
           <p>Couleurs disponibles: {choosingColors()}</p>
-          {/* <p>{articleCliqueData.price} {articleCliqueData.onSale === true ? articleCliqueData.onSalePrice : articleCliqueData.price}€</p> */}
-          {/* <p>{articleCliqueData.onSale ? "Prix intial: " : null}</p> */}
+
+
+          {/* <div>
+            <button onClick={openModal} className={styles.viewReviewsButton}>
+              Voir les avis
+            </button>
+            <ModalAvis isOpen={isModalOpen} onClose={closeModal} reviews={reviews} articleId={articleCliqueData._id}/>
+          </div> */}
+          
           <div className={styles.buttonContainer}>
           <button
             onClick={() => addItemToCart(articleCliqueData._id)}
@@ -218,10 +250,16 @@ if(wishlist && articleCliqueData) {
           <button onClick={() => handleLike()} className={styles.buttonFavoris}>
             {!isLiked && 'AJOUTER AUX' || isLiked && 'ENLEVER DES'} FAVORIS
           </button>
+          
           </div>
-          {/* {goToSignup && SignupModule} */}
-          <Accordion description={articleCliqueData.description} />
+
+
+
+          <Accordion description={articleCliqueData.description}/>
+
         </div>
+   
+
       </div>
     );
   };
