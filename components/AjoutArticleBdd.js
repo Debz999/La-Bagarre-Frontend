@@ -43,7 +43,7 @@ function AjoutArticleBdd() {
     formData.append("giSizes9", giSizes9);
     formData.append("onSalePrice", onSalePrice);
 
-    fetch("http://localhost:3000/articles/postArticle1", {
+    fetch("https://la-bagarre-backend.vercel.app/articles/postArticle1", {
       method: "POST",
       // headers: { "Content-Type": "application/json" }, //Pas de headers pour les formData
       body: formData,
@@ -72,7 +72,7 @@ function AjoutArticleBdd() {
     );
 
     if (confirmation) {
-      fetch("http://localhost:3000/articles/delete", {
+      fetch("https://la-bagarre-backend.vercel.app/articles/delete", {
         method: "DELETE", // Méthode DELETE
         headers: {
           "Content-Type": "application/json", // Spécifie que le corps est en JSON
@@ -121,7 +121,7 @@ function AjoutArticleBdd() {
     formData.append("giSizes9", giSizes9);
     formData.append("onSalePrice", onSalePrice);
 
-    fetch(`http://localhost:3000/articles/articleUpdate1/${inputId}`, {
+    fetch(`https://la-bagarre-backend.vercel.app/articles/articleUpdate1/${inputId}`, {
       method: "PUT",
       body: formData,
     })

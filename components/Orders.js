@@ -13,7 +13,7 @@ function Orders() {
   // GET EXISTING ORDER ITEMS
   const allPreviousOrders = () => {
     if (user.token) {
-      fetch(`http://localhost:3000/orders/${user.token}`)
+      fetch(`https://la-bagarre-backend.vercel.app/orders/${user.token}`)
         .then((response) => response.json())
 
         .then((data) => {

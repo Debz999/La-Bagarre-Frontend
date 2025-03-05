@@ -22,7 +22,7 @@ function ArticlesSimilaires(props) {
     if (!categorie && !type) return;
     
       
-      fetch(`http://localhost:3000/articles/articlesSimililaires?categorie=${categorie}&type=${type}`)
+      fetch(`https://la-bagarre-backend.vercel.app/articles/articlesSimililaires?categorie=${categorie}&type=${type}`)
         .then((response) => response.json())
         .then((articlesTrouves) => {
           if (articlesTrouves.result) {

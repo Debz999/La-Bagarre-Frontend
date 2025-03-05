@@ -13,7 +13,7 @@ function Validation() {
 
   const saveNewOrder = () => {
     if (user.token) {
-      fetch(`http://localhost:3000/orders/post/${user.token}`, {
+      fetch(`https://la-bagarre-backend.vercel.app/orders/post/${user.token}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

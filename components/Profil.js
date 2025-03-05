@@ -26,7 +26,7 @@ function Profil() {
 
   //Get existing user profile
   useEffect(() => {
-    fetch(`http://localhost:3000/users/${user.token}`)
+    fetch(`https://la-bagarre-backend.vercel.app/users/${user.token}`)
       .then((response) => response.json())
       .then((data) => {
         // console.log('profil',data.data);
@@ -43,7 +43,7 @@ function Profil() {
 
   //ADD USER NAME AND EMAIL
   const addUserInfo = () => {
-    fetch(`http://localhost:3000/users/addinfo/${user.token}`, {
+    fetch(`https://la-bagarre-backend.vercel.app/users/addinfo/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

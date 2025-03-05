@@ -28,7 +28,7 @@ function ProfileForm(props) {
     if(missingAddressInfo){
       setIsEditable(false);
     }
-    fetch(`http://localhost:3000/users/newaddress/${user.token}`, {
+    fetch(`https://la-bagarre-backend.vercel.app/users/newaddress/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -46,7 +46,7 @@ function ProfileForm(props) {
           setMissingAddressInfo(true);
         } else {
           //then fetch for full user here
-          fetch(`http://localhost:3000/users/${user.token}`)
+          fetch(`https://la-bagarre-backend.vercel.app/users/${user.token}`)
             .then((response) => response.json())
             .then((data) => {
               setMissingAddressInfo(false);
@@ -73,7 +73,7 @@ function ProfileForm(props) {
   const saveEditAddress = () => {
     setIsEditable(false);
     //console.log(props._id)
-    fetch(`http://localhost:3000/users/editaddress/${user.token}`, {
+    fetch(`https://la-bagarre-backend.vercel.app/users/editaddress/${user.token}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -88,7 +88,7 @@ function ProfileForm(props) {
       .then((response) => response.json())
       .then(() => {
         //then fetch for full user here
-        fetch(`http://localhost:3000/users/${user.token}`)
+        fetch(`https://la-bagarre-backend.vercel.app/users/${user.token}`)
           .then((response) => response.json())
           .then((data) => {
             //console.log("edit data", data)
@@ -99,14 +99,14 @@ function ProfileForm(props) {
 
   //DELETE one address
   const handleDeleteAddress = () => {
-    fetch(`http://localhost:3000/users/deleteaddress/${user.token}`, {
+    fetch(`https://la-bagarre-backend.vercel.app/users/deleteaddress/${user.token}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ _id: props._id }),
     })
       .then((response) => response.json())
       .then(() => {
-        fetch(`http://localhost:3000/users/${user.token}`)
+        fetch(`https://la-bagarre-backend.vercel.app/users/${user.token}`)
           .then((response) => response.json())
           .then((data) => {
             //console.log(data);

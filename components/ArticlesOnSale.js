@@ -9,7 +9,7 @@ function ArticlesOnSale() {
   const [articlesOnSale, setArticlesOnSale] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/articles/articlesOnSales")
+    fetch("https://la-bagarre-backend.vercel.app/articles/articlesOnSales")
       .then(response => response.json())
       .then(data => {
         if (data.result) {

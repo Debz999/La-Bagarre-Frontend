@@ -19,7 +19,7 @@ function User() {
   const [signInError, setSignInError] = useState("");
 
   const handleRegister = () => {
-    fetch("http://localhost:3000/users/signup", {
+    fetch("https://la-bagarre-backend.vercel.app/users/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -33,7 +33,7 @@ function User() {
           dispatch(login({ username: signUpUsername, token: data.token }));
           if(cart.temporaryCart.length > 0) {
             console.log('test cart55', cart.temporaryCart)
-            fetch(`http://localhost:3000/carts/postFromTemporary/${data.token}`, {
+            fetch(`https://la-bagarre-backend.vercel.app/carts/postFromTemporary/${data.token}`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({temporaryCart: cart.temporaryCart}),
@@ -41,7 +41,7 @@ function User() {
               .then((response) => response.json())
               .then(() => {
                 //add get fetch here
-                fetch(`http://localhost:3000/carts/${data.token}`)
+                fetch(`https://la-bagarre-backend.vercel.app/carts/${data.token}`)
                   .then((response) => response.json())
                   .then((data) => {
                     dispatch(toggleCart(data.data.items));
@@ -59,7 +59,7 @@ function User() {
   };
 
   const handleConnection = () => {
-    fetch("http://localhost:3000/users/signin", {
+    fetch("https://la-bagarre-backend.vercel.app/users/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

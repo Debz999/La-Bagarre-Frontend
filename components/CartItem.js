@@ -15,7 +15,7 @@ function CartItem(props) {
 
   //WHEN I UPDATE DATABASEQUANTITY IT ALSO DELETS SIZES..... WHY ?? ----------------
   const updateDatabaseQuantity = (newQuantity) => {
-    fetch(`http://localhost:3000/carts/post/${user.token}`, {
+    fetch(`https://la-bagarre-backend.vercel.app/carts/post/${user.token}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ _id: props.article._id, quantity: newQuantity }),
@@ -23,7 +23,7 @@ function CartItem(props) {
       .then((response) => response.json())
       .then(() => {
         //insert get here
-        fetch(`http://localhost:3000/carts/${user.token}`)
+        fetch(`https://la-bagarre-backend.vercel.app/carts/${user.token}`)
           .then((response) => response.json())
           .then((data) => {
             dispatch(toggleCart(data.data.items));
@@ -32,14 +32,14 @@ function CartItem(props) {
   };
 
   const deleteFromDatabase = () => {
-    fetch(`http://localhost:3000/carts/${user.token}`, {
+    fetch(`https://la-bagarre-backend.vercel.app/carts/${user.token}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ _id: props.article._id }),
     })
       .then((response) => response.json())
       .then(() => {
-        fetch(`http://localhost:3000/carts/${user.token}`)
+        fetch(`https://la-bagarre-backend.vercel.app/carts/${user.token}`)
           .then((response) => response.json())
           .then((data) => {
             dispatch(toggleCart(data.data.items));

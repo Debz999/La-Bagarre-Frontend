@@ -20,7 +20,7 @@ function Cart() {
   // GET EXISTING CART ITEMS add ${user.token}
   const getExistingCart = () => {
     if (user.token) {
-      fetch(`http://localhost:3000/carts/${user.token}`)
+      fetch(`https://la-bagarre-backend.vercel.app/carts/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
           if (data.data) {
@@ -43,7 +43,7 @@ function Cart() {
   console.log('cartmodel',cart)
   const saveNewOrder = () => {
     if (user.token) {
-      fetch(`http://localhost:3000/orders/post/${user.token}`, {
+      fetch(`https://la-bagarre-backend.vercel.app/orders/post/${user.token}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -25,7 +25,7 @@ function TopArticlesAll() {
 
   useEffect(() => {
     
-      fetch(`http://localhost:3000/articles/topArticles`)
+      fetch(`https://la-bagarre-backend.vercel.app/articles/topArticles`)
         .then((response) => response.json())
         .then((articlesTrouves) => {
             if (articlesTrouves.result) {

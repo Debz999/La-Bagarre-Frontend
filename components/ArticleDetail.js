@@ -34,7 +34,7 @@ function ArticleDetail({ inputId }) {
   const id = inputId || urlId; // On prend articleId si dispo, sinon l'ID de l'URL
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:3000/articles/${id}`)
+      fetch(`https://la-bagarre-backend.vercel.app/articles/${id}`)
         .then((response) => response.json())
         .then((data) => {
           if (data.result) {
@@ -73,7 +73,7 @@ if(wishlist && articleCliqueData) {
   //Post item to cart
   const addItemToCart = (articleId) => {
     if (user.token) {
-      fetch(`http://localhost:3000/carts/post/${user.token}`, {
+      fetch(`https://la-bagarre-backend.vercel.app/carts/post/${user.token}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -92,7 +92,7 @@ if(wishlist && articleCliqueData) {
         .then((response) => response.json())
         .then(() => {
           //add get fetch here
-          fetch(`http://localhost:3000/carts/${user.token}`)
+          fetch(`https://la-bagarre-backend.vercel.app/carts/${user.token}`)
             .then((response) => response.json())
             .then((data) => {
               dispatch(toggleCart(data.data.items));

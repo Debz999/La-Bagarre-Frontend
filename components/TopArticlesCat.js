@@ -25,7 +25,7 @@ function TopArticlesCat({categorie}) {
   useEffect(() => {
     
       // fetch(`http://localhost:3000/articles/topArticles`)
-      fetch(`http://localhost:3000/articles/topArticles1?categorie=${categorie}`)
+      fetch(`https://la-bagarre-backend.vercel.app/articles/topArticles1?categorie=${categorie}`)
         .then((response) => response.json())
         .then((articlesTrouves) => {
             if (articlesTrouves.result) {

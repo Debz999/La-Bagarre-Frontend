@@ -64,7 +64,7 @@ function Header() {
   //Get cart from DB
   useEffect(() => {
     if (user.token) {
-      fetch(`http://localhost:3000/carts/${user.token}`)
+      fetch(`https://la-bagarre-backend.vercel.app/carts/${user.token}`)
         .then((response) => response.json())
         .then((data) => {
           if (data.data) {
