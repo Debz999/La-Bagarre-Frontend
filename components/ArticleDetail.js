@@ -13,12 +13,9 @@ import Articleliste from "./Articleliste";
 
 import ArticlesOnSale from "./ArticlesOnSale";
 
-import ModalAvis from "./ModalAvis"; // Assurez-vous du bon chemin d'importation
+// import ModalAvis from "./ModalAvis"; 
 
-//Pour l'instant cette page m'affiche tout les articles detaillés,
-//Il me faut seulement l'article cliqué
-//Peut etre au click sur l'article, recuperer son id et afficher l'article par son id d'ici
-// function ArticlePage({ id }) {
+
 function ArticleDetail({ inputId }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value); //for token ! missing still
@@ -32,8 +29,8 @@ function ArticleDetail({ inputId }) {
   const [selectedColor, setSelectedColor] = useState("");
   const [isLiked, setIsLiked] = useState(false);
 
-  const [reviews, setReviews] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  // const [reviews, setReviews] = useState([]);
+  // const [isModalOpen, setIsModalOpen] = useState(false); 
 
   // const [goToSignup, seGoToSignup] = useState(false);
   const router = useRouter();
@@ -54,7 +51,7 @@ function ArticleDetail({ inputId }) {
             setArticleCliqueData(data.articleRécupéré);
             setCategorieRecuperee(data.articleRécupéré.categorie);
             setTypeRecupere(data.articleRécupéré.type);
-            setReviews(data.articleRécupéré.reviews || []);
+            // setReviews(data.articleRécupéré.reviews || []);
           }
         });
        
@@ -78,13 +75,13 @@ function ArticleDetail({ inputId }) {
   }, [articleCliqueData]);
 
 
-  const openModal = () => {
-      setIsModalOpen(true);
-    };
+  // const openModal = () => {
+  //     setIsModalOpen(true);
+  //   };
     
-  const closeModal = () => {
-      setIsModalOpen(false);
-    };
+  // const closeModal = () => {
+  //     setIsModalOpen(false);
+  //   };
 
 
 
@@ -235,15 +232,15 @@ if(wishlist && articleCliqueData) {
           <p>Tailles disponibles: {sizeOrGiSize()}</p>
           <p>Couleurs disponibles: {choosingColors()}</p>
 
-          <div>
+
+          {/* <div>
             <button onClick={openModal} className={styles.viewReviewsButton}>
               Voir les avis
             </button>
-            <ModalAvis isOpen={isModalOpen} onClose={closeModal} reviews={reviews} />
-          </div>
+            <ModalAvis isOpen={isModalOpen} onClose={closeModal} reviews={reviews} articleId={articleCliqueData._id}/>
+          </div> */}
           
-          {/* <p>{articleCliqueData.price} {articleCliqueData.onSale === true ? articleCliqueData.onSalePrice : articleCliqueData.price}€</p> */}
-          {/* <p>{articleCliqueData.onSale ? "Prix intial: " : null}</p> */}
+
           <div className={styles.buttonContainer}>
           <button
             onClick={() => addItemToCart(articleCliqueData._id)}
