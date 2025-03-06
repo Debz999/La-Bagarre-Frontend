@@ -6,6 +6,7 @@ import user from '../reducers/user'
 import cart from '../reducers/cart'
 import wishlist from '../reducers/wishlist';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage';
@@ -40,6 +41,7 @@ function App({ Component, pageProps }) {
       <Header></Header>
 
       <Component {...pageProps} />
+      <Footer />
       </PersistGate>
     </Provider>
   );
