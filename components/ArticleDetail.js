@@ -274,11 +274,12 @@ if(wishlist && articleCliqueData) {
           <ArticlesSimilaires
             categorie={categorieRecuperee}
             type={typeRecupere}
+            limit={4}
           />
         )}
       </div>
       <div>
-          <ArticlesOnSale/>
+          
 
       </div>
     </div>

@@ -12,11 +12,9 @@ import ArticlesOnSale from "./ArticlesOnSale";
 import TopArticlesAll from "./TopArticlesAll";
 import AllArticles from "./AllArticles";
 
-
 function Home() {
-  
-  const categorie = ""
-  const type = "Tous les articles"
+  const categorie = "";
+  const type = "Tous les articles";
   // const title = "Tous les articles"
   return (
     <div className={styles.main}>
@@ -24,14 +22,9 @@ function Home() {
         <title>LA BAGARRE</title>
       </Head>
 
-      <ArticlesOnSale/>
+      <ArticlesOnSale limit={4} />
 
-      <TopArticlesAll/>
-
-      <AllArticles/>
-      
-
-   
+      <TopArticlesAll limit={4}/>
     </div>
   );
 }
