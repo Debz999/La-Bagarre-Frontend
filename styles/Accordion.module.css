@@ -30,4 +30,7 @@
   height: 1000px;
   position: absolute;
   padding-right: 20px;
+  max-height: 250px;
+  overflow-y: auto;
+  margin-right: 100px;
 }
