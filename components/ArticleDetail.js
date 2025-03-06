@@ -13,7 +13,7 @@ import Articleliste from "./Articleliste";
 
 import ArticlesOnSale from "./ArticlesOnSale";
 
-// import ModalAvis from "./ModalAvis"; 
+import ModalAvis from "./ModalAvis"; 
 
 
 function ArticleDetail({ inputId }) {
@@ -29,8 +29,8 @@ function ArticleDetail({ inputId }) {
   const [selectedColor, setSelectedColor] = useState("");
   const [isLiked, setIsLiked] = useState(false);
 
-  // const [reviews, setReviews] = useState([]);
-  // const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [reviews, setReviews] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   // const [goToSignup, seGoToSignup] = useState(false);
   const router = useRouter();
@@ -43,7 +43,8 @@ function ArticleDetail({ inputId }) {
 
   useEffect(() => {
     if (id) {
-      fetch(`https://la-bagarre-backend.vercel.app/articles/${id}`)
+      // fetch(`https://la-bagarre-backend.vercel.app/articles/${id}`)
+      fetch(`http://localhost:3000/articles/${id}`)
         .then((response) => response.json())
         .then((data) => {
           if (data.result) {
@@ -51,7 +52,7 @@ function ArticleDetail({ inputId }) {
             setArticleCliqueData(data.articleRécupéré);
             setCategorieRecuperee(data.articleRécupéré.categorie);
             setTypeRecupere(data.articleRécupéré.type);
-            // setReviews(data.articleRécupéré.reviews || []);
+            setReviews(data.articleRécupéré.reviews || []);
           }
         });
        
@@ -75,13 +76,13 @@ function ArticleDetail({ inputId }) {
   }, [articleCliqueData]);
 
 
-  // const openModal = () => {
-  //     setIsModalOpen(true);
-  //   };
+  const openModal = () => {
+      setIsModalOpen(true);
+    };
     
-  // const closeModal = () => {
-  //     setIsModalOpen(false);
-  //   };
+  const closeModal = () => {
+      setIsModalOpen(false);
+    };
 
 
 
@@ -233,12 +234,12 @@ if(wishlist && articleCliqueData) {
           <p>Couleurs disponibles: {choosingColors()}</p>
 
 
-          {/* <div>
+          <div>
             <button onClick={openModal} className={styles.viewReviewsButton}>
               Voir les avis
             </button>
-            <ModalAvis isOpen={isModalOpen} onClose={closeModal} reviews={reviews} articleId={articleCliqueData._id}/>
-          </div> */}
+            <ModalAvis isOpen={isModalOpen} onClose={closeModal} reviews={reviews} articleId={articleCliqueData._id} setReviews={setReviews}/>
+          </div>
           
           <div className={styles.buttonContainer}>
           <button

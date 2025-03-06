@@ -11,19 +11,22 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
   const token = useSelector((state) => state.user.value.token);
   const username = useSelector((state) => state.user.value.username);
 
+
+  console.log(reviews)
+
   const sendReview = () => {
-    
-    console.log("Token récupéré depuis redux :", token); // Ajoute ce log pour vérifier
+    console.log("Token récupéré depuis redux :", token);
+  
     if (!token) {
       alert("Vous devez être connecté pour poster un avis !");
       return;
     }
-
+  
     fetch(`http://localhost:3000/reviews/articles/${articleId}/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // Envoi du token JWT pour récupérer automatiquement l'userId
+       
       },
       body: JSON.stringify({
         token: token,
@@ -31,24 +34,58 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
         comment: avisClient,
       }),
     })
-      // .then((response) => {
-      //   if (!response.ok) {
-      //     throw new Error("Erreur lors de l'envoi de l'avis");
-      //   }
-      //   return response.json();
-      // })
+      .then((response) => response.json()) // Convertir la réponse en JSON
       .then((data) => {
+        console.log("Données reçues après envoi de l'avis :", data);
+        if (!data.article || !data.article.reviews) {
+          console.error("Format inattendu :", data);
+          alert("Erreur : format de réponse inattendu.");
+          return;
+        }
         setReviews(data.article.reviews); // Mettre à jour les avis affichés
         alert("Avis ajouté avec succès !");
         setAvisClient(""); // Réinitialiser l'input
         setNote(5);
       })
-      // .catch((error) => {
-      //   console.error(error);
-      //   alert("Erreur lors de l'ajout de l'avis");
-      // });
   };
 
+
+  // mappedReviews = reviews.map((data, i) => {
+  //   data.userId
+  // })
+
+  const userIds = reviews.map((data) => data.userId);
+
+  const removeReview = (reviewId, reviewUserId) => {
+    if (!token) {
+      alert("Vous devez être connecté pour supprimer un avis !");
+      return;
+    }
+    
+  
+    fetch(`http://localhost:3000/reviews/articles/${articleId}/reviews/${reviewId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",  // Type de contenu
+      },
+      body: JSON.stringify({
+        token: token,  // Envoie du token dans le body
+        reviewUserId: userIds
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Réponse du serveur après suppression :", data); // Ajoute un log pour mieux comprendre la réponse
+  
+        if (data.message === "Avis supprimé avec succès") {
+          alert("Avis supprimé !");
+          // Supprime l'avis du frontend directement
+          setReviews((prevReviews) => prevReviews.filter((review) => review._id !== reviewId));
+        } else {
+          alert(data.message || "Erreur lors de la suppression de l'avis");
+        }
+      })
+  };
   return (
     // <div className="modalOverlay" onClick={onClose}>
     //   <div className="modalContent" onClick={(e) => e.stopPropagation()}>
@@ -66,11 +103,14 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
                 <div className={styles.unContainer}>
                   <div>
                     <p>
-                      <strong>Utilisateur: </strong> {token ?  username : "Utilisateur inconnu"}
+                      <strong>Utilisateur: </strong> {review.userId ? review.userId.username : "Utilisateur inconnu"}
                     </p>
                     <p>
                       <strong>Note: </strong> {review.rating} ⭐
                     </p>
+                    <button  onClick={() => removeReview(review._id)}>
+                      🗑️
+                    </button>
                   </div>
 
                   <p>
