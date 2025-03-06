@@ -26,7 +26,8 @@ function Article() {
   useEffect(() => {
     if (!categorie) return; //pas de categorie il ne se passe rien
 
-    let url = `https://la-bagarre-backend.vercel.app/articles/articlesCS?categorie=${categorie}`; //on met l'url sous forme de variable pour pouvoir jouer avec et qu'il s'adapte si ya "type"
+    // let url = `https://la-bagarre-backend.vercel.app/articles/articlesCS?categorie=${categorie}`; //on met l'url sous forme de variable pour pouvoir jouer avec et qu'il s'adapte si ya "type"
+    let url = `http://localhost:3000/articles/articlesCS?categorie=${categorie}`;
     if (type) {
       url +=`&type=${type}`;
     }
