@@ -21,8 +21,8 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
       alert("Vous devez être connecté pour poster un avis !");
       return;
     }
-  
-    fetch(`http://localhost:3000/reviews/articles/${articleId}/reviews`, {
+   
+    fetch(`https://la-bagarre-backend.vercel.app/reviews/articles/${articleId}/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
