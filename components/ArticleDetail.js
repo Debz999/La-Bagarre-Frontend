@@ -252,9 +252,6 @@ if(wishlist && articleCliqueData) {
           </button>
           
           </div>
-
-
-
           <Accordion description={articleCliqueData.description}/>
 
         </div>

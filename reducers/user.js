@@ -18,6 +18,7 @@ export const userSlice = createSlice({
     },
     userStore: (state, action) => {
       state.value.profile = action.payload.profile;
+      //either .profile here and simple data.data in Profile or complete object in Profil component and action.payload here
       //state.value.address = action. payload.address; 
       console.log('user action payload', action.payload)
     },

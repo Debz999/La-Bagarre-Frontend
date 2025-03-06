@@ -36,7 +36,7 @@ function Profil() {
           setBaseIsEditable(true);
           setIsNewAddressForm(false)
         }
-        dispatch(userStore(data.data));
+        dispatch(userStore({profile: data.data}));
         setUserData(data.data);
       });
   }, []);
@@ -55,7 +55,7 @@ function Profil() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data.user)
-        dispatch(userStore(data.user))
+        dispatch(userStore({profile: data.user}))
         if (data.result === false) {
           setMissingInfo(true);
         } else {
@@ -103,7 +103,7 @@ function Profil() {
             }
             readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
-            placeholder={userData.firstname || "prénom"}
+            placeholder={user.profile.firstname || "prénom"}
             name="firstname"
             onChange={(e) => handleChanges(e)}
           />
@@ -117,7 +117,7 @@ function Profil() {
             }
             readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
-            placeholder={userData.lastname || "nom"}
+            placeholder={user.profile.lastname || "nom"}
             name="lastname"
             onChange={(e) => handleChanges(e)}
           />
@@ -130,7 +130,7 @@ function Profil() {
             }
             readOnly={isBaseEditable ? false : "readOnly"}
             type="text"
-            placeholder={userData.email || "e-mail"}
+            placeholder={user.profile.email || "e-mail"}
             name="email"
             onChange={(e) => handleChanges(e)}
           />
