@@ -15,4 +15,8 @@
     align-items: center;
 }
 
+.pageTitle{
+    display: flex;
+    flex-direction: column;
+}
 

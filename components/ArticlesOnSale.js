@@ -1,55 +1,39 @@
-import { useState, useEffect } from 'react';
-import Image from 'next/image'; // Assure-toi d'importer Image depuis 'next/image'
-import Articleliste from './Articleliste';
+import { useState, useEffect } from "react";
+import Image from "next/image"; // Assure-toi d'importer Image depuis 'next/image'
+import Articleliste from "./Articleliste";
 
 import styles from "../styles/ArticlesOnSale.module.css";
-import Link from 'next/link';
+import Link from "next/link";
 
-function ArticlesOnSale() {
+function ArticlesOnSale({limit}) {
   const [articlesOnSale, setArticlesOnSale] = useState([]);
 
   useEffect(() => {
     fetch("https://la-bagarre-backend.vercel.app/articles/articlesOnSales")
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         if (data.result) {
           //console.log("articlesOnSales: ", data)
           setArticlesOnSale(data.articlesOnSales); // Mettre à jour l'état avec les articles
         }
       })
-      .catch(error => console.log("Erreur lors de la récupération des articles en promotion", error));
+      .catch((error) =>
+        console.log(
+          "Erreur lors de la récupération des articles en promotion",
+          error
+        )
+      );
   }, []); // L'API est appelée une seule fois à l'initialisation
 
+  const limitedArticle= articlesOnSale.slice(0, limit); //pour limiter l'affichage à un certains nbr d'articles
 
-{/* <h3 className={styles.priceContainer}>{article.onSale ? article.onSalePrice : article.price}€</h3> */}
-
-const mappedSales = articlesOnSale.map((data, i) => (
-  // <div key={article._id} className={styles.articleLinkContainer}>
-  <Articleliste  key={i} {...data} />
-  
-
-  // <div key={article._id} className={styles.card}>
-  //   <Link href={`/detailarticle/${article._id}`}>
-  //     <div className={styles.test2}>
-  //       {/* <div className={styles.cardPhotoContainer}>
-  //         <Image src={article.photos9[0]} alt={article.model} height="350px" width="290px" className={styles.photo}/>
-  //       </div> */}
-  //       <div className={styles.modelPriceContainer}>
-  //         <h4 className={styles.modelContainer}>{article.model}</h4>
-  //         <Image src={article.photos9[0]} alt={article.model} height="350px" width="290px" className={styles.photo}/>
-  //         <h3 className={styles.priceContainer}>{article.price}€</h3>
-  //       </div>
-  //     </div>
-    
-  //   </Link>
-
-  // </div>
-))
-
+  const mappedSales = limitedArticle.map((data, i) => (
+    <Articleliste key={i} {...data} />
+  ));
 
   return (
-    <div className={styles.containerDeTout}>
-      <h2 className={styles.pageTitle}>Articles en Promotion</h2>
+    <div className={styles.pageTitle}>
+      <h2 className={styles.containerDeTout}>Articles en Promotion</h2>
       <div className={styles.stuffStyle}>{mappedSales}</div>
     </div>
   );

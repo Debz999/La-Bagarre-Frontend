@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 
 
 
-function TopArticlesAll() {
+function TopArticlesAll({limit}) {
   const [topArticles, setTopArticles] = useState([]);
 
   const router = useRouter();
@@ -43,10 +43,10 @@ function TopArticlesAll() {
     
   }, []); 
 
+const limiteArticle= topArticles.slice(0, limit);
 
 
-
-const articles = topArticles.map((data, i) => {
+const articles = limiteArticle.map((data, i) => {
 
   
   
@@ -74,8 +74,8 @@ const articles = topArticles.map((data, i) => {
 
 
     return (
-      <div className={styles.containerDeTout}>
-      <h2 className={styles.pageTitle}>Articles les plus vendus</h2>
+      <div className={styles.pageTitle}>
+      <h2 className={styles.containerDeTout}>Articles les plus vendus</h2>
       <div className={styles.stuffStyle}>{articles}</div>
     </div>
 
