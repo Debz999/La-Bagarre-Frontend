@@ -229,7 +229,6 @@ if(wishlist && articleCliqueData) {
           </h3>
           <p className={styles.categoryText}>{articleCliqueData.categorie}</p>
           <p>Type: {articleCliqueData.type}</p>
-          {/* <p>Description: {articleDescription}</p> */}
           <p>Tailles disponibles: {sizeOrGiSize()}</p>
           <p>Couleurs disponibles: {choosingColors()}</p>
 
