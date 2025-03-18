@@ -1,4 +1,5 @@
 import React from "react";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleCart, addToTemporaryCart } from "../reducers/cart";
@@ -204,6 +205,9 @@ if(wishlist && articleCliqueData) {
 
     return (
       <div className={styles.articleComplet}>
+        <Head>
+        <title>LA BAGARRE - Panier</title>
+      </Head>
         <div className={styles.photosContainer}>
           <Image
             src={articleCliqueData.photos9[imageIndex]}

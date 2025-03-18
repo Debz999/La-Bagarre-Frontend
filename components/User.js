@@ -4,6 +4,7 @@ import { login, logout } from "../reducers/user";
 import { toggleCart, emptyTemporaryCart } from "../reducers/cart";
 import { useRouter } from "next/router";
 import styles from "../styles/User.module.css";
+import Head from "next/head";
 
 function User() {
   const dispatch = useDispatch();
@@ -83,6 +84,9 @@ function User() {
 
   return (
     <div className={styles.main}>
+      <Head>
+        <title>LA BAGARRE - Inscription et connexion</title>
+      </Head>
       <header className={styles.header}>
         {/* <h2>LA BAGARRE</h2> */}
       </header>

@@ -6,6 +6,7 @@ import { toggleCart } from "../reducers/cart";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { addOrder } from "../reducers/orders";
+import Head from "next/head";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -110,6 +111,9 @@ function Cart() {
 
   return (
     <div>
+      <Head>
+        <title>LA BAGARRE - Panier</title>
+      </Head>
       <div className={styles.outerContainer}>
         <div className={styles.column1}>
           <h1 className={styles.subtitle}>MON PANIER</h1>

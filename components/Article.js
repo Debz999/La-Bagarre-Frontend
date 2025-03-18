@@ -2,6 +2,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Articleliste from './Articleliste'
+import Head from "next/head";
+
 
 import styles from "../styles/Article.module.css";
 
@@ -53,6 +55,9 @@ function Article() {
   
   return (
     <div>
+      <Head>
+        <title>LA BAGARRE - Articles</title>
+      </Head>
       <h2 className={styles.pageTitle}>
         {categorie} {type && `- ${type}`}
       </h2>

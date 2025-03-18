@@ -19,12 +19,13 @@ function Articleliste(props) {
 
   const photos = photos9.map((photo, index) => {
     return (
-      <img
+      <Image
         key={index}
         src={photo}
         alt={model}
         className={styles.photo}
-        layout="responsive"
+        width={250}
+        height={250}
       />
     );
   });

@@ -1,4 +1,5 @@
 import styles from "../styles/Profil.module.css";
+import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userStore } from "../reducers/user";
@@ -91,6 +92,9 @@ function Profil() {
 
   return (
     <div className={styles.main}>
+      <Head>
+        <title>LA BAGARRE - Profil de l'utilisateur</title>
+      </Head>
       <h1>PROFIL</h1>
       <div className={styles.container}>
         <h3 className={styles.subtitle}>Vos informations</h3>
