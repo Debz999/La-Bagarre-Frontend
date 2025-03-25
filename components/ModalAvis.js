@@ -62,15 +62,16 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
       return;
     }
     
-  
-    fetch(`http://localhost:3000/reviews/articles/${articleId}/reviews/${reviewId}`, {
+    fetch(`https://la-bagarre-backend.vercel.app/reviews/articles/${articleId}/reviews/${reviewId}`, {
+    // fetch(`http://localhost:3000/reviews/articles/${articleId}/reviews/${reviewId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",  // Type de contenu
       },
       body: JSON.stringify({
         token: token,  // Envoie du token dans le body
-        reviewUserId: userIds
+        // reviewUserId: userIds
+        reviewUserId: reviewUserId
       }),
     })
       .then((response) => response.json())
@@ -87,8 +88,7 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
       })
   };
   return (
-    // <div className="modalOverlay" onClick={onClose}>
-    //   <div className="modalContent" onClick={(e) => e.stopPropagation()}>
+
 
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
@@ -103,12 +103,13 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
                 <div className={styles.unContainer}>
                   <div>
                     <p>
-                      <strong>Utilisateur: </strong> {review.userId ? review.userId.username : "Utilisateur inconnu"}
+                      <p><strong>Utilisateur: </strong> {review.userId?.username || "Utilisateur inconnu"}</p>
                     </p>
                     <p>
                       <strong>Note: </strong> {review.rating} ⭐
                     </p>
-                    <button  onClick={() => removeReview(review._id)}>
+                    {/* <button  onClick={() => removeReview(review._id)}> */}
+                    <button onClick={() => removeReview(review._id, review.userId._id)}>
                       🗑️
                     </button>
                   </div>
