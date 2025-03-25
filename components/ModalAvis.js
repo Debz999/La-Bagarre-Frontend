@@ -62,8 +62,8 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
       return;
     }
     
-    //fetch(`https://la-bagarre-backend.vercel.app/reviews/articles/${articleId}/reviews/${reviewId}`, {
-    fetch(`http://localhost:3000/reviews/articles/${articleId}/reviews/${reviewId}`, {
+    fetch(`https://la-bagarre-backend.vercel.app/reviews/articles/${articleId}/reviews/${reviewId}`, {
+    // fetch(`http://localhost:3000/reviews/articles/${articleId}/reviews/${reviewId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",  // Type de contenu
