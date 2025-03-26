@@ -12,7 +12,7 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
   const username = useSelector((state) => state.user.value.username);
 
 
-  console.log(reviews)
+  // console.log(reviews)
 
   const sendReview = () => {
     console.log("Token récupéré depuis redux :", token);
@@ -22,7 +22,8 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
       return;
     }
    
-    fetch(`https://la-bagarre-backend.vercel.app/reviews/articles/${articleId}/reviews`, {
+    // fetch(`https://la-bagarre-backend.vercel.app/reviews/articles/${articleId}/reviews`, {
+    fetch(`http://localhost:3000/reviews/articles/${articleId}/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,27 +57,31 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
 
   const userIds = reviews.map((data) => data.userId);
 
-  const removeReview = (reviewId, reviewUserId) => {
+  // const removeReview = (reviewId, reviewUserId, reviewUserIdToken) => {
+  const removeReview = (reviewId, reviewUserIdToken) => {
+
+    console.log(reviewUserIdToken)
+    console.log(token)
+
     if (!token) {
       alert("Vous devez être connecté pour supprimer un avis !");
       return;
     }
     
-    fetch(`https://la-bagarre-backend.vercel.app/reviews/articles/${articleId}/reviews/${reviewId}`, {
-    // fetch(`http://localhost:3000/reviews/articles/${articleId}/reviews/${reviewId}`, {
+    // fetch(`https://la-bagarre-backend.vercel.app/reviews/articles/${articleId}/reviews/${reviewId}`, {
+    fetch(`http://localhost:3000/reviews/articles/${articleId}/reviews/${reviewId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",  // Type de contenu
       },
       body: JSON.stringify({
         token: token,  // Envoie du token dans le body
-        // reviewUserId: userIds
-        reviewUserId: reviewUserId
+        reviewUserIdToken: reviewUserIdToken
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Réponse du serveur après suppression :", data); // Ajoute un log pour mieux comprendre la réponse
+        console.log("Réponse du serveur après suppression :", data);
   
         if (data.message === "Avis supprimé avec succès") {
           alert("Avis supprimé !");
@@ -102,14 +107,14 @@ const ModalAvis = ({ isOpen, onClose, reviews, articleId, setReviews }) => {
               <div key={review.id || index} className={styles.reviewItem}>
                 <div className={styles.unContainer}>
                   <div>
-                    <p>
-                      <p><strong>Utilisateur: </strong> {review.userId?.username || "Utilisateur inconnu"}</p>
-                    </p>
+                    
+                    <p><strong>Utilisateur: </strong> {review.userId?.username || "Utilisateur inconnu"}</p>
+                    
                     <p>
                       <strong>Note: </strong> {review.rating} ⭐
                     </p>
-                    {/* <button  onClick={() => removeReview(review._id)}> */}
-                    <button onClick={() => removeReview(review._id, review.userId._id)}>
+             
+                    <button onClick={() => removeReview(review._id, review.userId.token)}>
                       🗑️
                     </button>
                   </div>

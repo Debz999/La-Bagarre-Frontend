@@ -44,12 +44,13 @@ function ArticleDetail({ inputId }) {
 
   useEffect(() => {
     if (id) {
-      fetch(`https://la-bagarre-backend.vercel.app/articles/${id}`)
+      // fetch(`https://la-bagarre-backend.vercel.app/articles/${id}`)
+      fetch(`http://localhost:3000/articles/${id}`)
 
         .then((response) => response.json())
         .then((data) => {
           if (data.result) {
-            console.log(data);
+            // console.log(data);
             setArticleCliqueData(data.articleRécupéré);
             setCategorieRecuperee(data.articleRécupéré.categorie);
             setTypeRecupere(data.articleRécupéré.type);
